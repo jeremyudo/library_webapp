@@ -59,9 +59,6 @@
     <select name="Format" required>
         <option value="">Select Format</option>
         <option value="Book">Book</option>
-        <option value="DVD">DVD</option>
-        <option value="Audio Book">Audio Book</option>
-        <option value="eBook">eBook</option>
     </select><br>
     Cover Image: <input type="text" name="CoverImage" /><br>
     Stock: <input type="number" name="Stock" required /><br>
