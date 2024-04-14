@@ -3,13 +3,32 @@ $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'li
 if (!$con) {
     die('Could not connect: ' . mysqli_connect_error());
 }
-mysqli_select_db($con, 'library');
 
-$sql = "INSERT INTO library_staff (StaffID, FirstName, LastName, DateOfBirth, Gender, Address, ContactNumber, EmailAddress, Position, Department, JoiningDate, Salary, Status, CreatedDate, UpdatedDate, Password, IsAdmin) VALUES ('" . $_POST['StaffID'] . "','" . $_POST['FirstName'] . "','" . $_POST['LastName'] . "', '" . $_POST['DateOfBirth'] . "', '" . $_POST['Gender'] . "', '" . $_POST['Address'] . "', '" . $_POST['ContactNumber'] . "', '" . $_POST['EmailAddress'] . "', '" . $_POST['Position'] . "', '" . $_POST['Department'] . "', '" . $_POST['JoiningDate'] . "', '" . $_POST['Salary'] . "', '" . $_POST['Status'] . "', '" . $_POST['CreatedDate'] . "', '" . $_POST['UpdatedDate'] . "', '" . $_POST['Password'] . "', '" . $_POST['IsAdmin'] . "')";
+// Set default timezone to prevent date related issues
+date_default_timezone_set('UTC');
 
-if (!mysqli_query($con, $sql)) {
-  die('Error: ' . mysqli_error($con));
+// Get current date and time
+$createdDate = date('Y-m-d H:i:s');
+$updatedDate = date('Y-m-d H:i:s');
+
+// Prepare the SQL statement
+$stmt = mysqli_prepare($con, "INSERT INTO staff (StaffID, FirstName, LastName, DateOfBirth, Gender, Address, ContactNumber, EmailAddress, Position, DateHired, Status, CreatedDate, UpdatedDate, Password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+if (!$stmt) {
+    die('Error: ' . mysqli_error($con));
 }
+
+// Bind parameters with the values from the POST array
+mysqli_stmt_bind_param($stmt, 'isssssssssssss', $_POST['StaffID'], $_POST['FirstName'], $_POST['LastName'], $_POST['DateOfBirth'], $_POST['Gender'], $_POST['Address'], $_POST['ContactNumber'], $_POST['EmailAddress'], $_POST['Position'], $_POST['DateHired'], $_POST['Status'], $createdDate, $updatedDate, $_POST['Password']);
+
+// Execute the statement
+if (!mysqli_stmt_execute($stmt)) {
+    die('Error: ' . mysqli_stmt_error($stmt));
+}
+
 echo "1 record added";
 
+// Close the statement
+mysqli_stmt_close($stmt);
+
 mysqli_close($con);
+?>

@@ -5,11 +5,11 @@ if (!$con) {
 }
 mysqli_select_db($con, 'library');
 
-// Assuming StudentID is the primary key
-$studentID = mysqli_real_escape_string($con, $_POST['StudentID']);
+// Assuming FacultyID is the primary key
+$facultyID = mysqli_real_escape_string($con, $_POST['FacultyID']);
 
 // Construct the update query
-$sql = "UPDATE students SET ";
+$sql = "UPDATE faculty SET ";
 
 // Check each field individually and append to the query if it's provided in the form
 if (!empty($_POST['FirstName'])) {
@@ -33,8 +33,14 @@ if (!empty($_POST['ContactNumber'])) {
 if (!empty($_POST['EmailAddress'])) {
     $sql .= "EmailAddress='" . $_POST['EmailAddress'] . "', ";
 }
-if (!empty($_POST['GradeYearLevel'])) {
-    $sql .= "GradeYearLevel='" . $_POST['GradeYearLevel'] . "', ";
+if (!empty($_POST['Department'])) {
+    $sql .= "Department='" . $_POST['Department'] . "', ";
+}
+if (!empty($_POST['Position'])) {
+    $sql .= "Position='" . $_POST['Position'] . "', ";
+}
+if (!empty($_POST['DateHired'])) {
+    $sql .= "DateHired='" . $_POST['DateHired'] . "', ";
 }
 if (!empty($_POST['Status'])) {
     $sql .= "Status='" . $_POST['Status'] . "', ";
@@ -44,13 +50,13 @@ if (!empty($_POST['Password'])) {
 }
 
 // Append the UpdatedDate field with the current date and time
-$sql .= "UpdatedDate='" . date('Y-m-d H:i:s') . "', ";
+$sql .= "UpdatedDate='" . date('Y-m-d H:i:s') . "' ";
 
 // Remove the trailing comma and space from the query string
 $sql = rtrim($sql, ", ");
 
 // Add the WHERE clause to specify which record to update
-$sql .= " WHERE StudentID='$studentID'";
+$sql .= " WHERE FacultyID='$facultyID'";
 
 // Execute the query
 if (!mysqli_query($con, $sql)) {
@@ -60,3 +66,4 @@ if (!mysqli_query($con, $sql)) {
 echo "Record updated successfully";
 
 mysqli_close($con);
+?>

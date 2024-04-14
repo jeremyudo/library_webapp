@@ -1,5 +1,5 @@
 <head>
-    <title>Add New Student</title>
+    <title>Add New Faculty</title>
     <script>
         window.onload = function() {
             var requiredInputs = document.querySelectorAll('input[required], select[required]');
@@ -14,9 +14,9 @@
 </head>
 <body>
 
-    <!-- Add new student and modify the student information -->
-    <form action="insert_student.php" method="post">
-        Student ID: <input type="number" name="StudentID" required /><br>
+    <!-- Add new faculty and modify the faculty information -->
+    <form action="insert_faculty.php" method="post">
+        Faculty ID: <input type="number" name="FacultyID" required /><br>
         First Name: <input type="text" name="FirstName" required /><br>
         Last Name: <input type="text" name="LastName" required /><br>
         Date of Birth: <input type="date" name="DateOfBirth" value="<?php echo date('Y-m-d'); ?>" required /><br>
@@ -30,19 +30,14 @@
         Address: <input type="text" name="Address" required /><br>
         Contact Number: <input type="number" name="ContactNumber" required /><br>
         Email Address: <input type="email" name="EmailAddress" required /><br>
-        Grade Year Level:
-        <select name="GradeYearLevel" required>
-            <option value="">Select Grade Year Level</option>
-            <option value="Freshmen">Freshmen</option>
-            <option value="Sophomore">Sophomore</option>
-            <option value="Junior">Junior</option>
-            <option value="Senior">Senior</option>
-        </select><br>
+        Department: <input type="text" name="Department" required /><br>
+        Position: <input type="text" name="Position" required /><br>
+        Date Hired: <input type="date" name="DateHired" value="<?php echo date('Y-m-d'); ?>" required /><br>
         Status:
         <select name="Status" required>
             <option value="">Select Status</option>
-            <option value="Enrolled">Enrolled</option>
-            <option value="Dropped">Dropped</option>
+            <option value="Active">Active</option>
+            <option value="In Active">In Active</option>
         </select><br>
         Password: <input type="password" name="Password" required /><br>
         <input type="submit" />

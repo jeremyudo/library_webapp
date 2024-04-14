@@ -6,10 +6,11 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="admin_login.css">
    <title>Admin Login</title>
 </head>
 <body>
-   <h2 style="margin-left:10rem; margin-top:5rem;">Admin Login</h2> 
+   <h2 class="enterId">Admin Login</h2> 
    <?php
       $msg = '';
       
@@ -45,8 +46,15 @@
          <input type="password" name="Password" id="Password">
       </div>
       <section style="margin-left:2rem;">
-         <button type="submit" name="login">Login</button>
+         <button class="loginButton" type="submit" name="login">Login</button>
       </section>
+      
    </form>
+   <div class="signIn">
+   <a style="text-decoration:none; color: black;font-weight: normal" href="login.php" tite="signIn">Sign In</a>
+   </div>
+   <p class="cleanSession"> 
+      <a href="logout.php" tite="Logout">Click here to clean Session</a>
+      </p>
 </body>
 </html>
