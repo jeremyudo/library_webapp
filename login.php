@@ -6,11 +6,11 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="loginstyle.css">
+   <link rel="stylesheet" href="login.css">
    <title>Login</title>
 </head>
 <body>
-   <h2 style="margin-left:10rem; margin-top:5rem;">Enter Student ID and Password</h2> 
+   <h2 class="enterId">Enter Student ID and Password</h2>
    <?php
       $msg = '';
       $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
@@ -57,17 +57,17 @@
          <input type="password" name="Password" id="Password">
       </div>
       <section style="margin-left:2rem;">
-         <button type="submit" name="login">Login</button>
+      <button class="loginButton" type="submit" name="login">Login</button>
       </section>
    </form>
 
-   <p style="margin-left: 2rem;"> 
-      <a href="logout.php" tite="Logout">Click here to clean Session.</a>
+   <p class="cleanSession"> 
+      <a href="logout.php" tite="Logout">Click here to clean Session</a>
    </p>
 
    <!-- Link for admin -->
-   <p style="margin-left: 2rem;"> 
-      <a href="admin_login.php">Are You Admin?</a>
-   </p>
+   <div class="adminSignIn">
+   <a style="text-decoration:none; color: black;font-weight: normal" href="admin_login.php" tite="adminSignIn">Admin Sign In</a>
+   </div>
 </body>
 </html>
