@@ -12,10 +12,39 @@ if (!$con) {
     die('Could not connect: ' . mysqli_connect_error());
 }
 
-// Query to retrieve all holds
-$query = "SELECT books.Title, books.Author, books.ISBN, books.Format, holds.HoldDate, holds.Status FROM holds INNER JOIN books ON holds.ISBN = books.ISBN";
-$result = mysqli_query($con, $query);
+// Function to sanitize user input
+function sanitize_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
 
+// Check if form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve and sanitize filter criteria
+    $filter_title = sanitize_input($_POST['filter_title']);
+    $filter_author = sanitize_input($_POST['filter_author']);
+    // You can add more filters as needed
+
+    // Build the SQL query with dynamic filtering
+    $query = "SELECT books.Title, books.Author, books.ISBN, books.Format, holds.HoldDate, holds.Status FROM holds INNER JOIN books ON holds.ISBN = books.ISBN";
+
+    // Apply filters if they are provided
+    if (!empty($filter_title)) {
+        $query .= " WHERE books.Title LIKE '%$filter_title%'";
+    }
+    if (!empty($filter_author)) {
+        $query .= " AND books.Author LIKE '%$filter_author%'";
+    }
+    // Add more conditions for additional filters if needed
+
+    $result = mysqli_query($con, $query);
+} else {
+    // If form is not submitted, retrieve all holds without filtering
+    $query = "SELECT books.Title, books.Author, books.ISBN, books.Format, holds.HoldDate, holds.Status FROM holds INNER JOIN books ON holds.ISBN = books.ISBN";
+    $result = mysqli_query($con, $query);
+}
 ?>
 
 <!DOCTYPE html>
@@ -24,11 +53,22 @@ $result = mysqli_query($con, $query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Holds - Admin</title>
-    <link rel="stylesheet" href="styles/table.css"> <!-- Include your table.css file here -->
+    <link rel="stylesheet" href="view_holds.css"> <!-- Include your table.css file here -->
 </head>
 <body>
     <div class="homeContent">
-        <h2>View Holds - Admin</h2>
+        <h2 class="title_holds">View Holds - Admin</h2>
+
+        <!-- Filter form -->
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+            <label for="filter_title">Filter by Title:</label>
+            <input type="text" name="filter_title" id="filter_title">
+            <label for="filter_author">Filter by Author:</label>
+            <input type="text" name="filter_author" id="filter_author">
+            <!-- Add more input fields for additional filters if needed -->
+            <button type="submit">Apply Filter</button>
+        </form>
+
         <table class="resultsTable">
             <tr>
                 <th>Title</th>
