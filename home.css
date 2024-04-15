@@ -2,7 +2,6 @@
   height: 650px;
   width: 1100px;
   border-radius: 10px;
-  background-color: #94c3e8;
   position: relative;
   top: 0px;
   left: 160px;
@@ -43,7 +42,6 @@
 }
 
 .welcomeBox{
-  background-color: #94c3e8;
   height: 100px;
   width: 1150px;
   position: relative;
@@ -88,7 +86,6 @@
   width: 300px; /* Adjust based on your preference */
   text-align: center;
   height: auto;
-  background-color: #94c3e8; /* Centers the book title under the image */
   border-radius: 15px;
   padding-bottom: 0px;
   padding-right: 10px;
@@ -104,7 +101,7 @@
   border-radius: 15px;
   height: auto; /* Keeps the aspect ratio of the image */
   /*border-radius: 15px; Optional: adds rounded corners to the images */
-  border: 3px solid white;
+  border: 3px solid black;
 }
 
 
@@ -158,13 +155,12 @@
 .info{
   padding-left: 20px;
   padding-right: 20px;
-  background-color: #94c3e8;
-  position: absolute;
-  top: 1500px;
+  position: relative;
+  top: -100px;
   left: 0px;
   margin-bottom: 20px;
   width: 98%;
-  height: auto;
+  max-height: 400px;
   font-family: 'Courier New', Courier, monospace;
   font-size: 18px;
 }
@@ -183,9 +179,8 @@
   height: 300px;
   width: 1420px;
   border-radius: 10px;
-  background-color: #94c3e8;
   position: relative;
-  top: 10px;
+  top: -50px;
   margin-bottom: 50px;
 }
 
@@ -204,7 +199,7 @@
   position: relative;
   top: -20px;
   left: -100px;
-  border: 3px solid white;
+  border: 3px solid black;
 }
 
 .book-resource img{
@@ -214,7 +209,7 @@
   position: relative;
   left: 200px;
   top: -230px;
-  border: 3px solid white;
+  border: 3px solid black;
 }
 
 .news-resource img{
@@ -224,21 +219,22 @@
   position: relative;
   left: 500px;
   top: -440px;
-  border: 3px solid white;
+  border: 3px solid black;
 }
 
 .quickLinks{
   position: relative;
   left: 150px;
+  top: -100px;
   height: 140px;
   width: 1100px;
   border-radius: 10px;
-  background-color: #94c3e8;
 }
 
 .quickLinksText {
   position: relative;
-  top: 15px;
+  top: 60px;
+  right: 500px;
   font-family: 'Courier New', Courier, monospace;
   font-size: 35px;
   margin: 0; /* Reset default margins */
@@ -246,7 +242,7 @@
 
 .popup-container {
   position: relative;
-  left: 220px;
+  left: 280px;
   top: 10px;
   display: flex;
   gap: 100px; /* Adjust the space between elements */
