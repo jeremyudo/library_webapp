@@ -12,7 +12,76 @@ if (!isset($_SESSION['valid']) || $_SESSION['valid'] !== true) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Book Details</title>
-<link rel="stylesheet" href="styles/MainPage.css">
+<style>
+    body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #f5f5f5; /* Background color for the whole page */
+    margin: 0;
+    padding: 0;
+}
+
+.homeContent {
+    max-width: 800px; /* Set the maximum width of the content area */
+    margin: 20px auto; /* Center the content horizontally */
+    padding: 20px;
+    background-color: #fff; /* Background color for the content area */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow effect */
+}
+
+h2 {
+    color: #333; /* Color for the heading */
+}
+
+.bookDetails {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px; /* Add some space below the table */
+}
+
+.bookDetails td {
+    padding: 10px;
+    border-bottom: 1px solid #ccc; /* Add a bottom border to separate rows */
+}
+
+.bookDetails td:first-child {
+    font-weight: bold; /* Make the first column bold */
+}
+
+button:hover {
+    background-color: #45a049; /* Darker background color on hover */
+}
+
+a {
+    color: #007bff; /* Link color */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline; /* Underline links on hover */
+}
+button {
+    padding: 10px 20px;
+    background-color: #4caf50; /* Button background color */
+    color: #fff; /* Button text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px; /* Add right margin to create space between buttons */
+}
+
+/* Apply margin only to buttons inside the forms */
+form button {
+    font-family: 'Courier New', Courier, monospace;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
+/* Adjust margin for the last button in the form to avoid unnecessary space */
+form button:last-child {
+    margin-right: 0; /* Remove margin from the last button */
+}
+</style>
 </head>
 <body>
 <div class="homeContent">

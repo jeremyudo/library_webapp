@@ -23,11 +23,8 @@ if (!isset($_SESSION['valid']) || $_SESSION['valid'] !== true) {
   <h1 class="welcome">Welcome to Your Account, <?php echo $_SESSION['FirstName'] . ' ' . $_SESSION['LastName']; ?></h1>
   <p><a href="view_notifications.php">Notifications</a></p>
   <p><a href="view_checkouts.php">View Checkouts</a></p>
-  <p><a href="history.php">Check Out History</a></p>
   <p><a href="view_holds.php">View Holds</a></p>
-  <p><a href="view_fines.php">View Fines</a></p>
-  <p><a href="view_transactions.php">View Transactions</a></p>
-  
+  <p><a href="history.php">History</a></p>
 
   <!-- New Notifications link -->
 </div>

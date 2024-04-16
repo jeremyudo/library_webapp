@@ -35,12 +35,8 @@
       <li><a href="admin_view_books.php">View All Books</a></li>
       <li><a href="admin_view_digitalitem.php">View All Digital Items</a></li>
       <li><a href="admin_view_holds.php">View All Holds</a></li>
-      <li><a href="admin_view_fines.php">View All Fines</a></li>
-      <li><a href="admin_view_transactions.php">View All Transactions</a></li>
-      <li><a href="admin_view_checkouts.php">View All Checkouts</a></li>
       <li><a href="admin_view_events.php">View All Events</a></li>
       <li><a href="admin_view_checkouts.php">View All Checkouts</a></li>
-      
    </ul>
 </body>
 

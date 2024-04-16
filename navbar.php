@@ -18,7 +18,6 @@
             <li><a class="homeLink" href="home.php">Home</a></li>
             <li><a class="servicesLink" href="services.php">Services</a></li>
             <li><a class="contactLink" href="contact.php">Contact</a></li>
-            <li><a class="accountLink" href="account.php">Account</a></li>
         </ul>
     </nav>
 </body>

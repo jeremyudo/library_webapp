@@ -96,36 +96,14 @@ if (!$result) {
         echo "<tr><th>ItemID</th><th>Item Type</th><th>Title</th><th>Checkout Date</th><th>Due Date</th></tr>";
         while($row = mysqli_fetch_assoc($result)) {
             echo "<tr>";
-            // Make ItemID a hyperlink to the details page based on ItemType
-            echo "<td><a href='" . ($row['ItemType'] === 'Book' ? 'details_book.php?isbn=' : 'details_digitalitem.php?digitalid=') . $row['ItemID'] . "'>{$row['ItemID']}</a></td>";
+            echo "<td>{$row['ItemID']}</td>";
             echo "<td>{$row['ItemType']}</td>";
-            if ($row['ItemType'] === 'Book') {
-                // Fetch Title and Author from the books table
-                $bookQuery = "SELECT Title, Author FROM books WHERE ISBN = '{$row['ItemID']}'";
-                $bookResult = mysqli_query($con, $bookQuery);
-                $bookData = mysqli_fetch_assoc($bookResult);
-                echo "<td>{$bookData['Title']} by {$bookData['Author']}</td>";
-            } elseif ($row['ItemType'] === 'Digital Item') {
-                // Fetch Title and Author from the digitalitems table
-                $digitalItemQuery = "SELECT Title, Author FROM digitalitems WHERE ItemID = '{$row['ItemID']}'";
-                $digitalItemResult = mysqli_query($con, $digitalItemQuery);
-                $digitalItemData = mysqli_fetch_assoc($digitalItemResult);
-                echo "<td>{$digitalItemData['Title']} by {$digitalItemData['Author']}</td>";
-            } else {
-                echo "<td>N/A</td>";
-            }
+            echo "<td>{$row['Title']}</td>";
             echo "<td>{$row['CheckoutDate']}</td>";
             echo "<td>{$row['ReturnDate']}</td>";
             echo "</tr>";
         }
         echo "</table>";
-
-        // Form to mark an item as lost
-        echo "<form method='post' action='mark_lost_book.php'>";
-        echo "<label for='isbn'>Marking as Lost? Enter ItemID:</label>";
-        echo "<input type='text' id='itemID' name='itemID'>";
-        echo "<button type='submit'>Mark As Lost</button>";
-        echo "</form>";
     } else {
         echo "<p>No digital items currently checked out.</p>";
     }
