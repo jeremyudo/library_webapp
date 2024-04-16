@@ -33,7 +33,7 @@
             // Verify password
             if ($row['Password'] === $password) {
                $_SESSION['staff_logged_in'] = true;
-               $_SESSION['staff_username'] = $username;
+               $_SESSION['StaffID'] = $row['StaffID']; // Include StaffID in session
                // Redirect to staff panel
                header("Location: staff_home.php");
                exit();
@@ -65,7 +65,7 @@
    </form>
 
    <div class="signIn">
-      <a style="text-decoration:none; color: black;font-weight: normal" href="login.php" title="signIn">Sign In</a>
+      <a style="text-decoration:none; color: black;font-weight: normal" href="login.php" title="signIn">Back</a>
    </div>
    <p class="cleanSession"> 
       <a href="logout.php" title="Logout">Click here to clean Session</a>

@@ -2,9 +2,9 @@
    // Start session
    session_start();
 
-   // Check if staff is logged in
-   if (!isset($_SESSION['staff_logged_in']) || $_SESSION['staff_logged_in'] !== true) {
-       // Redirect to staff login page if not logged in
+   // Check if staff is logged in and has a valid session with staffID
+   if (!isset($_SESSION['staff_logged_in']) || $_SESSION['staff_logged_in'] !== true || !isset($_SESSION['StaffID'])) {
+       // Redirect to staff login page if not logged in or session does not contain StaffID
        header("Location: staff_login.php");
        exit();
    }
@@ -30,7 +30,7 @@
    
    <h2 style="margin-left:10rem; margin-top:5rem;">Staff Panel</h2> 
    <ul style="list-style-type:none; margin-left:10rem;">
-        <li><a href="staff_notifications.php">Notifications</a></li>
+      <li><a href="view_staff_notifications.php">Notifications</a></li>
       <li><a href="admin_view_students.php">View All Students</a></li>
       <li><a href="admin_view_books.php">View All Books</a></li>
       <li><a href="admin_view_digitalitem.php">View All Digital Items</a></li>

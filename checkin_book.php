@@ -20,7 +20,7 @@ if(isset($_SESSION['StudentID']) && !empty($_SESSION['StudentID'])) {
         $checkInDate = date("Y-m-d");
         $queryUpdate = "UPDATE checkouts 
                         SET CheckInDate = '$checkInDate' 
-                        WHERE ISBN = '$isbn' AND StudentID = '$studentId' AND CheckInDate IS NULL
+                        WHERE ItemID = '$isbn' AND UserID = '$studentId' AND CheckInDate IS NULL
                         ORDER BY CheckoutDate ASC, CheckOutID ASC
                         LIMIT 1";
         $resultUpdate = mysqli_query($con, $queryUpdate);
