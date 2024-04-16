@@ -31,14 +31,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $studentId = $_SESSION['StudentID'];
 
     // Build the SQL query with dynamic filtering
-    $query = "SELECT checkouts.ISBN, checkouts.CheckoutDate, checkouts.ReturnDate, books.Title, books.Author, books.Format FROM checkouts INNER JOIN books ON checkouts.ISBN = books.ISBN WHERE StudentID = '$studentId' AND CheckinDate IS NULL";
+    $query = "SELECT checkouts.ItemID, checkouts.UserType, checkouts.ItemType, checkouts.CheckoutDate, checkouts.ReturnDate, digitalitems.Title FROM checkouts INNER JOIN digitalitems ON checkouts.ItemID = digitalitems.DigitalID WHERE UserID = '$studentId' AND CheckinDate IS NULL";
 
     // Apply filters if they are provided
     if (!empty($filter_title)) {
-        $query .= " AND books.Title LIKE '%$filter_title%'";
+        $query .= " AND digitalitems.Title LIKE '%$filter_title%'";
     }
     if (!empty($filter_isbn)) {
-        $query .= " AND checkouts.ISBN = '$filter_isbn'";
+        $query .= " AND checkouts.ItemID = '$filter_isbn'";
     }
     // Add more conditions for additional filters if needed
 
@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $studentId = $_SESSION['StudentID'];
 
     // Query to retrieve checkout records for the current user where CheckinDate is NULL
-    $query = "SELECT checkouts.ISBN, checkouts.CheckoutDate, checkouts.ReturnDate, books.Title, books.Author, books.Format FROM checkouts INNER JOIN books ON checkouts.ISBN = books.ISBN WHERE StudentID = '$studentId' AND CheckinDate IS NULL";
+    $query = "SELECT checkouts.ItemID, checkouts.UserType, checkouts.ItemType, checkouts.CheckoutDate, checkouts.ReturnDate, digitalitems.Title FROM checkouts INNER JOIN digitalitems ON checkouts.ItemID = digitalitems.DigitalID WHERE UserID = '$studentId' AND CheckinDate IS NULL";
     $result = mysqli_query($con, $query);
 }
 ?>
@@ -71,13 +71,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 <div class="homeContent">
-    <h2 class="title_checkout">Books Currently Checked Out</h2>
+    <h2 class="title_checkout">Digital Items Currently Checked Out</h2>
 
     <!-- Filter form -->
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <label for="filter_title">Filter by Title:</label>
         <input type="text" name="filter_title" id="filter_title">
-        <label for="filter_isbn">Filter by ISBN:</label>
+        <label for="filter_isbn">Filter by ItemID:</label>
         <input type="text" name="filter_isbn" id="filter_isbn">
         <!-- Add more input fields for additional filters if needed -->
         <button type="submit">Apply Filter</button>
@@ -87,20 +87,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(mysqli_num_rows($result) > 0) {
         // Display checkout records in a table with the resultsTable class
         echo "<table class='resultsTable'>";
-        echo "<tr><th>Title</th><th>Author</th><th>ISBN</th><th>Format</th><th>Checkout Date</th><th>Due Date</th></tr>";
+        echo "<tr><th>Title</th><th>Item Type</th><th>ItemID</th><th>Checkout Date</th><th>Due Date</th></tr>";
         while($row = mysqli_fetch_assoc($result)) {
             echo "<tr>";
-            echo "<td><a href='details_item.php?isbn={$row['ISBN']}'>{$row['Title']}</a></td>";
-            echo "<td>{$row['Author']}</td>";
-            echo "<td>{$row['ISBN']}</td>";
-            echo "<td>{$row['Format']}</td>";
+            echo "<td><a href='details_item.php?digitalid={$row['ItemID']}'>{$row['Title']}</a></td>";
+            echo "<td>{$row['ItemType']}</td>";
+            echo "<td>{$row['ItemID']}</td>";
             echo "<td>{$row['CheckoutDate']}</td>";
             echo "<td>{$row['ReturnDate']}</td>";
             echo "</tr>";
         }
         echo "</table>";
     } else {
-        echo "<p>No books currently checked out.</p>";
+        echo "<p>No digital items currently checked out.</p>";
     }
 
     mysqli_close($con);

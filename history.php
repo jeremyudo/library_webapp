@@ -27,18 +27,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $filter_author = sanitize_input($_POST['filter_author']);
     // You can add more filters as needed
 
-    // Get the current user's StudentID
-    $studentId = $_SESSION['StudentID'];
+    // Get the current user's UserID
+    $userId = $_SESSION['UserID'];
 
     // Build the SQL query with dynamic filtering
-    $query = "SELECT checkouts.*, books.Title, books.Author, books.Format FROM checkouts INNER JOIN books ON checkouts.ISBN = books.ISBN WHERE StudentID = '$studentId'";
+    $query = "SELECT * FROM checkouts WHERE UserID = '$userId'";
 
     // Apply filters if they are provided
     if (!empty($filter_title)) {
-        $query .= " AND books.Title LIKE '%$filter_title%'";
+        $query .= " AND ISBN IN (SELECT ISBN FROM books WHERE Title LIKE '%$filter_title%')";
     }
     if (!empty($filter_author)) {
-        $query .= " AND books.Author LIKE '%$filter_author%'";
+        $query .= " AND ISBN IN (SELECT ISBN FROM books WHERE Author LIKE '%$filter_author%')";
     }
     // Add more conditions for additional filters if needed
 
@@ -46,10 +46,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     // If form is not submitted, retrieve all transaction history without filtering
 
-    // Get the current user's StudentID
-    $studentId = $_SESSION['StudentID'];
+    // Get the current user's UserID
+    $userId = $_SESSION['StudentID'];
 
-    $query = "SELECT checkouts.*, books.Title, books.Author, books.Format FROM checkouts INNER JOIN books ON checkouts.ISBN = books.ISBN WHERE StudentID = '$studentId'";
+    $query = "SELECT * FROM checkouts WHERE UserID = '$userId'";
     $result = mysqli_query($con, $query);
 }
 ?>
@@ -81,14 +81,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if(mysqli_num_rows($result) > 0) {
             // Display transaction history in a table with the resultsTable class
             echo "<table class='resultsTable'>";
-            echo "<tr><th>ISBN</th><th>Title</th><th>Author</th><th>Format</th><th>Checkout Date</th><th>Return Date</th><th>Checkin Date</th></tr>";
+            echo "<tr><th>ItemID</th><th>ItemType</th><th>Checkout Date</th><th>Return Date</th><th>Checkin Date</th></tr>";
             while($row = mysqli_fetch_assoc($result)) {
                 echo "<tr>";
-                echo "<td>{$row['ISBN']}</td>";
-                // Make the Title column a link to the book details page
-                echo "<td><a href='details_item.php?isbn={$row['ISBN']}'>{$row['Title']}</a></td>";
-                echo "<td>{$row['Author']}</td>";
-                echo "<td>{$row['Format']}</td>";
+                echo "<td>{$row['ItemID']}</td>";
+                echo "<td>{$row['ItemType']}</td>";
                 echo "<td>{$row['CheckoutDate']}</td>";
                 echo "<td>{$row['ReturnDate']}</td>";
                 echo "<td>{$row['CheckinDate']}</td>";
