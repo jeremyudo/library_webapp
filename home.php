@@ -29,7 +29,7 @@
     </div>
   </div>
   <h1 class="searchText">Search for Resources</h1>
-  <form class="searchForm" method="get" action="book_search_results.php">
+  <form class="searchForm" method="get" action="search_results_items.php">
     <input type="text" name="searchTerm" placeholder="Search books, digital media, etc..." value="<?php echo isset($_GET['searchTerm']) ? $_GET['searchTerm'] : ''; ?>">
     <button type="submit">Search</button>
   </form>
