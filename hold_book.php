@@ -19,7 +19,7 @@ if(isset($_SESSION['StudentID']) && !empty($_SESSION['StudentID'])) {
         $holdDate = date("Y-m-d");
         
         // Insert the hold request into the holds table
-        $queryInsert = "INSERT INTO holds (ItemID, ItemType, UserID, UserType, HoldDate) VALUES ('$isbn', 'Book', '$studentId', 'Student', '$holdDate')";
+        $queryInsert = "INSERT INTO holds (ISBN, StudentID, HoldDate) VALUES ('$isbn', '$studentId', '$holdDate')";
         $resultInsert = mysqli_query($con, $queryInsert);
         
         if($resultInsert) {
@@ -35,4 +35,3 @@ if(isset($_SESSION['StudentID']) && !empty($_SESSION['StudentID'])) {
 } else {
     echo "<p>Student ID not found in the session.</p>";
 }
-?>

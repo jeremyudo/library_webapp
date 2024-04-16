@@ -1,6 +1,29 @@
-body{
-  background: rgb(197,223,240);
-background: linear-gradient(180deg, rgba(197,223,240,1) 9%, rgba(59,134,214,1) 65%, rgba(0,86,179,1) 96%);
+
+
+.signInTab{
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 20px;
+  position: absolute;
+  top: 25px;
+  right: -110px;
+}
+
+.signInText{
+  font-weight: bold;
+  text-decoration: none;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 15px;
+  position: relative;
+  left: 70px;
+  top: -25px;
+}
+
+.icon img {
+  position: relative;
+  top: 5px;
+  left: 70px;
+  width: 15%;
+  height: 15%;
 }
 
 .topReads {
@@ -8,11 +31,13 @@ background: linear-gradient(180deg, rgba(197,223,240,1) 9%, rgba(59,134,214,1) 6
   width: 1100px;
   border-radius: 10px;
   position: relative;
-  top: -20px;
+  top: 0px;
   left: 160px;
   margin-top: 0px;
   margin-bottom: 0px;
 }
+
+
 
 .logout{
   position: absolute;
@@ -53,12 +78,10 @@ background: linear-gradient(180deg, rgba(197,223,240,1) 9%, rgba(59,134,214,1) 6
   font-family: 'Courier New', Courier, monospace;
   font-size: 40px;
   position: relative;
-  top:-10px;
+  top:25px;
 }
 
 .searchText{
-  position: relative;
-  top: -30px;
   margin-bottom:0;
   font-family: 'Courier New', Courier, monospace;
   font-size: 25px;
@@ -66,8 +89,6 @@ background: linear-gradient(180deg, rgba(197,223,240,1) 9%, rgba(59,134,214,1) 6
 
 
 .topReadsGallery {
-  position: relative;
-  top: -30px;
   display: flex;
   width: 100%;
   flex-wrap: nowrap;
@@ -99,8 +120,6 @@ background: linear-gradient(180deg, rgba(197,223,240,1) 9%, rgba(59,134,214,1) 6
 
 
 .searchForm {
-  position: relative;
-  top: -30px;
   display: flex;
   justify-content: center;
   margin-top: 10px;
@@ -266,4 +285,6 @@ background: linear-gradient(180deg, rgba(197,223,240,1) 9%, rgba(59,134,214,1) 6
 .popup-trigger:hover + .popup-box {
   display: block;
 }
+
+
 

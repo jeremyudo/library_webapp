@@ -12,7 +12,7 @@ if(isset($_SESSION['StudentID']) && !empty($_SESSION['StudentID'])) {
     }
 
     // Check the number of books currently checked out by the student
-    $queryCheckCount = "SELECT COUNT(*) AS num_checked_out FROM checkouts WHERE UserID = '$studentId' AND CheckinDate IS NULL";
+    $queryCheckCount = "SELECT COUNT(*) AS num_checked_out FROM checkouts WHERE UserID = '$studentId' AND CheckInDate IS NULL";
     $resultCheckCount = mysqli_query($con, $queryCheckCount);
     $rowCheckCount = mysqli_fetch_assoc($resultCheckCount);
     $numCheckedOut = $rowCheckCount['num_checked_out'];
@@ -42,7 +42,7 @@ if(isset($_SESSION['StudentID']) && !empty($_SESSION['StudentID'])) {
                 
                 if($available > 0 && $available <= $stock) {
                     // Insert the checkout record into the checkouts table
-                    $queryInsert = "INSERT INTO checkouts (ItemID, ItemType, UserID, UserType, CheckoutDate, ReturnDate) VALUES ('$isbn', 'Book', '$studentId', 'Student', '$checkoutDate', '$returnDate')";
+                    $queryInsert = "INSERT INTO checkouts (ISBN, StudentID, CheckoutDate, ReturnDate) VALUES ('$isbn', '$studentId', '$checkoutDate', '$returnDate')";
                     $resultInsert = mysqli_query($con, $queryInsert);
                     
                     if($resultInsert) {

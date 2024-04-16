@@ -1,5 +1,4 @@
 <?php
-   include 'navbar.php';
    session_start();
    if (!isset($_SESSION['valid']) || $_SESSION['valid'] !== true) {
       header("Location: login.php");
@@ -13,18 +12,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Welcome to Our Library</title>
-<link rel="stylesheet" href="/home.css">
+<link rel="stylesheet" href="/index.css">
 </head>
 <body>
 <div class="homeContent">
   <div class="topBar">
     <div class="welcomeBox">
-      <h1 class="welcome">Welcome to Our Library, <?php echo $_SESSION['FirstName'] . ' ' . $_SESSION['LastName']; ?></h1>
+      <h1 class="welcome">Welcome to Our Library</h1>
     </div>
-    
+    <div class="signInTab">
+      <a style="text-decoration: none;" href="login.php">
+      <div class="icon">
+        <img src="/images/signIn.png" alt="Icon">
+      </div>
+      <p class="signInText">Sign In</p>
+      </a>
+    </div>
   </div>
   <h1 class="searchText">Search for Resources</h1>
-  <form class="searchForm" method="get" action="search_results_items.php">
+  <form class="searchForm" method="get" action="book_search_results.php">
     <input type="text" name="searchTerm" placeholder="Search books, digital media, etc..." value="<?php echo isset($_GET['searchTerm']) ? $_GET['searchTerm'] : ''; ?>">
     <button type="submit">Search</button>
   </form>
@@ -48,11 +54,6 @@
       ?>
     </div>
   </div>
-  
-  <div class="logout">
-    <a class="logoutText" href="logout.php">Logout</a>
-  </div>
-
   <div class="featuredResources">
     <h2 class="featuredResourcesTitle">Featured Resources</h2>
     <div class="resourceList">

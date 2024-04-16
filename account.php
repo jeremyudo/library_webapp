@@ -1,4 +1,5 @@
 <?php
+include 'navbar.php';
 session_start();
 if (!isset($_SESSION['valid']) || $_SESSION['valid'] !== true) {
     header("Location: login.php");
@@ -16,13 +17,6 @@ if (!isset($_SESSION['valid']) || $_SESSION['valid'] !== true) {
 </head>
 <body>
 <div class="homeContent">
-<div class="accountTab">
-      <a href="account.php">
-      <div class="icon">
-        <img src="/images/icon.png" alt="Icon">
-      </div>
-      </a>
-    </div>
     <div class="logout">
     <a class="logoutText" href="logout.php">Logout</a>
   </div>

@@ -14,7 +14,7 @@
   margin-top: 20px;
 }
 
-.title_checkout{
+.title_checkout {
   font-size: 30px;
 }
 
@@ -43,21 +43,32 @@
 
 /* Add this custom CSS */
 form {
+
   font-family: 'Courier New', Courier, monospace;
   margin-top: 20px;
 }
 
-form label {
-  margin-right: 10px;
+.form-group {
+  padding: 5px;
+  margin-bottom: 10px;
 }
 
-form input[type="text"] {
+form label {
+  padding: 5px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+form input[type="text"],
+form select {
+  font-family: 'Courier New', Courier, monospace;
   padding: 8px;
   border-radius: 4px;
   border: 1px solid #ccc;
 }
 
-form button[type="submit"] {font-family: 'Courier New', Courier, monospace;
+form button[type="submit"] {
+  font-family: 'Courier New', Courier, monospace;
   padding: 8px 16px;
   background-color: #4CAF50;
   color: white;
