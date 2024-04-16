@@ -66,8 +66,13 @@
    </p>
 
    <!-- Link for admin -->
+   <div class="staffSignIn">
+      <a style="text-decoration:none; color: black;font-weight: normal" href="staff_login.php" title="staffSignIn">Staff Sign In</a>
+   </div>
+
+<!-- Link for admin -->
    <div class="adminSignIn">
-   <a style="text-decoration:none; color: black;font-weight: normal" href="admin_login.php" tite="adminSignIn">Admin Sign In</a>
+      <a style="text-decoration:none; color: black;font-weight: normal" href="admin_login.php" title="adminSignIn">Admin Sign In</a>
    </div>
 </body>
 </html>

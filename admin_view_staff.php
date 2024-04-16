@@ -43,8 +43,8 @@
             die('Could not connect: ' . mysqli_connect_error());
         }
 
-        // SQL query to retrieve all staff members
-        $sql = "SELECT * FROM staff";
+        // SQL query to retrieve active staff members
+        $sql = "SELECT * FROM staff WHERE Status = 'Active'";
         $result = mysqli_query($con, $sql);
 
         if (mysqli_num_rows($result) > 0) {

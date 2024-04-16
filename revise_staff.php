@@ -45,6 +45,9 @@ if (!empty($_POST['Status'])) {
 if (!empty($_POST['Password'])) {
     $sql .= "Password='" . $_POST['Password'] . "', ";
 }
+if (isset($_POST['IsDeleted'])) {
+    $sql .= "IsDeleted=" . $_POST['IsDeleted'] . ", ";
+}
 
 // Append the UpdatedDate field with the current date and time
 $sql .= "UpdatedDate='" . date('Y-m-d H:i:s') . "' ";

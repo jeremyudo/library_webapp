@@ -43,8 +43,8 @@
             die('Could not connect: ' . mysqli_connect_error());
         }
 
-        // SQL query to retrieve all students
-        $sql = "SELECT * FROM students";
+        // SQL query to retrieve enrolled students
+        $sql = "SELECT * FROM students WHERE Status = 'Enrolled'";
         $result = mysqli_query($con, $sql);
 
         if (mysqli_num_rows($result) > 0) {
@@ -68,7 +68,8 @@
             // Fetch and display each row of student information
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<tr>";
-                echo "<td>" . $row['StudentID'] . "</td>";
+                // Modify Student ID to be a hyperlink
+                echo "<td><a href='admin_view_student_report.php?student_id={$row['StudentID']}'>" . $row['StudentID'] . "</a></td>";
                 echo "<td>" . $row['FirstName'] . "</td>";
                 echo "<td>" . $row['LastName'] . "</td>";
                 echo "<td>" . $row['DateOfBirth'] . "</td>";
@@ -91,7 +92,7 @@
             echo "<button onclick=\"location.href='update_student.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Update Student</button>";
             echo "<button onclick=\"location.href='delete_student.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Delete Student</button>";
         } else {
-            echo "0 results";
+            echo "No enrolled students found.";
         }
 
         // Close connection
