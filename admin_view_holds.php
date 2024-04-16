@@ -32,8 +32,10 @@ $result = mysqli_query($con, $query);
         <table class="resultsTable">
             <tr>
                 <th>HoldID</th>
-                <th>ISBN</th>
-                <th>StudentID</th>
+                <th>ItemID</th>
+                <th>ItemType</th>
+                <th>UserID</th>
+                <th>UserType</th>
                 <th>HoldDate</th>
                 <th>Status</th>
             </tr>
@@ -42,14 +44,16 @@ $result = mysqli_query($con, $query);
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "<tr>";
                     echo "<td>" . $row['HoldID'] . "</td>";
-                    echo "<td>" . $row['ISBN'] . "</td>";
-                    echo "<td>" . $row['StudentID'] . "</td>";
+                    echo "<td>" . $row['ItemID'] . "</td>";
+                    echo "<td>" . $row['ItemType'] . "</td>";
+                    echo "<td>" . $row['UserID'] . "</td>";
+                    echo "<td>" . $row['UserType'] . "</td>";
                     echo "<td>" . $row['HoldDate'] . "</td>";
                     echo "<td>" . $row['Status'] . "</td>";
                     echo "</tr>";
                 }
             } else {
-                echo "<tr><td colspan='5'>No holds found.</td></tr>";
+                echo "<tr><td colspan='7'>No holds found.</td></tr>";
             }
             ?>
         </table>
