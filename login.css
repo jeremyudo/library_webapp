@@ -124,3 +124,23 @@ input[type="password"] {
   font-size: 16px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
+.staffSignIn {
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  width: 130px;
+  position: absolute;
+  text-decoration: none;
+  top: 420px;
+  left: 490px; /* Adjust left position as needed */
+  padding: 10px;
+  background-color: #b3bfcb;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
