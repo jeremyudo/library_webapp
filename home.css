@@ -1,28 +1,17 @@
+body{
+  background: rgb(197,223,240);
+background: linear-gradient(180deg, rgba(197,223,240,1) 9%, rgba(59,134,214,1) 65%, rgba(0,86,179,1) 96%);
+}
+
 .topReads {
   height: 650px;
   width: 1100px;
   border-radius: 10px;
   position: relative;
-  top: 0px;
+  top: -20px;
   left: 160px;
   margin-top: 0px;
   margin-bottom: 0px;
-}
-
-.accountTab{
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 20px;
-  position: absolute;
-  top: 30px;
-  right: 30px;
-}
-
-.icon img {
-  position: relative;
-  top: 0px;
-  left: 70px;
-  width: 25%;
-  height: 25%;
 }
 
 .logout{
@@ -64,10 +53,12 @@
   font-family: 'Courier New', Courier, monospace;
   font-size: 40px;
   position: relative;
-  top:25px;
+  top:-10px;
 }
 
 .searchText{
+  position: relative;
+  top: -30px;
   margin-bottom:0;
   font-family: 'Courier New', Courier, monospace;
   font-size: 25px;
@@ -75,6 +66,8 @@
 
 
 .topReadsGallery {
+  position: relative;
+  top: -30px;
   display: flex;
   width: 100%;
   flex-wrap: nowrap;
@@ -106,6 +99,8 @@
 
 
 .searchForm {
+  position: relative;
+  top: -30px;
   display: flex;
   justify-content: center;
   margin-top: 10px;

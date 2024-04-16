@@ -34,21 +34,29 @@
 
 /* Add this custom CSS */
 form {
+  font-family: 'Courier New', Courier, monospace;
   margin-top: 20px;
   text-align: center; /* Center the form */
 }
 
+form option{
+  font-family: 'Courier New', Courier, monospace;
+}
+
 form label {
+  font-family: 'Courier New', Courier, monospace;
   margin-right: 10px;
 }
 
 form input[type="text"] {
+  font-family: 'Courier New', Courier, monospace;
   padding: 8px;
   border-radius: 4px;
   border: 1px solid #ccc;
 }
 
 form button[type="submit"] {
+  font-family: 'Courier New', Courier, monospace;
   padding: 8px 16px;
   background-color: #4CAF50;
   color: white;
@@ -63,7 +71,6 @@ form button[type="submit"]:hover {
 
 .homeContent p {
   margin-top: 20px;
-  text-align: center; /* Center the paragraph */
 }
 
 .homeContent a {

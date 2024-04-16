@@ -16,133 +16,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Faculty</title>
     <style>
-        body {
-            font-family: 'Courier New', Courier, monospace;
-            margin: 0;
-            padding: 0;
-            background: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        h2 {
-            color: #333;
-            margin: 20px 0;
-            font-size: 25px;
-        }
-
-        .container {
-            width: 98%;
-            max-width: 1400px;
-            background-color: white;
-            padding: 20px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-            margin: 20px;
-            height: 30%;
-        }
-
+        /* CSS for table styles */
         .resultsTable {
-            font-size: 13px;
-            width: 100%;
-            border-collapse: collapse;
-            margin: 0 auto;
+            border-collapse: collapse; /* Collapse borders to avoid double borders */
+            width: 100%; /* Full width */
         }
-
+        
         .resultsTable th, .resultsTable td {
-            border: 1px solid #ddd;
-            padding: 12px 15px;
-            text-align: left;
+            border: 1px solid black; /* Add black borders to cells */
+            padding: 8px; /* Add some padding for better spacing */
+            text-align: left; /* Align text to the left */
         }
-
+        
         .resultsTable th {
-            background-color: #f9f9f9;
-            color: #333;
-        }
-
-        button {
-            font-family: 'Courier New', Courier, monospace;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            cursor: pointer;
-            margin: 10px;
-        }
-
-        button:hover {
-            background-color: #45a049;
+            background-color: #f2f2f2; /* Light gray background color for header cells */
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>View Faculty</h2> 
+    <h2 style="margin-left:10rem; margin-top:5rem;">View Faculty</h2> 
 
-        <?php
-            // Database connection
-            $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
-            if (!$con) {
-                die('Could not connect: ' . mysqli_connect_error());
+    <?php
+        // Database connection
+        $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
+        if (!$con) {
+            die('Could not connect: ' . mysqli_connect_error());
+        }
+
+        // SQL query to retrieve all faculty members
+        $sql = "SELECT * FROM faculty";
+        $result = mysqli_query($con, $sql);
+
+        if (mysqli_num_rows($result) > 0) {
+            // Start table
+            echo "<table class='resultsTable'>
+                    <tr>
+                        <th>Faculty ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Date of Birth</th>
+                        <th>Gender</th>
+                        <th>Address</th>
+                        <th>Contact Number</th>
+                        <th>Email Address</th>
+                        <th>Department</th>
+                        <th>Position</th>
+                        <th>Date Hired</th>
+                        <th>Status</th>
+                        <th>Created Date</th>
+                        <th>Updated Date</th>
+                    </tr>";
+
+            // Fetch and display each row of faculty information
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo "<tr>";
+                echo "<td>" . $row['FacultyID'] . "</td>";
+                echo "<td>" . $row['FirstName'] . "</td>";
+                echo "<td>" . $row['LastName'] . "</td>";
+                echo "<td>" . $row['DateOfBirth'] . "</td>";
+                echo "<td>" . $row['Gender'] . "</td>";
+                echo "<td>" . $row['Address'] . "</td>";
+                echo "<td>" . $row['ContactNumber'] . "</td>";
+                echo "<td>" . $row['EmailAddress'] . "</td>";
+                echo "<td>" . $row['Department'] . "</td>";
+                echo "<td>" . $row['Position'] . "</td>";
+                echo "<td>" . $row['DateHired'] . "</td>";
+                echo "<td>" . $row['Status'] . "</td>";
+                echo "<td>" . $row['CreatedDate'] . "</td>";
+                echo "<td>" . $row['UpdatedDate'] . "</td>";
+                echo "</tr>";
             }
 
-            // SQL query to retrieve all faculty members
-            $sql = "SELECT * FROM faculty";
-            $result = mysqli_query($con, $sql);
+            // End table
+            echo "</table>";
+            echo "<button onclick=\"location.href='add_faculty.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Add Faculty</button>";
 
-            if (mysqli_num_rows($result) > 0) {
-                echo "<table class='resultsTable'>
-                        <tr>
-                            <th>Faculty ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Date of Birth</th>
-                            <th>Gender</th>
-                            <th>Address</th>
-                            <th>Contact Number</th>
-                            <th>Email Address</th>
-                            <th>Department</th>
-                            <th>Position</th>
-                            <th>Date Hired</th>
-                            <th>Status</th>
-                            <th>Created Date</th>
-                            <th>Updated Date</th>
-                        </tr>";
+            // Button to update faculty information
+            echo "<button onclick=\"location.href='update_faculty.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Update Faculty</button>";
+            echo "<button onclick=\"location.href='delete_faculty.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Delete Faculty</button>";
+        } else {
+            echo "0 results";
+        }
 
-                while ($row = mysqli_fetch_assoc($result)) {
-                    echo "<tr>";
-                    echo "<td>" . $row['FacultyID'] . "</td>";
-                    echo "<td>" . $row['FirstName'] . "</td>";
-                    echo "<td>" . $row['LastName'] . "</td>";
-                    echo "<td>" . $row['DateOfBirth'] . "</td>";
-                    echo "<td>" . $row['Gender'] . "</td>";
-                    echo "<td>" . $row['Address'] . "</td>";
-                    echo "<td>" . $row['ContactNumber'] . "</td>";
-                    echo "<td>" . $row['EmailAddress'] . "</td>";
-                    echo "<td>" . $row['Department'] . "</td>";
-                    echo "<td>" . $row['Position'] . "</td>";
-                    echo "<td>" . $row['DateHired'] . "</td>";
-                    echo "<td>" . $row['Status'] . "</td>";
-                    echo "<td>" . $row['CreatedDate'] . "</td>";
-                    echo "<td>" . $row['UpdatedDate'] . "</td>";
-                    echo "</tr>";
-                }
-
-                echo "</table>";
-            } else {
-                echo "<p>No results found.</p>";
-            }
-
-            mysqli_close($con);
-        ?>
-        <button onclick="location.href='add_faculty.php'">Add Faculty</button>
-        <button onclick="location.href='update_faculty.php'">Update Faculty</button>
-        <button onclick="location.href='delete_faculty.php'">Delete Faculty</button>
-    </div>
+        // Close connection
+        mysqli_close($con);
+    ?>
 </body>
 </html>

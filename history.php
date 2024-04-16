@@ -1,4 +1,5 @@
 <?php
+include 'navbar.php';
 session_start();
 
 if (!isset($_SESSION['valid']) || $_SESSION['valid'] !== true) {
@@ -23,33 +24,46 @@ function sanitize_input($data) {
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve and sanitize filter criteria
-    $filter_title = sanitize_input($_POST['filter_title']);
-    $filter_author = sanitize_input($_POST['filter_author']);
-    // You can add more filters as needed
+    $filter_by = sanitize_input($_POST['filter_by']);
+    $filter_value = sanitize_input($_POST['filter_value']);
 
-    // Get the current user's StudentID
+    // Get the current user's UserID
     $studentId = $_SESSION['StudentID'];
 
     // Build the SQL query with dynamic filtering
-    $query = "SELECT checkouts.*, books.Title, books.Author, books.Format FROM checkouts INNER JOIN books ON checkouts.ISBN = books.ISBN WHERE StudentID = '$studentId'";
+    $query = "SELECT checkouts.ItemID, checkouts.ItemType, books.Title, checkouts.CheckoutDate, checkouts.ReturnDate, checkouts.CheckinDate
+              FROM checkouts 
+              INNER JOIN students ON students.StudentID = checkouts.UserID 
+              INNER JOIN books ON books.ISBN = checkouts.ItemID 
+              WHERE checkouts.UserID = '$studentId'";
 
     // Apply filters if they are provided
-    if (!empty($filter_title)) {
-        $query .= " AND books.Title LIKE '%$filter_title%'";
+    if (!empty($filter_by) && !empty($filter_value)) {
+        // Validate filter attribute to prevent SQL injection
+        $allowed_filters = ['Title', 'Author', 'ItemType', 'CheckoutDate', 'ReturnDate', 'CheckinDate']; // Add more filter options as needed
+        if (in_array($filter_by, $allowed_filters)) {
+            if ($filter_by == 'Title' || $filter_by == 'Author') {
+                $query .= " AND books.$filter_by LIKE '%$filter_value%'";
+            } else {
+                $query .= " AND checkouts.$filter_by = '$filter_value'";
+            }
+        } else {
+            echo "Invalid filter attribute.";
+            exit;
+        }
     }
-    if (!empty($filter_author)) {
-        $query .= " AND books.Author LIKE '%$filter_author%'";
-    }
-    // Add more conditions for additional filters if needed
 
     $result = mysqli_query($con, $query);
 } else {
     // If form is not submitted, retrieve all transaction history without filtering
 
-    // Get the current user's StudentID
+    // Get the current user's UserID
     $studentId = $_SESSION['StudentID'];
-
-    $query = "SELECT checkouts.*, books.Title, books.Author, books.Format FROM checkouts INNER JOIN books ON checkouts.ISBN = books.ISBN WHERE StudentID = '$studentId'";
+    $query = "SELECT checkouts.ItemID, checkouts.ItemType, books.Title, checkouts.CheckoutDate, checkouts.ReturnDate, checkouts.CheckinDate
+              FROM checkouts 
+              INNER JOIN students ON students.StudentID = checkouts.UserID 
+              INNER JOIN books ON books.ISBN = checkouts.ItemID 
+              WHERE checkouts.UserID = '$studentId'";
     $result = mysqli_query($con, $query);
 }
 ?>
@@ -69,11 +83,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <!-- Filter form -->
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-            <label for="filter_title">Filter by Title:</label>
-            <input type="text" name="filter_title" id="filter_title">
-            <label for="filter_author">Filter by Author:</label>
-            <input type="text" name="filter_author" id="filter_author">
-            <!-- Add more input fields for additional filters if needed -->
+            <label for="filter_by">Filter by:</label>
+            <select name="filter_by" id="filter_by">
+                <option value="Title">Title</option>
+                <option value="ItemType">Item Type</option>
+                <option value="CheckoutDate">Checkout Date</option>
+                <option value="ReturnDate">Return Date</option>
+                <option value="CheckinDate">Checkin Date</option>
+            </select>
+            <label for="filter_value">Filter Value:</label>
+            <input type="text" name="filter_value" id="filter_value">
             <button type="submit">Apply Filter</button>
         </form>
 
@@ -81,14 +100,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if(mysqli_num_rows($result) > 0) {
             // Display transaction history in a table with the resultsTable class
             echo "<table class='resultsTable'>";
-            echo "<tr><th>ISBN</th><th>Title</th><th>Author</th><th>Format</th><th>Checkout Date</th><th>Return Date</th><th>Checkin Date</th></tr>";
+            echo "<tr><th>ItemID</th><th>ItemType</th><th>Title</th><th>Checkout Date</th><th>Return Date</th><th>Checkin Date</th></tr>";
             while($row = mysqli_fetch_assoc($result)) {
                 echo "<tr>";
-                echo "<td>{$row['ISBN']}</td>";
-                // Make the Title column a link to the book details page
-                echo "<td><a href='details_item.php?isbn={$row['ISBN']}'>{$row['Title']}</a></td>";
-                echo "<td>{$row['Author']}</td>";
-                echo "<td>{$row['Format']}</td>";
+                echo "<td>{$row['ItemID']}</td>";
+                echo "<td>{$row['ItemType']}</td>";
+                echo "<td>{$row['Title']}</td>";
                 echo "<td>{$row['CheckoutDate']}</td>";
                 echo "<td>{$row['ReturnDate']}</td>";
                 echo "<td>{$row['CheckinDate']}</td>";
@@ -102,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_close($con);
         ?>
         <!-- Add a link back to the home page -->
-        <p><a href="home.php">Back to Home</a></p>
+        <p><a href="account.php">Back</a></p>
     </div>
 </body>
 </html>

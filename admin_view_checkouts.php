@@ -12,8 +12,8 @@ if (!$con) {
     die('Could not connect: ' . mysqli_connect_error());
 }
 
-// Query to retrieve all holds
-$query = "SELECT * FROM holds";
+// Query to retrieve all checkouts
+$query = "SELECT ItemID, ItemType, UserID, UserType, CheckoutDate, ReturnDate, CheckInDate FROM checkouts";
 $result = mysqli_query($con, $query);
 
 ?>
@@ -23,37 +23,37 @@ $result = mysqli_query($con, $query);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Holds - Admin</title>
+    <title>View Checkouts - Admin</title>
     <link rel="stylesheet" href="styles/table.css"> <!-- Include your table.css file here -->
 </head>
 <body>
     <div class="homeContent">
-        <h2>View Holds - Admin</h2>
+        <h2>View Checkouts - Admin</h2>
         <table class="resultsTable">
             <tr>
-                <th>HoldID</th>
                 <th>ItemID</th>
                 <th>ItemType</th>
                 <th>UserID</th>
                 <th>UserType</th>
-                <th>HoldDate</th>
-                <th>Status</th>
+                <th>CheckoutDate</th>
+                <th>ReturnDate</th>
+                <th>CheckInDate</th>
             </tr>
             <?php
             if (mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "<tr>";
-                    echo "<td>" . $row['HoldID'] . "</td>";
                     echo "<td>" . $row['ItemID'] . "</td>";
                     echo "<td>" . $row['ItemType'] . "</td>";
                     echo "<td>" . $row['UserID'] . "</td>";
                     echo "<td>" . $row['UserType'] . "</td>";
-                    echo "<td>" . $row['HoldDate'] . "</td>";
-                    echo "<td>" . $row['Status'] . "</td>";
+                    echo "<td>" . $row['CheckoutDate'] . "</td>";
+                    echo "<td>" . $row['ReturnDate'] . "</td>";
+                    echo "<td>" . $row['CheckInDate'] . "</td>";
                     echo "</tr>";
                 }
             } else {
-                echo "<tr><td colspan='7'>No holds found.</td></tr>";
+                echo "<tr><td colspan='7'>No checkouts found.</td></tr>";
             }
             ?>
         </table>

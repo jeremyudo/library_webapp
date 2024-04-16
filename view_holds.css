@@ -24,10 +24,9 @@
   background-color: #ddd;
 }
 
-.title_holds{
+.title_holds {
   font-size: 30px;
 }
-
 
 /* Add this custom CSS */
 .homeContent {
@@ -38,18 +37,23 @@
 }
 
 form {
+  font-family: 'Courier New', Courier, monospace;
   margin-top: 20px;
-  text-align: center; /* Center the form */
 }
 
 form label {
+  padding: 5px;
   margin-right: 10px;
+  display: block; /* Display labels as block elements */
 }
 
 form input[type="text"] {
+  font-family: 'Courier New', Courier, monospace;
   padding: 8px;
   border-radius: 4px;
   border: 1px solid #ccc;
+  margin-top: 5px; /* Add space between input fields */
+  width: 20%; /* Make input fields fill the width */
 }
 
 form button[type="submit"] {
@@ -60,19 +64,16 @@ form button[type="submit"] {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  width: 100px;
-  position: relative;
-  top: -10px;
+  width: 130px;
+  margin-top: 10px; /* Add space between button and input fields */
 }
-
 
 form button[type="submit"]:hover {
   background-color: #45a049;
 }
 
 .homeContent p {
-  margin-top: 20px;
-  text-align: center; /* Center the paragraph */
+  margin-top: 20px; /* Center the paragraph */
 }
 
 .homeContent a {

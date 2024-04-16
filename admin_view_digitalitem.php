@@ -14,7 +14,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Staff</title>
+    <title>View Digital Items</title>
     <style>
         /* CSS for table styles */
         .resultsTable {
@@ -34,7 +34,7 @@
     </style>
 </head>
 <body>
-    <h2 style="margin-left:10rem; margin-top:5rem;">View Staff</h2> 
+    <h2 style="margin-left:10rem; margin-top:5rem;">View Digital Items</h2> 
 
     <?php
         // Database connection
@@ -43,43 +43,41 @@
             die('Could not connect: ' . mysqli_connect_error());
         }
 
-        // SQL query to retrieve all staff members
-        $sql = "SELECT * FROM staff";
+        // SQL query to retrieve digital items where isDeleted is false
+        $sql = "SELECT * FROM digitalitems WHERE isDeleted = false";
         $result = mysqli_query($con, $sql);
 
         if (mysqli_num_rows($result) > 0) {
             // Start table
             echo "<table class='resultsTable'>
                     <tr>
-                        <th>Staff ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Date of Birth</th>
-                        <th>Gender</th>
-                        <th>Address</th>
-                        <th>Contact Number</th>
-                        <th>Email Address</th>
-                        <th>Position</th>
-                        <th>Date Hired</th>
-                        <th>Status</th>
+                        <th>Digital ID</th>
+                        <th>Stock</th>
+                        <th>Title</th>
+                        <th>Author/Artist</th>
+                        <th>Format</th>
+                        <th>Publisher/Studio</th>
+                        <th>Publication Year</th>
+                        <th>Genre</th>
+                        <th>Language</th>
+                        <th>Cover Image</th>
                         <th>Created Date</th>
                         <th>Updated Date</th>
                     </tr>";
 
-            // Fetch and display each row of staff information
+            // Fetch and display each row of digital item information
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<tr>";
-                echo "<td>" . $row['StaffID'] . "</td>";
-                echo "<td>" . $row['FirstName'] . "</td>";
-                echo "<td>" . $row['LastName'] . "</td>";
-                echo "<td>" . $row['DateOfBirth'] . "</td>";
-                echo "<td>" . $row['Gender'] . "</td>";
-                echo "<td>" . $row['Address'] . "</td>";
-                echo "<td>" . $row['ContactNumber'] . "</td>";
-                echo "<td>" . $row['EmailAddress'] . "</td>";
-                echo "<td>" . $row['Position'] . "</td>";
-                echo "<td>" . $row['DateHired'] . "</td>";
-                echo "<td>" . $row['Status'] . "</td>";
+                echo "<td>" . $row['DigitalID'] . "</td>";
+                echo "<td>" . $row['Stock'] . "</td>";
+                echo "<td>" . $row['Title'] . "</td>";
+                echo "<td>" . $row['Author'] . "</td>";
+                echo "<td>" . $row['Format'] . "</td>";
+                echo "<td>" . $row['Publisher'] . "</td>";
+                echo "<td>" . $row['PublicationYear'] . "</td>";
+                echo "<td>" . $row['Genre'] . "</td>";
+                echo "<td>" . $row['Language'] . "</td>";
+                echo "<td>" . $row['CoverImage'] . "</td>";
                 echo "<td>" . $row['CreatedDate'] . "</td>";
                 echo "<td>" . $row['UpdatedDate'] . "</td>";
                 echo "</tr>";
@@ -87,11 +85,11 @@
 
             // End table
             echo "</table>";
-            echo "<button onclick=\"location.href='add_staff.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Add Staff</button>";
+            echo "<button onclick=\"location.href='add_digitalitem.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Add Digital Item</button>";
 
-            // Button to update staff information
-            echo "<button onclick=\"location.href='update_staff.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Update Staff</button>";
-            echo "<button onclick=\"location.href='delete_staff.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Delete Staff</button>";
+            // Button to update digital item information
+            echo "<button onclick=\"location.href='update_digitalitem.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Update Digital Item</button>";
+            echo "<button onclick=\"location.href='delete_digitalitem.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Delete Digital Item</button>";
         } else {
             echo "0 results";
         }

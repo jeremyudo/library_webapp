@@ -1,4 +1,5 @@
 <?php
+   include 'navbar.php';
    session_start();
    if (!isset($_SESSION['valid']) || $_SESSION['valid'] !== true) {
       header("Location: login.php");
@@ -20,16 +21,10 @@
     <div class="welcomeBox">
       <h1 class="welcome">Welcome to Our Library, <?php echo $_SESSION['FirstName'] . ' ' . $_SESSION['LastName']; ?></h1>
     </div>
-    <div class="accountTab">
-      <a href="account.php">
-      <div class="icon">
-        <img src="/images/icon.png" alt="Icon">
-      </div>
-      </a>
-    </div>
+    
   </div>
   <h1 class="searchText">Search for Resources</h1>
-  <form class="searchForm" method="get" action="book_search_results.php">
+  <form class="searchForm" method="get" action="search_results_items.php">
     <input type="text" name="searchTerm" placeholder="Search books, digital media, etc..." value="<?php echo isset($_GET['searchTerm']) ? $_GET['searchTerm'] : ''; ?>">
     <button type="submit">Search</button>
   </form>
@@ -93,7 +88,6 @@
 
   <div class="info">
     <h1 class="aboutHead">About</h1>
-    <div class="info-box">
     <p class="aboutText">Welcome to the University of Houston Library, your gateway to knowledge, innovation, and academic success. As an integral part of the esteemed University of Houston community, our library is dedicated to advancing scholarship, fostering creativity, and empowering individuals to excel in their academic and professional pursuits.
 
     With a rich history spanning decades, our library offers extensive collections covering a wide array of subjects, both in print and digital formats. Our expert librarians and staff are committed to promoting information literacy and lifelong learning, providing personalized assistance and access to cutting-edge technologies.
@@ -103,7 +97,6 @@
     Whether you're conducting research, seeking scholarly resources, or exploring new ideas, we invite you to discover the wealth of resources and opportunities available at the University of Houston Library. Join us on a journey of discovery, exploration, and lifelong learning as we shape the future of education and scholarship together.
 
     Welcome to your library.</p>
-    </div>
   </div>
 
 </div>
