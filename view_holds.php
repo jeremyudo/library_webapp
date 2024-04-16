@@ -15,8 +15,8 @@ if (!$con) {
 // Get the UserID of the logged-in student
 $userID = $_SESSION['StudentID'];
 
-// Query to retrieve holds placed by the logged-in student
-$query = "SELECT * FROM holds WHERE UserID = '$userID'";
+// Query to retrieve holds with a status of "pending" placed by the logged-in student
+$query = "SELECT * FROM holds WHERE UserID = '$userID' AND Status = 'pending'";
 $result = mysqli_query($con, $query);
 
 ?>
