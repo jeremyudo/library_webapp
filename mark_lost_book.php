@@ -42,7 +42,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!mysqli_query($con, $insert_lost_sql)) {
             die('Error marking item as lost: ' . mysqli_error($con));
         }
+        
+        // Update CheckinDate in checkouts table
+        $update_checkin_sql = "UPDATE checkouts SET CheckinDate = NOW() WHERE ItemID = '$itemID' AND UserID = '$studentID' AND CheckinDate IS NULL";
+        if (!mysqli_query($con, $update_checkin_sql)) {
+            die('Error updating CheckinDate: ' . mysqli_error($con));
+        }
+
         echo "Item marked as lost successfully.";
+        echo "<script>
+                setTimeout(function() {
+                    window.history.back();
+                }, 1000); // 1 second delay
+              </script>";
+        exit(); // Exit to prevent further output
     } else {
         echo "Error: Item not checked out by the current user.";
     }

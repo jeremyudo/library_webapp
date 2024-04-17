@@ -59,6 +59,13 @@
         button:hover {
             background-color: #45a049; /* Darker green on hover */
         }
+
+        /* Style for clickable links */
+        .clickable {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -99,7 +106,7 @@
             // Fetch and display each row of book information
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<tr>";
-                echo "<td>" . $row['ISBN'] . "</td>";
+                echo "<td><a class='clickable' href='admin_view_book_report.php?isbn=" . $row['ISBN'] . "'>" . $row['ISBN'] . "</a></td>";
                 echo "<td>" . $row['Title'] . "</td>";
                 echo "<td>" . $row['Author'] . "</td>";
                 echo "<td>" . $row['Publisher'] . "</td>";

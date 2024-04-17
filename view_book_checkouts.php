@@ -58,6 +58,7 @@ $result = mysqli_query($con, $query);
 if (!$result) {
     die('Error executing query: ' . mysqli_error($con));
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -88,19 +89,28 @@ if (!$result) {
     </form>
 
     <?php
-    if(mysqli_num_rows($result) > 0) {
+    // Check if $result is valid before using mysqli_num_rows()
+    if ($result && mysqli_num_rows($result) > 0) {
         // Display checkout records in a table with the resultsTable class
         echo "<table class='resultsTable'>";
         echo "<tr><th>ItemID</th><th>Title</th><th>Checkout Date</th><th>Due Date</th></tr>";
-        while($row = mysqli_fetch_assoc($result)) {
+        while ($row = mysqli_fetch_assoc($result)) {
             echo "<tr>";
-            echo "<td>{$row['ItemID']}</td>";
+            // Wrap ItemID in an anchor tag with link to item details page
+            echo "<td><a href='details_book.php?isbn={$row['ItemID']}'>{$row['ItemID']}</a></td>";
             echo "<td>{$row['Title']}</td>";
             echo "<td>{$row['CheckoutDate']}</td>";
             echo "<td>{$row['ReturnDate']}</td>";
             echo "</tr>";
         }
         echo "</table>";
+
+        // Form to mark an item as lost
+        echo "<form method='post' action='mark_lost_book.php'>";
+        echo "<label for='isbn'>Lost a Book? Enter ISBN:</label>";
+        echo "<input type='text' id='itemID' name='itemID'>";
+        echo "<button type='submit'>Mark as Lost</button>";
+        echo "</form>";
     } else {
         echo "<p>No books currently checked out.</p>";
     }

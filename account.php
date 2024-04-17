@@ -26,6 +26,8 @@ if (!isset($_SESSION['valid']) || $_SESSION['valid'] !== true) {
   <p><a href="view_digitalitem_checkouts.php">View Digital Item Checkouts</a></p>
   <p><a href="view_holds.php">View Holds</a></p>
   <p><a href="history.php">History</a></p>
+  <p><a href="view_transactions.php">Transactions</a></p>
+  <p><a href="view_fines.php">->>>FINES<---</a></p>
 
   <!-- New Notifications link -->
 </div>

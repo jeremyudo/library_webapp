@@ -114,26 +114,32 @@ form button:last-child {
           echo "<tr><td>Genre:</td><td>{$row['Genre']}</td></tr>";
           echo "</table>";
           
-          // Add a form for checking out the book
-          echo "<form action='checkout_book.php' method='post'>";
+          // Add a form for checking in or checking out the book
+          echo "<form method='post'>";
           echo "<input type='hidden' name='isbn' value='{$row['ISBN']}'>";
-          echo "<button type='submit' name='operation' value='check-out'>Check Out</button>";
+          
+          // Check if the book is checked out by the student
+          $queryCheckOut = "SELECT * FROM checkouts WHERE ItemID = '$isbn' AND UserID = '{$_SESSION['StudentID']}' AND CheckinDate IS NULL";
+          $resultCheckOut = mysqli_query($con, $queryCheckOut);
+          
+          if(mysqli_num_rows($resultCheckOut) > 0) {
+              // If the book is checked out by the student, show the check-in button
+              echo "<button formaction='checkin_book.php' type='submit' name='operation' value='check-in'>Check In</button>";
+          } else {
+              // If the book is not checked out by the student, show the check-out button
+              echo "<button formaction='checkout_book.php' type='submit' name='operation' value='check-out'>Check Out</button>";
+          }
+          
           echo "</form>";
           
-          // Check if available count is less than stock count
-          if ($row['Available'] < $row['Stock']) {
-              // Add a form for checking in the book
-              echo "<form action='checkin_book.php' method='post'>";
-              echo "<input type='hidden' name='isbn' value='{$row['ISBN']}'>";
-              echo "<button type='submit' name='operation' value='check-in'>Check In</button>";
-              echo "</form>";
-          } // No else condition needed here, as we don't want to display any message if available is equal to stock
-
           // Add a form for putting the book on hold
-            echo "<form action='hold_book.php' method='post'>";
-            echo "<input type='hidden' name='isbn' value='{$row['ISBN']}'>";
-            echo "<button type='submit' name='operation' value='hold'>Hold</button>";
-            echo "</form>";
+          if ($row['Available'] == 0) {
+              echo "<form action='hold_book.php' method='post'>";
+              echo "<input type='hidden' name='isbn' value='{$row['ISBN']}'>";
+              echo "<button type='submit' name='operation' value='hold'>Hold</button>";
+              echo "</form>";
+          }
+          
       } else {
           echo "<p>No book details found for the provided ISBN.</p>";
       }

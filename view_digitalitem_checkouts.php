@@ -94,7 +94,7 @@ if (!$result) {
         echo "<tr><th>ItemID</th><th>Title</th><th>Checkout Date</th><th>Due Date</th></tr>";
         while($row = mysqli_fetch_assoc($result)) {
             echo "<tr>";
-            echo "<td>{$row['ItemID']}</td>";
+            echo "<td><a href='details_digitalitem.php?digitalid={$row['ItemID']}'>{$row['ItemID']}</a></td>";
             echo "<td>{$row['Title']}</td>";
             echo "<td>{$row['CheckoutDate']}</td>";
             echo "<td>{$row['ReturnDate']}</td>";

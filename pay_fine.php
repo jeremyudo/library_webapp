@@ -40,6 +40,22 @@ if (isset($_GET['fine_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pay Fine</title>
     <link rel="stylesheet" href="view_holds.css"> <!-- Include your CSS file here -->
+    <script>
+    // Function to format credit card number input with dashes every four digits
+    function formatCreditCardNumber(input) {
+        // Remove any existing dashes and non-numeric characters
+        var value = input.value.replace(/\D/g, '');
+        // Add dash after every four digits
+        value = value.replace(/(\d{4})(?=\d)/g, '$1-');
+        // Update input value
+        input.value = value;
+    }
+    
+    // Function to remove dashes from credit card number input
+    function removeDashes(input) {
+        input.value = input.value.replace(/-/g, ''); // Remove all dashes
+    }
+    </script>
 </head>
 <body>
     <div class="homeContent">
@@ -73,12 +89,12 @@ if (isset($_GET['fine_id'])) {
         </table>
 
         <!-- Credit Card Payment Form -->
-        <form action="process_payment.php?fine_id=<?php echo $fineID; ?>" method="post"> <!-- Pass Fine ID in the URL -->
+        <form action="process_payment.php?fine_id=<?php echo $fineID; ?>" method="post" onsubmit="removeDashes(this.elements['credit_card_number']);"> <!-- Pass Fine ID in the URL -->
             <label for="credit_card_number">Credit Card Number:</label>
-            <input type="number" id="credit_card_number" name="credit_card_number" pattern="\d{4}-\d{4}-\d{4}-\d{4}" placeholder="XXXX-XXXX-XXXX-XXXX" value="<?php echo isset($_POST['credit_card_number']) ? $_POST['credit_card_number'] : 'XXXX-XXXX-XXXX-XXXX'; ?>" required><br><br>
+            <input type="text" id="credit_card_number" name="credit_card_number" pattern="\d{4}-\d{4}-\d{4}-\d{4}" placeholder="XXXX-XXXX-XXXX-XXXX" onchange="formatCreditCardNumber(this)" required><br><br>
 
             <label for="cvv">CVV:</label>
-            <input type="number" id="cvv" name="cvv" maxlength="3" value="<?php echo isset($_POST['cvv']) ? $_POST['cvv'] : 'XXX'; ?>" placeholder="XXX"required><br><br>
+            <input type="number" id="cvv" name="cvv" maxlength="3" value="<?php echo isset($_POST['cvv']) ? $_POST['cvv'] : ''; ?>" placeholder="XXX" required><br><br>
 
             <label for="exp_date">Expiration Date:</label>
             <input type="date" id="exp_date" name="exp_date" required><br><br>
@@ -91,7 +107,6 @@ if (isset($_GET['fine_id'])) {
     </div>
 </body>
 </html>
-
 
 <?php
 mysqli_close($con);

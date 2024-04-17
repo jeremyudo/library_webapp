@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <div class="homeContent">
-        <h2 class="title_holds">View Holds - Admin</h2>
+        <h2 class="title_holds">View Holds</h2>
 
         <!-- Filter form -->
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">

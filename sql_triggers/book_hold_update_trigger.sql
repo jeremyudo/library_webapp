@@ -1,23 +1,24 @@
 DELIMITER //
 
-CREATE TRIGGER after_lostitem_update
-AFTER UPDATE ON lostitems
-FOR EACH ROW
+CREATE TRIGGER after_books_available_update AFTER UPDATE ON books FOR EACH ROW 
 BEGIN
-    DECLARE user_id BIGINT;
-    DECLARE notification_type ENUM('LostItem');
-    DECLARE message VARCHAR(255);
+    DECLARE hold_id INT;
+    DECLARE user_id INT;
+    DECLARE notification_type ENUM('Holds', 'Events');
 
-    SELECT UserID INTO user_id
-    FROM lostitems
-    ORDER BY LostID ASC
-    LIMIT 1;
+    IF NEW.available > 0 THEN
+        SELECT HoldID, UserID INTO hold_id, user_id 
+        FROM holds 
+        WHERE ItemID = NEW.ISBN AND Status = 'pending'
+        ORDER BY HoldID ASC
+        LIMIT 1;
 
-    SET message = CONCAT(user_id, ' marked item ', NEW.ItemID, ' as lost and will be charged a $', NEW.Fine, ' fee');
+        IF hold_id IS NOT NULL THEN
+            SET notification_type = 'Holds';
 
-    IF user_id IS NOT NULL THEN
-        INSERT INTO staff_notifications (ItemID, NotificationType, Message, UserID, MarkedAsRead, TimeStamp)
-        VALUES (NEW.ItemID, 'LostItem', message, user_id, FALSE, CURRENT_TIMESTAMP);
+            INSERT INTO notifications (UserID, Message, NotificationType, ItemID)
+            VALUES (user_id, CONCAT('You are first in line on the holds list and the book with ISBN ', NEW.ISBN, ' is now available to checkout.'), notification_type, NEW.ISBN);
+        END IF;
     END IF;
 END //
 

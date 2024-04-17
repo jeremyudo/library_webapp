@@ -96,7 +96,7 @@
             // Fetch and display each row of digital item information
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<tr>";
-                echo "<td>" . $row['DigitalID'] . "</td>";
+                echo "<td><a href='admin_view_digitalitem_report.php?digitalid=" . $row['DigitalID'] . "'>" . $row['DigitalID'] . "</a></td>";
                 echo "<td>" . $row['Stock'] . "</td>";
                 echo "<td>" . $row['Title'] . "</td>";
                 echo "<td>" . $row['Author'] . "</td>";

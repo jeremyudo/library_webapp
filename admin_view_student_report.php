@@ -17,20 +17,115 @@
     <title>View Student Report</title>
     <style>
         /* CSS for table styles */
-        .resultsTable {
-            border-collapse: collapse; /* Collapse borders to avoid double borders */
-            width: 100%; /* Full width */
-        }
+        /* Add this to table.css */
+.resultsTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.resultsTable th,
+.resultsTable td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.resultsTable th {
+  background-color: #f2f2f2;
+}
+
+.resultsTable tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.resultsTable tr:hover {
+  background-color: #ddd;
+}
+
+.title_holds {
+  font-size: 30px;
+}
+
+/* Add this custom CSS */
+.homeContent {
+  font-family: 'Courier New', Courier, monospace;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+form {
+  font-family: 'Courier New', Courier, monospace;
+  margin-top: 20px;
+}
+
+form label {
+  padding: 5px;
+  margin-right: 10px;
+  display: block; /* Display labels as block elements */
+}
+
+form input[type="text"] {
+  font-family: 'Courier New', Courier, monospace;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-top: 5px; /* Add space between input fields */
+  width: 20%; /* Make input fields fill the width */
+}
+
+form button[type="submit"] {
+  font-family: 'Courier New', Courier, monospace;
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 130px;
+  margin-top: 10px; /* Add space between button and input fields */
+}
+
+form button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.homeContent p {
+  margin-top: 20px; /* Center the paragraph */
+}
+
+.homeContent a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.homeContent a:hover {
+  text-decoration: underline;
+}
+
+/* Add this custom CSS */
+.creditCardDetails {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.creditCardDetails label {
+  padding: 5px;
+  margin-right: 10px;
+  display: block; /* Display labels as block elements */
+}
+
+.creditCardDetails input[type="number"],
+.creditCardDetails input[type="date"] {
+  font-family: 'Courier New', Courier, monospace;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-top: 5px; /* Add space between input fields */
+  width: 20%; /* Make input fields fill the width */
+}
+
         
-        .resultsTable th, .resultsTable td {
-            border: 1px solid black; /* Add black borders to cells */
-            padding: 8px; /* Add some padding for better spacing */
-            text-align: left; /* Align text to the left */
-        }
-        
-        .resultsTable th {
-            background-color: #f2f2f2; /* Light gray background color for header cells */
-        }
     </style>
 </head>
 <body>
@@ -68,6 +163,14 @@
         // SQL query to retrieve hold records for the student
         $sql_hold = "SELECT * FROM holds WHERE UserID = '$studentID'";
         $result_hold = mysqli_query($con, $sql_hold);
+
+        // SQL query to retrieve fines for the student
+        $sql_fines = "SELECT * FROM fines WHERE UserID = '$studentID'";
+        $result_fines = mysqli_query($con, $sql_fines);
+
+        // SQL query to retrieve lost items for the student
+        $sql_lost_items = "SELECT * FROM lostitems WHERE UserID = '$studentID'";
+        $result_lost_items = mysqli_query($con, $sql_lost_items);
 
         // Display checkout records
         if (mysqli_num_rows($result_checkout) > 0) {
@@ -135,6 +238,70 @@
             echo "</table>";
         } else {
             echo "<p>No hold records found.</p>";
+        }
+
+        // Display lost items
+        if (mysqli_num_rows($result_lost_items) > 0) {
+            // Start table for lost items
+            echo "<h3>Lost Items</h3>";
+            echo "<table class='resultsTable'>
+                    <tr>
+                        <th>LostItemID</th>
+                        <th>ItemID</th>
+                        <th>ItemType</th>
+                        <th>UserID</th>
+                        <th>UserType</th>
+                        <th>LostDate</th>
+                        <th>Status</th>
+                    </tr>";
+
+            // Fetch and display each row of lost items
+            while ($row_lost_item = mysqli_fetch_assoc($result_lost_items)) {
+                echo "<tr>";
+                echo "<td>" . $row_lost_item['LostID'] . "</td>";
+                echo "<td>" . $row_lost_item['ItemID'] . "</td>";
+                echo "<td>" . $row_lost_item['ItemType'] . "</td>";
+                echo "<td>" . $row_lost_item['UserID'] . "</td>";
+                echo "<td>" . $row_lost_item['UserType'] . "</td>";
+                echo "<td>" . $row_lost_item['LostDate'] . "</td>";
+                echo "<td>" . $row_lost_item['Fine'] . "</td>";
+                echo "</tr>";
+            }
+
+            // End table for lost items
+            echo "</table>";
+        } else {
+            echo "<p>No lost items found.</p>";
+        }
+
+        // Display fines
+        if (mysqli_num_rows($result_fines) > 0) {
+            // Start table for fines
+            echo "<h3>Fines</h3>";
+            echo "<table class='resultsTable'>
+                    <tr>
+                        <th>FineID</th>
+                        <th>UserID</th>
+                        <th>Amount</th>
+                        <th>FineDate</th>
+                        <th>Status</th>
+                    </tr>";
+
+            // Fetch and display each row of fines
+            while ($row_fine = mysqli_fetch_assoc($result_fines)) {
+                echo "<tr>";
+                echo "<td>" . $row_fine['FineID'] . "</td>";
+                echo "<td>" . $row_fine['UserID'] . "</td>";
+                echo "<td>" . $row_fine['FineAmount'] . "</td>";
+                echo "<td>" . $row_fine['FineDate'] . "</td>";
+                echo "<td>" . $row_fine['Status'] . "</td>";
+                echo "</tr>";
+            }
+
+            // End table for fines
+            echo "</table>";
+        } else {
+            echo "<p>No fines found.</p>";
         }
 
         // Close connection
