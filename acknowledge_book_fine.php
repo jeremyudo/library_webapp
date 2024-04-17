@@ -34,7 +34,7 @@ $insertFineSQL = "INSERT INTO fines (ItemID, ItemType, UserID, UserType, FineAmo
                   VALUES ('$itemID', '$notificationType', '$userID', '$userType', '$fineAmount', '$fineDate', '$status')";
 if (mysqli_query($con, $insertFineSQL)) {
     // Update the staff_notifications table
-    $staffID = $_SESSION['StaffID']; // Assuming you have a session variable for StaffID
+    $staffID = $_SESSION['StudentID']; // Assuming you have a session variable for StaffID
     $updateNotificationSQL = "UPDATE staff_notifications SET MarkedAsRead = true, CompletedBy = '$staffID' WHERE NotificationID = $notificationID";
     if (mysqli_query($con, $updateNotificationSQL)) {
         echo "Fine added successfully.";
