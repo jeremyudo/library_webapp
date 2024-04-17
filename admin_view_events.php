@@ -107,7 +107,7 @@ a:hover {
   mysqli_close($con);
   ?>
   <!-- Add a link back to the home page -->
-  <p><a href="home.php">Back to Home</a></p>
+  <p><a href="admin_home.php">Back</a></p>
 </div>
 </body>
 </html>

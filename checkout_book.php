@@ -42,7 +42,7 @@ if(isset($_SESSION['StudentID']) && !empty($_SESSION['StudentID'])) {
                 
                 if($available > 0 && $available <= $stock) {
                     // Insert the checkout record into the checkouts table
-                    $queryInsert = "INSERT INTO checkouts (ItemID, UserID, CheckoutDate, ReturnDate) VALUES ('$isbn', '$studentId', '$checkoutDate', '$returnDate')";
+                    $queryInsert = "INSERT INTO checkouts (ItemID, ItemType, UserID, CheckoutDate, ReturnDate) VALUES ('$isbn', 'Book','$studentId', '$checkoutDate', '$returnDate')";
                     $resultInsert = mysqli_query($con, $queryInsert);
                     
                     if($resultInsert) {

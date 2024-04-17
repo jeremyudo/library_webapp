@@ -48,10 +48,6 @@
       ?>
     </div>
   </div>
-  
-  <div class="logout">
-    <a class="logoutText" href="logout.php">Logout</a>
-  </div>
 
   <div class="featuredResources">
     <h2 class="featuredResourcesTitle">Featured Resources</h2>

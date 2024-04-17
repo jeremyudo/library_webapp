@@ -21,51 +21,42 @@ function sanitize_input($data) {
     return $data;
 }
 
+// Get the current user's UserID
+$studentId = $_SESSION['StudentID'];
+
+// Build the SQL query to retrieve both books and digital items
+$query = "SELECT checkouts.ItemID, checkouts.ItemType, 
+          CASE
+              WHEN checkouts.ItemType = 'Book' THEN books.Title
+              WHEN checkouts.ItemType = 'Digital Item' THEN digitalitems.Title
+          END AS Title,
+          checkouts.CheckoutDate, checkouts.ReturnDate, checkouts.CheckinDate
+          FROM checkouts 
+          INNER JOIN students ON students.StudentID = checkouts.UserID 
+          LEFT JOIN books ON books.ISBN = checkouts.ItemID AND checkouts.ItemType = 'Book'
+          LEFT JOIN digitalitems ON digitalitems.DigitalID = checkouts.ItemID AND checkouts.ItemType = 'Digital Item'
+          WHERE checkouts.UserID = '$studentId'";
+
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve and sanitize filter criteria
     $filter_by = sanitize_input($_POST['filter_by']);
     $filter_value = sanitize_input($_POST['filter_value']);
 
-    // Get the current user's UserID
-    $studentId = $_SESSION['StudentID'];
-
-    // Build the SQL query with dynamic filtering
-    $query = "SELECT checkouts.ItemID, checkouts.ItemType, books.Title, checkouts.CheckoutDate, checkouts.ReturnDate, checkouts.CheckinDate
-              FROM checkouts 
-              INNER JOIN students ON students.StudentID = checkouts.UserID 
-              INNER JOIN books ON books.ISBN = checkouts.ItemID 
-              WHERE checkouts.UserID = '$studentId'";
-
     // Apply filters if they are provided
     if (!empty($filter_by) && !empty($filter_value)) {
         // Validate filter attribute to prevent SQL injection
-        $allowed_filters = ['Title', 'Author', 'ItemType', 'CheckoutDate', 'ReturnDate', 'CheckinDate']; // Add more filter options as needed
+        $allowed_filters = ['Title', 'ItemType', 'CheckoutDate', 'ReturnDate', 'CheckinDate'];
         if (in_array($filter_by, $allowed_filters)) {
-            if ($filter_by == 'Title' || $filter_by == 'Author') {
-                $query .= " AND books.$filter_by LIKE '%$filter_value%'";
-            } else {
-                $query .= " AND checkouts.$filter_by = '$filter_value'";
-            }
+            $query .= " AND $filter_by LIKE '%$filter_value%'";
         } else {
             echo "Invalid filter attribute.";
             exit;
         }
     }
-
-    $result = mysqli_query($con, $query);
-} else {
-    // If form is not submitted, retrieve all transaction history without filtering
-
-    // Get the current user's UserID
-    $studentId = $_SESSION['StudentID'];
-    $query = "SELECT checkouts.ItemID, checkouts.ItemType, books.Title, checkouts.CheckoutDate, checkouts.ReturnDate, checkouts.CheckinDate
-              FROM checkouts 
-              INNER JOIN students ON students.StudentID = checkouts.UserID 
-              INNER JOIN books ON books.ISBN = checkouts.ItemID 
-              WHERE checkouts.UserID = '$studentId'";
-    $result = mysqli_query($con, $query);
 }
+
+$result = mysqli_query($con, $query);
 ?>
 
 <!DOCTYPE html>

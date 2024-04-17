@@ -27,25 +27,27 @@ nav li a {
 
 .homeLink{
   position: relative;
-  left: 140px;
+  left: -20px;
   font-size: 18px;
 }
 
 .servicesLink{
   position: relative;
-  left: 120px;
+  left: -40px;
 }
 
 .contactLink{
   position: relative;
-  left: 100px;
+  left: -60px;
   
 }
 
 .loginIn{
   position: relative;
-  left: 60px;
-  top: -10px
+  left: 0px;
+  top: -11px;
+  height: 50px;
+  width: 50px;
 }
 
 nav li a:hover {
@@ -53,12 +55,35 @@ nav li a:hover {
   color: rgb(53, 147, 255);
 }
 
-.accountTab {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 20px;
+.icon img {
+  width: 90%;
+  height: 90%;
 }
 
-.icon img {
-  width: 18%;
-  height: 18%;
+.logoutTab {
+  font-family: 'Courier New', Courier, monospace;
+  height: 50px;
+  width: 50px;
+}
+
+.logoTab {
+  font-family: 'Courier New', Courier, monospace;
+  height: 80px;
+  width: 80px;
+}
+
+.logoTab img{
+  position: relative;
+  left: -1020px;
+  top: -5px;
+  width: 100%;
+  height: 100%;
+}
+
+.logoutIcon img {
+  position: relative;
+  left: 0px;
+  top: -10px;
+  width: 80%;
+  height: 80%;
 }
