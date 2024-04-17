@@ -16,6 +16,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Digital Items</title>
     <style>
+        form{
+            margin-left: 2rem;
+        }
+
         body {
             font-family: 'Courier New', Courier, monospace; /* Applying Courier New font throughout the page */
             background-color: #f4f4f4; /* Light grey background for better contrast */
@@ -59,10 +63,29 @@
         button:hover {
             background-color: #45a049; /* Darker green on hover */
         }
+
+        p{
+            margin-left: 2rem;
+        }
     </style>
+
 </head>
 <body>
     <h2 style="margin-left:10rem; margin-top:5rem;">View Digital Items</h2> 
+
+    <!-- Filter Form -->
+    <form method="get">
+        <label for="filterBy">Filter By:</label>
+        <select name="filterBy" id="filterBy">
+            <option value="Title">Title</option>
+            <option value="Author">Author/Artist</option>
+            <option value="Format">Format</option>
+            <option value="Publisher">Publisher/Studio</option>
+            <!-- Add more options for other fields if needed -->
+        </select>
+        <input type="text" name="filterValue" placeholder="Filter Value">
+        <button type="submit">Apply Filter</button>
+    </form>
 
     <?php
         // Database connection
@@ -71,8 +94,17 @@
             die('Could not connect: ' . mysqli_connect_error());
         }
 
-        // SQL query to retrieve digital items where isDeleted is false
+        // Prepare SQL query
         $sql = "SELECT * FROM digitalitems WHERE isDeleted = false";
+
+        // Check if filter is provided
+        if (isset($_GET['filterBy']) && isset($_GET['filterValue'])) {
+            $filterBy = mysqli_real_escape_string($con, $_GET['filterBy']);
+            $filterValue = mysqli_real_escape_string($con, $_GET['filterValue']);
+            $sql .= " AND $filterBy LIKE '%$filterValue%'";
+        }
+
+        // Execute SQL query
         $result = mysqli_query($con, $sql);
 
         if (mysqli_num_rows($result) > 0) {
@@ -114,8 +146,6 @@
             // End table
             echo "</table>";
             echo "<button onclick=\"location.href='add_digitalitem.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Add Digital Item</button>";
-
-            // Button to update digital item information
             echo "<button onclick=\"location.href='update_digitalitem.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Update Digital Item</button>";
             echo "<button onclick=\"location.href='delete_digitalitem.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Delete Digital Item</button>";
         } else {
@@ -125,5 +155,6 @@
         // Close connection
         mysqli_close($con);
     ?>
+    <p><a href="admin_home.php">Back</a></p>
 </body>
 </html>

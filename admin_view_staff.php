@@ -52,9 +52,23 @@
             background-color: #45a049; /* Slightly darker green background on hover */
         }
     </style>
+
 </head>
 <body>
     <h2 style="margin-left:10rem; margin-top:5rem;">View Staff</h2> 
+
+    <!-- Filter Form -->
+    <form method="get">
+        <label for="filterBy">Filter By:</label>
+        <select name="filterBy" id="filterBy">
+            <option value="Status">Status</option>
+            <option value="StaffID">Staff ID</option>
+            <option value="FirstName">First Name</option>
+            <!-- Add more options for other fields if needed -->
+        </select>
+        <input type="text" name="filterValue" placeholder="Filter Value">
+        <button type="submit">Apply Filter</button>
+    </form>
 
     <?php
         // Database connection
@@ -63,8 +77,17 @@
             die('Could not connect: ' . mysqli_connect_error());
         }
 
-        // SQL query to retrieve active staff members
+        // Prepare SQL query
         $sql = "SELECT * FROM staff WHERE Status = 'Active'";
+        
+        // Check if filter is provided
+        if (isset($_GET['filterBy']) && isset($_GET['filterValue'])) {
+            $filterBy = mysqli_real_escape_string($con, $_GET['filterBy']);
+            $filterValue = mysqli_real_escape_string($con, $_GET['filterValue']);
+            $sql .= " AND $filterBy = '$filterValue'";
+        }
+
+        // Execute SQL query
         $result = mysqli_query($con, $sql);
 
         if (mysqli_num_rows($result) > 0) {
@@ -117,5 +140,6 @@
         // Close connection
         mysqli_close($con);
     ?>
+    <p><a href="admin_home.php">Back</a></p>
 </body>
 </html>

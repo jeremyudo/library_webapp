@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Students</title>
-    <link rel="stylesheet" href="styles/table.css"> <!-- Assuming you have a common CSS for tables -->
     <style>
         body {
             font-family: 'Courier New', Courier, monospace; /* Standard font */
@@ -54,66 +53,99 @@
             cursor: pointer; /* Pointer cursor on hover */
         }
     </style>
+
 </head>
 <body>
     <div class="container">
-        <h2>View Students</h2> 
+        <h2>View Students</h2>
+
+        <!-- Filter Form -->
+        <form method="get">
+            <label for="filterBy">Filter By:</label>
+            <select name="filterBy" id="filterBy">
+                <option value="Status">Status</option>
+                <option value="StudentID">StudentID</option>
+                <option value="FirstName">First Name</option>
+                <option value="Gender">Gender</option>
+                <option value="GradeYearLevel">Grade Year Level</option>
+            </select>
+            <input type="text" name="filterValue" placeholder="Filter Value">
+            <button type="submit">Apply Filter</button>
+        </form>
 
         <?php
-            // Database connection
-            $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
-            if (!$con) {
-                die('Could not connect: ' . mysqli_connect_error());
+    // Database connection
+    $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
+    if (!$con) {
+        die('Could not connect: ' . mysqli_connect_error());
+    }
+
+    // Prepare SQL query
+    $sql = "SELECT * FROM students";
+    
+    // Check if filter is provided
+    if (isset($_GET['filterBy']) && isset($_GET['filterValue'])) {
+        $filterBy = mysqli_real_escape_string($con, $_GET['filterBy']);
+        $filterValue = mysqli_real_escape_string($con, $_GET['filterValue']);
+        $sql .= " WHERE $filterBy = '$filterValue'";
+    }
+
+    // Execute SQL query
+    $result = mysqli_query($con, $sql);
+
+    if ($result) {
+        if (mysqli_num_rows($result) > 0) {
+            // Output table header
+            echo "<table class='resultsTable'>";
+            echo "<tr>
+                    <th>Student ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Date of Birth</th>
+                    <th>Gender</th>
+                    <th>Address</th>
+                    <th>Contact Number</th>
+                    <th>Email Address</th>
+                    <th>Grade Year Level</th>
+                    <th>Status</th>
+                    <th>Created Date</th>
+                    <th>Updated Date</th>
+                  </tr>";
+
+            // Output table rows
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo "<tr>";
+                echo "<td><a href='admin_view_student_report.php?student_id={$row['StudentID']}'>" . $row['StudentID'] . "</a></td>";
+                echo "<td>" . $row['FirstName'] . "</td>";
+                echo "<td>" . $row['LastName'] . "</td>";
+                echo "<td>" . $row['DateOfBirth'] . "</td>";
+                echo "<td>" . $row['Gender'] . "</td>";
+                echo "<td>" . $row['Address'] . "</td>";
+                echo "<td>" . $row['ContactNumber'] . "</td>";
+                echo "<td>" . $row['EmailAddress'] . "</td>";
+                echo "<td>" . $row['GradeYearLevel'] . "</td>";
+                echo "<td>" . $row['Status'] . "</td>";
+                echo "<td>" . $row['CreatedDate'] . "</td>";
+                echo "<td>" . $row['UpdatedDate'] . "</td>";
+                echo "</tr>";
             }
+            echo "</table>";
 
-            // SQL query to retrieve enrolled students
-            $sql = "SELECT * FROM students WHERE Status = 'Enrolled'";
-            $result = mysqli_query($con, $sql);
+            // Add buttons
+            echo "<button onclick=\"location.href='add_student.php'\">Add Student</button>";
+            echo "<button onclick=\"location.href='update_student.php'\">Update Student</button>";
+            echo "<button onclick=\"location.href='delete_student.php'\">Delete Student</button>";
+        } else {
+            echo "No students found.";
+        }
+    } else {
+        echo "Error executing SQL query: " . mysqli_error($con);
+    }
 
-            if (mysqli_num_rows($result) > 0) {
-                echo "<table class='resultsTable'>";
-                echo "<tr>
-                        <th>Student ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Date of Birth</th>
-                        <th>Gender</th>
-                        <th>Address</th>
-                        <th>Contact Number</th>
-                        <th>Email Address</th>
-                        <th>Grade Year Level</th>
-                        <th>Status</th>
-                        <th>Created Date</th>
-                        <th>Updated Date</th>
-                      </tr>";
-
-                while ($row = mysqli_fetch_assoc($result)) {
-                    echo "<tr>";
-                    echo "<td><a href='admin_view_student_report.php?student_id={$row['StudentID']}'>" . $row['StudentID'] . "</a></td>";
-                    echo "<td>" . $row['FirstName'] . "</td>";
-                    echo "<td>" . $row['LastName'] . "</td>";
-                    echo "<td>" . $row['DateOfBirth'] . "</td>";
-                    echo "<td>" . $row['Gender'] . "</td>";
-                    echo "<td>" . $row['Address'] . "</td>";
-                    echo "<td>" . $row['ContactNumber'] . "</td>";
-                    echo "<td>" . $row['EmailAddress'] . "</td>";
-                    echo "<td>" . $row['GradeYearLevel'] . "</td>";
-                    echo "<td>" . $row['Status'] . "</td>";
-                    echo "<td>" . $row['CreatedDate'] . "</td>";
-                    echo "<td>" . $row['UpdatedDate'] . "</td>";
-                    echo "</tr>";
-                }
-                echo "</table>";
-
-                echo "<button onclick=\"location.href='add_student.php'\">Add Student</button>";
-                echo "<button onclick=\"location.href='update_student.php'\">Update Student</button>";
-                echo "<button onclick=\"location.href='delete_student.php'\">Delete Student</button>";
-            } else {
-                echo "No enrolled students found.";
-            }
-
-            mysqli_close($con);
-        ?>
+    // Close connection
+    mysqli_close($con);
+?>
+    <p><a href="admin_home.php">Back</a></p>
     </div>
 </body>
 </html>

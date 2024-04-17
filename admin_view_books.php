@@ -16,6 +16,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Books</title>
     <style>
+        form{
+            margin-left: 2rem;
+        }
         body {
             font-family: 'Courier New', Courier, monospace; /* Applying Courier New font throughout the page */
             background-color: #f4f4f4; /* Light grey background for better contrast */
@@ -66,10 +69,29 @@
             color: blue;
             text-decoration: underline;
         }
+
+        p{
+            margin-left: 2rem;
+        }
     </style>
+
 </head>
 <body>
     <h2 style="margin-left:10rem; margin-top:5rem;">View Books</h2> 
+
+    <!-- Filter Form -->
+    <form method="get">
+        <label for="filterBy">Filter By:</label>
+        <select name="filterBy" id="filterBy">
+            <option value="Title">Title</option>
+            <option value="Author">Author</option>
+            <option value="Genre">Genre</option>
+            <option value="Language">Language</option>
+            <!-- Add more options for other fields if needed -->
+        </select>
+        <input type="text" name="filterValue" placeholder="Filter Value">
+        <button type="submit">Apply Filter</button>
+    </form>
 
     <?php
         // Database connection
@@ -78,8 +100,17 @@
             die('Could not connect: ' . mysqli_connect_error());
         }
 
-        // SQL query to retrieve all books
+        // Prepare SQL query
         $sql = "SELECT * FROM books";
+
+        // Check if filter is provided
+        if (isset($_GET['filterBy']) && isset($_GET['filterValue'])) {
+            $filterBy = mysqli_real_escape_string($con, $_GET['filterBy']);
+            $filterValue = mysqli_real_escape_string($con, $_GET['filterValue']);
+            $sql .= " WHERE $filterBy LIKE '%$filterValue%'";
+        }
+
+        // Execute SQL query
         $result = mysqli_query($con, $sql);
 
         if (mysqli_num_rows($result) > 0) {
@@ -127,8 +158,6 @@
             // End table
             echo "</table>";
             echo "<button onclick=\"location.href='add_book.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Add Book</button>";
-
-            // Button to update book information
             echo "<button onclick=\"location.href='update_book.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Update Book</button>";
             echo "<button onclick=\"location.href='delete_book.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Delete Book</button>";
         } else {
@@ -138,5 +167,6 @@
         // Close connection
         mysqli_close($con);
     ?>
+    <p><a href="admin_home.php">Back</a></p>
 </body>
 </html>
