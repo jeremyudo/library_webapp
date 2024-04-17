@@ -52,7 +52,7 @@
    <br/><br/>
    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
       <div>
-         <label for="Username">Username:</label>
+         <label for="Username">Staff ID:</label>
          <input type="text" name="Username" id="Username">
       </div>
       <div>

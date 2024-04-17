@@ -16,20 +16,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Staff</title>
     <style>
+        body {
+            font-family: 'Courier New', Courier, monospace; /* Set the font for the entire page */
+        }
+
         /* CSS for table styles */
         .resultsTable {
             border-collapse: collapse; /* Collapse borders to avoid double borders */
             width: 100%; /* Full width */
+            margin-top: 20px; /* Add some top margin to the table */
         }
-        
+
         .resultsTable th, .resultsTable td {
             border: 1px solid black; /* Add black borders to cells */
             padding: 8px; /* Add some padding for better spacing */
             text-align: left; /* Align text to the left */
         }
-        
+
         .resultsTable th {
             background-color: #f2f2f2; /* Light gray background color for header cells */
+        }
+
+        button {
+            font-family: 'Courier New', Courier, monospace;
+            margin-left: 1rem; /* Uniform left margin for buttons */
+            margin-top: 1rem; /* Top margin for spacing between elements */
+            padding: 10px 20px; /* Padding for a better button size */
+            background-color: #4CAF50; /* Green background color */
+            color: white; /* White text color */
+            border: none; /* No borders */
+            cursor: pointer; /* Pointer cursor on hover */
+        }
+
+        button:hover {
+            background-color: #45a049; /* Slightly darker green background on hover */
         }
     </style>
 </head>
@@ -87,13 +107,11 @@
 
             // End table
             echo "</table>";
-            echo "<button onclick=\"location.href='add_staff.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Add Staff</button>";
-
-            // Button to update staff information
-            echo "<button onclick=\"location.href='update_staff.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Update Staff</button>";
-            echo "<button onclick=\"location.href='delete_staff.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Delete Staff</button>";
+            echo "<button onclick=\"location.href='add_staff.php'\">Add Staff</button>";
+            echo "<button onclick=\"location.href='update_staff.php'\">Update Staff</button>";
+            echo "<button onclick=\"location.href='delete_staff.php'\">Delete Staff</button>";
         } else {
-            echo "0 results";
+            echo "No active staff members found.";
         }
 
         // Close connection

@@ -31,7 +31,7 @@ $studentId = $_SESSION['StudentID'];
 $query = "SELECT checkouts.ItemID, checkouts.ItemType, books.Title, checkouts.CheckoutDate, checkouts.ReturnDate
           FROM checkouts 
           INNER JOIN students ON students.StudentID = checkouts.UserID 
-          INNER JOIN books ON books.ISBN = checkouts.ItemID 
+          INNER JOIN books ON books.ISBN = checkouts.ItemID
           WHERE checkouts.UserID = '$studentId' AND checkouts.CheckinDate IS NULL";
 
 // Check if form is submitted

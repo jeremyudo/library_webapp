@@ -12,8 +12,56 @@ if (!isset($_SESSION['valid']) || $_SESSION['valid'] !== true) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>View Events and Attendees</title>
-<link rel="stylesheet" href="styles/MainPage.css">
-<link rel="stylesheet" href="styles/table.css"> <!-- Add the table.css file -->
+<style>
+    /* Main page styling */
+/* CSS for table styles */
+.resultsTable {
+    border-collapse: collapse; /* Collapse borders to avoid double borders */
+    width: 100%; /* Full width */
+}
+
+.resultsTable th, .resultsTable td {
+    border: 1px solid black; /* Add black borders to cells */
+    padding: 8px; /* Add some padding for better spacing */
+    text-align: left; /* Align text to the left */
+    font-family: 'Courier New', Courier, monospace; /* Use Courier New font */
+}
+
+.resultsTable th {
+    background-color: #f2f2f2; /* Light gray background color for header cells */
+}
+
+/* Main page styling */
+body {
+    font-family: 'Courier New', Courier, monospace; /* Use Courier New font */
+    background-color: #f9f9f9; /* Light background */
+    margin: 0;
+    padding: 20px;
+}
+
+.homeContent {
+    width: 90%;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+h2 {
+    margin-bottom: 20px; /* Space below the header */
+}
+
+a {
+    color: #4A90E2; /* Consistent link color */
+    text-decoration: none; /* No underline for a clean look */
+}
+
+a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+
+</style>
+
 </head>
 <body>
 <div class="homeContent">

@@ -24,7 +24,53 @@ $result = mysqli_query($con, $query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Checkouts - Admin</title>
-    <link rel="stylesheet" href="styles/table.css"> <!-- Include your table.css file here -->
+    <style>
+        /* CSS for table styles */
+.resultsTable {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.resultsTable th, .resultsTable td {
+    border: 1px solid #ddd; /* Light gray border */
+    padding: 8px;
+    text-align: left;
+}
+
+.resultsTable th {
+    background-color: #f2f2f2; /* Light gray background color for header cells */
+}
+
+/* Main page styling */
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+}
+
+.homeContent {
+    width: 90%;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+a {
+    color: #4A90E2;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+    </style>
 </head>
 <body>
     <div class="homeContent">

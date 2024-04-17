@@ -16,20 +16,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Books</title>
     <style>
-        /* CSS for table styles */
+        body {
+            font-family: 'Courier New', Courier, monospace; /* Applying Courier New font throughout the page */
+            background-color: #f4f4f4; /* Light grey background for better contrast */
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            margin-left: 10rem; /* Matching the margin for consistency */
+            margin-top: 5rem;
+        }
+
         .resultsTable {
-            border-collapse: collapse; /* Collapse borders to avoid double borders */
-            width: 100%; /* Full width */
+            width: 98%; /* Full width of the container */
+            border-collapse: collapse; /* Eliminates double borders */
+            margin: 1rem; /* Center the table */
         }
-        
+
         .resultsTable th, .resultsTable td {
-            border: 1px solid black; /* Add black borders to cells */
-            padding: 8px; /* Add some padding for better spacing */
-            text-align: left; /* Align text to the left */
+            border: 1px solid black; /* Black borders for cells */
+            padding: 8px; /* Padding inside cells */
+            text-align: left; /* Text aligned to the left */
+        }
+
+        .resultsTable th {
+            background-color: #f2f2f2; /* Light gray background for headers */
         }
         
-        .resultsTable th {
-            background-color: #f2f2f2; /* Light gray background color for header cells */
+        button {
+            font-family: 'Courier New', Courier, monospace;
+            margin-left: 1rem;
+            margin-top: 1rem;
+            padding: 10px 20px;
+            background-color: #4CAF50; /* Green background */
+            color: white; /* White text */
+            border: none;
+            cursor: pointer;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        button:hover {
+            background-color: #45a049; /* Darker green on hover */
         }
     </style>
 </head>

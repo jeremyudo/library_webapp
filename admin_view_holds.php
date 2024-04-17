@@ -24,7 +24,51 @@ $result = mysqli_query($con, $query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Holds - Admin</title>
-    <link rel="stylesheet" href="styles/table.css"> <!-- Include your table.css file here -->
+    <style>
+        /* styles/table.css */
+
+    /* styles/table.css */
+body {
+    font-family: 'Courier New', Courier, monospace; /* Applying Courier New font throughout the page */
+    background-color: #f4f4f4; /* Light grey background for better contrast */
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    margin-left: 10rem; /* Matching the margin for consistency */
+    margin-top: 5rem;
+}
+
+.resultsTable {
+    width: 98%; /* Full width of the container */
+    border-collapse: collapse; /* Eliminates double borders */
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.resultsTable th, .resultsTable td {
+    border: 1px solid black; /* Black borders for cells */
+    padding: 8px; /* Padding inside cells */
+    text-align: left; /* Text aligned to the left */
+}
+
+.resultsTable th {
+    background-color: #f2f2f2; /* Light gray background for headers */
+}
+
+a {
+    color: #3366cc; /* Styling links with a default blue */
+    text-decoration: none; /* Removing underline from links */
+    padding: 5px 10px; /* Padding for clickable area */
+    display: inline-block; /* Making the anchor behave like a block element */
+}
+
+a:hover {
+    text-decoration: underline; /* Adding underline on hover */
+}
+
+    </style>
 </head>
 <body>
     <div class="homeContent">

@@ -33,18 +33,18 @@ nav li a {
 
 .servicesLink{
   position: relative;
-  left: -110px;
+  left: 120px;
 }
 
 .contactLink{
   position: relative;
-  left: -130px;
+  left: 100px;
   
 }
 
 .loginIn{
   position: relative;
-  left: -100px;
+  left: 60px;
   top: -10px
 }
 
