@@ -1,5 +1,5 @@
 <?php
-   // Start session
+   include 'navbar_admin.php';
    session_start();
 
    // Check if admin is logged in
@@ -36,6 +36,7 @@
       <li><a href="admin_view_digitalitem.php">View All Digital Items</a></li>
       <li><a href="admin_view_holds.php">View All Holds</a></li>
       <li><a href="admin_view_events.php">View All Events</a></li>
+      <li><a href="admin_data_report.php">Data Reports</a></li>
       <!-- <li><a href="admin_view_checkouts.php">View All Checkouts</a></li> -->
    </ul>
 </body>
