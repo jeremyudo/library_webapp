@@ -70,76 +70,79 @@
         <button type="submit">Apply Filter</button>
     </form>
 
-    <?php
-        // Database connection
-        $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
-        if (!$con) {
-            die('Could not connect: ' . mysqli_connect_error());
-        }
+    <table class='resultsTable'>
+        <tr>
+            <th>Staff ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Date of Birth</th>
+            <th>Gender</th>
+            <th>Address</th>
+            <th>Contact Number</th>
+            <th>Email Address</th>
+            <th>Position</th>
+            <th>Date Hired</th>
+            <th>Status</th>
+            <th>Created Date</th>
+            <th>Updated Date</th>
+            <th>Is Admin</th>
+        </tr>
 
-        // Prepare SQL query
-        $sql = "SELECT * FROM staff WHERE Status = 'Active'";
-        
-        // Check if filter is provided
-        if (isset($_GET['filterBy']) && isset($_GET['filterValue'])) {
-            $filterBy = mysqli_real_escape_string($con, $_GET['filterBy']);
-            $filterValue = mysqli_real_escape_string($con, $_GET['filterValue']);
-            $sql .= " AND $filterBy = '$filterValue'";
-        }
-
-        // Execute SQL query
-        $result = mysqli_query($con, $sql);
-
-        if (mysqli_num_rows($result) > 0) {
-            // Start table
-            echo "<table class='resultsTable'>
-                    <tr>
-                        <th>Staff ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Date of Birth</th>
-                        <th>Gender</th>
-                        <th>Address</th>
-                        <th>Contact Number</th>
-                        <th>Email Address</th>
-                        <th>Position</th>
-                        <th>Date Hired</th>
-                        <th>Status</th>
-                        <th>Created Date</th>
-                        <th>Updated Date</th>
-                    </tr>";
-
-            // Fetch and display each row of staff information
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "<tr>";
-                echo "<td>" . $row['StaffID'] . "</td>";
-                echo "<td>" . $row['FirstName'] . "</td>";
-                echo "<td>" . $row['LastName'] . "</td>";
-                echo "<td>" . $row['DateOfBirth'] . "</td>";
-                echo "<td>" . $row['Gender'] . "</td>";
-                echo "<td>" . $row['Address'] . "</td>";
-                echo "<td>" . $row['ContactNumber'] . "</td>";
-                echo "<td>" . $row['EmailAddress'] . "</td>";
-                echo "<td>" . $row['Position'] . "</td>";
-                echo "<td>" . $row['DateHired'] . "</td>";
-                echo "<td>" . $row['Status'] . "</td>";
-                echo "<td>" . $row['CreatedDate'] . "</td>";
-                echo "<td>" . $row['UpdatedDate'] . "</td>";
-                echo "</tr>";
+        <?php
+            // Database connection
+            $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
+            if (!$con) {
+                die('Could not connect: ' . mysqli_connect_error());
             }
 
-            // End table
-            echo "</table>";
-            echo "<button onclick=\"location.href='add_staff.php'\">Add Staff</button>";
-            echo "<button onclick=\"location.href='update_staff.php'\">Update Staff</button>";
-            echo "<button onclick=\"location.href='delete_staff.php'\">Delete Staff</button>";
-        } else {
-            echo "No active staff members found.";
-        }
+            // Prepare SQL query
+            $sql = "SELECT * FROM staff WHERE Status = 'Active'";
+            
+            // Check if filter is provided
+            if (isset($_GET['filterBy']) && isset($_GET['filterValue'])) {
+                $filterBy = mysqli_real_escape_string($con, $_GET['filterBy']);
+                $filterValue = mysqli_real_escape_string($con, $_GET['filterValue']);
+                $sql .= " AND $filterBy = '$filterValue'";
+            }
 
-        // Close connection
-        mysqli_close($con);
-    ?>
+            // Execute SQL query
+            $result = mysqli_query($con, $sql);
+
+            if (mysqli_num_rows($result) > 0) {
+                // Fetch and display each row of staff information
+                while ($row = mysqli_fetch_assoc($result)) {
+        ?>
+                    <tr>
+                        <td><?php echo $row['StaffID']; ?></td>
+                        <td><?php echo $row['FirstName']; ?></td>
+                        <td><?php echo $row['LastName']; ?></td>
+                        <td><?php echo $row['DateOfBirth']; ?></td>
+                        <td><?php echo $row['Gender']; ?></td>
+                        <td><?php echo $row['Address']; ?></td>
+                        <td><?php echo $row['ContactNumber']; ?></td>
+                        <td><?php echo $row['EmailAddress']; ?></td>
+                        <td><?php echo $row['Position']; ?></td>
+                        <td><?php echo $row['DateHired']; ?></td>
+                        <td><?php echo $row['Status']; ?></td>
+                        <td><?php echo $row['CreatedDate']; ?></td>
+                        <td><?php echo $row['UpdatedDate']; ?></td>
+                        <td><?php echo ($row['isAdmin'] ? 'Yes' : 'No'); ?></td>
+                    </tr>
+        <?php
+                }
+            } else {
+                echo "<tr><td colspan='14'>No active staff members found.</td></tr>";
+            }
+
+            // Close connection
+            mysqli_close($con);
+        ?>
+    </table>
+
+    <button onclick="location.href='add_staff.php'">Add Staff</button>
+    <button onclick="location.href='update_staff.php'">Update Staff</button>
+    <button onclick="location.href='delete_staff.php'">Delete Staff</button>
+
     <p><a href="admin_home.php">Back</a></p>
 </body>
 </html>
