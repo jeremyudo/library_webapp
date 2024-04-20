@@ -1,5 +1,5 @@
 <?php
-include 'navbar.php';
+#include 'navbar.php';
 
 $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
 if (!$con) {
@@ -88,6 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         ISBN: <input type="text" name="ISBN" required><br>
         <input type="submit" value="Check ISBN">
+        <a href="admin_view_books.php" class="button">Back</a>
     </form>
 
     <?php

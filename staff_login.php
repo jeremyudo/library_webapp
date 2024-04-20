@@ -23,7 +23,7 @@
          $username = $_POST['Username'];
          $password = $_POST['Password'];
          
-         $query = "SELECT * FROM staff WHERE StaffID = '$username'";
+         $query = "SELECT * FROM library_staff WHERE StaffID = '$username'";
          $result = mysqli_query($con, $query);
          $row = mysqli_fetch_assoc($result);
          

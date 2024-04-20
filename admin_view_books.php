@@ -120,6 +120,7 @@
                         <th>Holds</th>
                         <th>Page Count</th>
                         <th>Format</th>
+                        <th>Cost</th>
                         <th>Created Date</th>
                         <th>Updated Date</th>
                     </tr>";
@@ -128,17 +129,18 @@
                 echo "<tr>";
                 echo "<td><a class='clickable' href='admin_view_book_report.php?isbn=" . $row['ISBN'] . "'>" . $row['ISBN'] . "</a></td>";
                 echo "<td>" . $row['Title'] . "</td>";
-                echo "<td>" . $row['Author'] . "</td>";
+                echo "<td>" . $row['Authors'] . "</td>";
                 echo "<td>" . $row['Publisher'] . "</td>";
-                echo "<td>" . $row['PublicationYear'] . "</td>";
+                echo "<td>" . $row['PublicationDate'] . "</td>";
                 echo "<td>" . $row['Genre'] . "</td>";
                 echo "<td>" . $row['Language'] . "</td>";
-                echo "<td>" . $row['CoverImage'] . "</td>";
+                echo "<td>" . $row['CoverImageURL'] . "</td>";
                 echo "<td>" . $row['Stock'] . "</td>";
-                echo "<td>" . $row['Available'] . "</td>";
-                echo "<td>" . $row['Holds'] . "</td>";
+                echo "<td>" . $row['NumberAvailable'] . "</td>";
+                echo "<td>" . $row['NumberHeld'] . "</td>";
                 echo "<td>" . $row['PageCount'] . "</td>";
                 echo "<td>" . $row['Format'] . "</td>";
+                echo "<td>" . $row['Cost'] . "</td>";
                 echo "<td>" . $row['CreatedDate'] . "</td>";
                 echo "<td>" . $row['UpdatedDate'] . "</td>";
                 echo "</tr>";

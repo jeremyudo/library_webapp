@@ -25,7 +25,7 @@
     <a class="logoutText" href="logout.php">Logout</a>
   </div>
    
-   <h2 style="margin-left:10rem; margin-top:5rem;">Staff Panel</h2> 
+   <h2 style="margin-left:-2rem; margin-top:5rem;">Staff Panel</h2> 
    <ul style="list-style-type:none; margin-left:10rem;">
         <li><a href="view_staff_notifications.php">Notifications</a></li>
       <li><a href="admin_view_students.php">View All Students</a></li>

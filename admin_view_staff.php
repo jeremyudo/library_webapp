@@ -86,7 +86,7 @@
                 die('Could not connect: ' . mysqli_connect_error());
             }
 
-            $sql = "SELECT * FROM staff WHERE Status = 'Active'";
+            $sql = "SELECT * FROM library_staff WHERE Status = 'Active'";
             
             if (isset($_GET['filterBy']) && isset($_GET['filterValue'])) {
                 $filterBy = mysqli_real_escape_string($con, $_GET['filterBy']);

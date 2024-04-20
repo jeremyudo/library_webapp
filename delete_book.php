@@ -10,6 +10,7 @@
     <form action="confirm_delete_book.php" method="post">
         ISBN: <input type="number" name="ISBN" required><br>
         <input type="submit" value="Delete">
+        <a href="admin_view_books.php" class="button">Back</a>
     </form>
 </body>
 </html>

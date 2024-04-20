@@ -12,7 +12,7 @@ if (!$con) {
 mysqli_select_db($con, 'library');
 
 $userID = $_SESSION['StudentID'];
-$sql = "SELECT NotificationID, ItemID, Message, NotificationType, TimeStamp FROM staff_notifications WHERE UserID = $userID AND MarkedAsRead = false ORDER BY TimeStamp DESC";
+$sql = "SELECT NotificationID, ItemID, Message, NotificationType, TimeSent FROM notifications WHERE UserID = $userID AND MarkedAsRead = false ORDER BY TimeSent DESC";
 $result = mysqli_query($con, $sql);
 ?>
 
@@ -59,7 +59,7 @@ $result = mysqli_query($con, $sql);
             echo "<p>Item ID: " . $row['ItemID'] . "</p>";
             echo "<p>" . $row['Message'] . "</p>";
             echo "<p>" . $row['NotificationType'] . "</p>";
-            echo "<p class='timestamp'>" . $row['TimeStamp'] . "</p>";
+            echo "<p class='timestamp'>" . $row['TimeSent'] . "</p>";
             echo "<form action='acknowledge_book_fine.php' method='post'>";
             echo "<input type='hidden' name='notification_id' value='" . $row['NotificationID'] . "'>";
             echo "<button type='submit' class='acknowledge-btn'>Acknowledge</button>";

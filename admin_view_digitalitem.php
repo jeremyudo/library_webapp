@@ -88,7 +88,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
             die('Could not connect: ' . mysqli_connect_error());
         }
 
-        $sql = "SELECT * FROM digitalitems WHERE isDeleted = false";
+        $sql = "SELECT * FROM digitalmediaitem WHERE NoLongerCarried = 0";
 
         if (isset($_GET['filterBy']) && isset($_GET['filterValue'])) {
             $filterBy = mysqli_real_escape_string($con, $_GET['filterBy']);
@@ -107,28 +107,32 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
                         <th>Author/Artist</th>
                         <th>Format</th>
                         <th>Publisher/Studio</th>
-                        <th>Publication Year</th>
-                        <th>Genre</th>
+                        <th>Description</th>
                         <th>Language</th>
                         <th>Cover Image</th>
-                        <th>Created Date</th>
-                        <th>Updated Date</th>
+                        <th>Available</th>
+                        <th>Checked Out</th>
+                        <th>Holds</th>
+                        <th>Lost/Damaged</th>
+                        <th>Cost</th>
                     </tr>";
 
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<tr>";
-                echo "<td><a href='admin_view_digitalitem_report.php?digitalid=" . $row['DigitalID'] . "'>" . $row['DigitalID'] . "</a></td>";
+                echo "<td><a href='admin_view_digitalitem_report.php?digitalid=" . $row['DigiID'] . "'>" . $row['DigiID'] . "</a></td>";
                 echo "<td>" . $row['Stock'] . "</td>";
-                echo "<td>" . $row['Title'] . "</td>";
-                echo "<td>" . $row['Author'] . "</td>";
+                echo "<td>" . $row['MediaName'] . "</td>";
+                echo "<td>" . $row['Producer'] . "</td>";
                 echo "<td>" . $row['Format'] . "</td>";
                 echo "<td>" . $row['Publisher'] . "</td>";
-                echo "<td>" . $row['PublicationYear'] . "</td>";
-                echo "<td>" . $row['Genre'] . "</td>";
+                echo "<td>" . $row['Description'] . "</td>";
                 echo "<td>" . $row['Language'] . "</td>";
-                echo "<td>" . $row['CoverImage'] . "</td>";
-                echo "<td>" . $row['CreatedDate'] . "</td>";
-                echo "<td>" . $row['UpdatedDate'] . "</td>";
+                echo "<td>" . $row['CoverImageURL'] . "</td>";
+                echo "<td>" . $row['NumberAvailable'] . "</td>";
+                echo "<td>" . $row['NumberCheckedOut'] . "</td>";
+                echo "<td>" . $row['NumberHeld'] . "</td>";
+                echo "<td>" . $row['Lost/Damaged'] . "</td>";
+                echo "<td>" . $row['Cost'] . "</td>";
                 echo "</tr>";
             }
 

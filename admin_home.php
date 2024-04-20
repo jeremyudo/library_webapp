@@ -1,5 +1,5 @@
 <?php
-   include 'navbar_admin.php';
+   /*include 'navbar_admin.php';*/
    session_start();
 
    if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {

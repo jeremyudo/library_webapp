@@ -13,10 +13,39 @@
    <h2 class="enterId">Admin Login</h2> 
    <?php
       $msg = '';
-      
-      $admin_username = 'admin';
-      $admin_password = 'password';
 
+      $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
+      if (!$con) {
+         die('Could not connect: ' . mysqli_connect_error());
+      }
+
+      if (isset($_POST['login']) && !empty($_POST['Username']) && !empty($_POST['Password'])) {
+         $username = $_POST['Username'];
+         $password = $_POST['Password'];
+         
+         $query = "SELECT * FROM library_staff WHERE StaffID = '$username' AND isAdmin = 1";
+         $result = mysqli_query($con, $query);
+         $row = mysqli_fetch_assoc($result);
+         
+         if ($row) {
+            if ($row['Password'] === $password) {
+               $_SESSION['staff_logged_in'] = true;
+               $_SESSION['staff_username'] = $username;
+               header("Location: admin_home.php");
+               exit();
+            } else {
+               $msg = "Invalid password";
+            }
+         } else {
+            $msg = "Staff does not exist or is not an admin";
+         }
+      }
+
+      mysqli_close($con);
+
+      //$admin_username = 'admin';
+      //$admin_password = 'password';
+/*
       if (isset($_POST['login']) && !empty($_POST['Username']) && !empty($_POST['Password'])) {
          $username = $_POST['Username'];
          $password = $_POST['Password'];
@@ -29,6 +58,7 @@
             $msg = "Invalid username or password";
          }
       }
+      */
    ?>
 
    <h4 style="margin-left:10rem; color:red;"><?php echo $msg; ?></h4>
