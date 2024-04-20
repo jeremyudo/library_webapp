@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Book</title>
+    <title>Add Staff</title>
     <link rel="stylesheet" href="data_form.css">
     <style>
         #header {
@@ -14,92 +14,98 @@
         textarea[name="Description"] {
             height: 100px; /* Adjust the height as needed */
         }
+
+        /* Style for required fields */
+        .required::after {
+            content: '*';
+            color: red;
+            margin-left: 5px;
+        }
+
+        /* Style for buttons */
+        .button {
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
 
-<!-- Add new book form -->
-<form action="insert_book.php" method="post">
-    <h2 id="header">Add New Book</h2>
-    <label for="ISBN">ISBN: <span>*</span></label>
-    <input type="number" name="ISBN" required>
-    <label for="Title">Title: <span>*</span></label>
-    <input type="text" name="Title" required>
-    <label for="Author">Author: <span>*</span></label>
-    <input type="text" name="Author" required>
-    <label for="Publisher">Publisher:</label>
-    <input type="text" name="Publisher">
-    <label for="PublicationYear">Publication Year: <span>*</span></label>
-    <input type="number" name="PublicationYear" required min="1800" max="2024">
-    <label for="Genre">Genre: <span>*</span></label>
-    <select name="Genre" required>
-        <option value="">Select Genre</option>
-        <option value="Adventure">Adventure</option>
-        <option value="Biography">Biography</option>
-        <option value="Children">Children</option>
-        <option value="Cookbook">Cookbook</option>
-        <option value="Drama">Drama</option>
-        <option value="Fantasy">Fantasy</option>
-        <option value="Fiction">Fiction</option>
-        <option value="Historical Fiction">Historical Fiction</option>
-        <option value="Horror">Horror</option>
-        <option value="Mystery">Mystery</option>
-        <option value="Non-Fiction">Non-Fiction</option>
-        <option value="Poetry">Poetry</option>
-        <option value="Romance">Romance</option>
-        <option value="Science Fiction">Science Fiction</option>
-        <option value="Self-Help">Self-Help</option>
-        <option value="Thriller">Thriller</option>
-        <option value="Young Adult">Young Adult</option>
+<!-- Add new staff member and modify the staff information -->
+<form action="" method="post">
+    <h2 id="header">Add Staff</h2>
+    Staff ID: <input type="number" name="StaffID" required /><br>
+    First Name: <input type="text" name="FirstName" required /><br>
+    Last Name: <input type="text" name="LastName" required /><br>
+    Date of Birth: <input type="date" name="DateOfBirth" required /><br>
+    Gender:
+    <select name="Gender" required>
+        <option value="">Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
         <option value="Other">Other</option>
-    </select>
-    <label for="PageCount">Page Count: <span>*</span></label>
-    <input type="number" name="PageCount" required>
-    <label for="Description">Description: <span>*</span></label>
-    <textarea name="Description" required></textarea>
-    <label for="Language">Language: <span>*</span></label>
-    <select name="Language" required>
-        <option value="">Select Language</option>
-        <option value="English">English</option>
-        <option value="Spanish">Spanish</option>
-        <option value="French">French</option>
-        <option value="Arabic">Arabic</option>
-        <option value="Chinese">Chinese</option>
-        <option value="Russian">Russian</option>
-    </select>
-    <label for="Format">Format: <span>*</span></label>
-    <select name="Format" required>
-        <option value="">Select Format</option>
-        <option value="Paper">Paper</option>
-        <option value="Audio Book">Audio Book</option>
-        <option value="eBook">eBook</option>
-    </select>
-    <label for="CoverImage">Cover Image:</label>
-    <input type="text" name="CoverImage">
-    <label for="Stock">Stock: <span>*</span></label>
-    <input type="number" name="Stock" required>
-    <label for="NumberAvailable">Number Available:</label>
-    <input type="number" name="NumberAvailable">
-    <label for="NumberCheckout">Number Checkout:</label>
-    <input type="number" name="NumberCheckout">
-    <label for="NumberHeld">Number Held:</label>
-    <input type="number" name="NumberHeld">
-    <label for="Cost">Cost:</label>
-    <input type="text" name="Cost">
-    <input type="submit" value="Add Book">
+    </select><br>
+    Address: <input type="text" name="Address" /><br>
+    Contact Number: <input type="text" name="ContactNumber" /><br>
+    Email Address: <input type="text" name="EmailAddress" /><br>
+    Position: 
+    <select name="Position" required>
+        <option value="">Select Position</option>
+        <option value="Librarian">Librarian</option>
+        <option value="IT Specialist">IT Specialist</option>
+        <option value="Clerk">Clerk</option>
+        <option value="Security">Security</option>
+        <option value="Admin">Admin</option>
+    </select><br>
+    Date Hired: <input type="date" name="DateHired" required /><br>
+    Status: 
+    <select name="Status" required>
+        <option value="">Select Status</option>
+        <option value="Active">Active</option>
+        <option value="Inactive">Inactive</option>
+    </select><br>
+    Password: <input type="text" name="Password" required /><br>
+    <input type="submit" name="submit" value="Add Staff" class="button">
+    <a href="admin_view_staff.php" class="button">Back</a>
 </form>
 
-<script>
-    window.onload = function() {
-        var requiredInputs = document.querySelectorAll('input[required], select[required], textarea[required]');
-        requiredInputs.forEach(function(input) {
-            var label = document.createElement('label');
-            label.textContent = '*';
-            label.style.color = 'red'; // Change color as needed
-            input.parentNode.insertBefore(label, input.nextSibling);
-        });
-    };
-</script>
+<?php
+// Database connection
+$con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
+if (!$con) {
+    die('Could not connect: ' . mysqli_connect_error());
+}
+
+if (isset($_POST['submit'])) {
+    // Set default timezone to prevent date-related issues
+    date_default_timezone_set('UTC');
+
+    // Get current date and time
+    $createdDate = date('Y-m-d H:i:s');
+    $updatedDate = date('Y-m-d H:i:s');
+
+    // Prepare the SQL statement
+    $stmt = mysqli_prepare($con, "INSERT INTO staff (StaffID, FirstName, LastName, DateOfBirth, Gender, Address, ContactNumber, EmailAddress, Position, DateHired, Status, CreatedDate, UpdatedDate, Password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    if (!$stmt) {
+        die('Error: ' . mysqli_error($con));
+    }
+
+    // Bind parameters with the values from the POST array
+    mysqli_stmt_bind_param($stmt, 'isssssssssssss', $_POST['StaffID'], $_POST['FirstName'], $_POST['LastName'], $_POST['DateOfBirth'], $_POST['Gender'], $_POST['Address'], $_POST['ContactNumber'], $_POST['EmailAddress'], $_POST['Position'], $_POST['DateHired'], $_POST['Status'], $createdDate, $updatedDate, $_POST['Password']);
+
+    // Execute the statement
+    if (!mysqli_stmt_execute($stmt)) {
+        die('Error: ' . mysqli_stmt_error($stmt));
+    }
+
+    echo "1 record added";
+
+    // Close the statement
+    mysqli_stmt_close($stmt);
+}
+
+// Close the database connection
+mysqli_close($con);
+?>
 
 </body>
 </html>

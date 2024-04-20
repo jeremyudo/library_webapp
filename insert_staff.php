@@ -1,10 +1,11 @@
 <?php
+// Database connection
 $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
 if (!$con) {
     die('Could not connect: ' . mysqli_connect_error());
 }
 
-// Set default timezone to prevent date related issues
+// Set default timezone to prevent date-related issues
 date_default_timezone_set('UTC');
 
 // Get current date and time
@@ -30,5 +31,6 @@ echo "1 record added";
 // Close the statement
 mysqli_stmt_close($stmt);
 
+// Close the database connection
 mysqli_close($con);
 ?>
