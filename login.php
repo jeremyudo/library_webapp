@@ -24,23 +24,21 @@
          $query = "SELECT * FROM students WHERE StudentID = '$studentId'";
          $result = mysqli_query($con, $query);
          if ($row = mysqli_fetch_assoc($result)) {
-    if ($row['Password'] == $password) {
-        $_SESSION['valid'] = true;
-        $_SESSION['timeout'] = time();
-        $_SESSION['StudentID'] = $studentId;
-        $_SESSION['FirstName'] = $row['FirstName']; // Store first name in session
-        $_SESSION['LastName'] = $row['LastName']; // Store last name in session
-        $msg = "You have entered correct Student ID and Password";
-        // Redirect to home page
-        header("Location: home.php");
-        exit();
-    } else {
-        $msg = "You have entered wrong password";
-    }
-} else {
-    $msg = "Student ID does not exist";
-}
-
+            if ($row['Password'] == $password) {
+                $_SESSION['valid'] = true;
+                $_SESSION['timeout'] = time();
+                $_SESSION['StudentID'] = $studentId;
+                $_SESSION['FirstName'] = $row['FirstName']; // Store first name in session
+                $_SESSION['LastName'] = $row['LastName']; // Store last name in session
+                $msg = "You have entered correct Student ID and Password";
+                header("Location: home.php");
+                exit();
+            } else {
+                $msg = "You have entered wrong password";
+            }
+         } else {
+            $msg = "Student ID does not exist";
+         }
       }
       mysqli_close($con);
    ?>
@@ -57,7 +55,7 @@
          <input type="password" name="Password" id="Password">
       </div>
       <section style="margin-left:2rem;">
-      <button class="loginButton" type="submit" name="login">Login</button>
+         <button class="loginButton" type="submit" name="login">Login</button>
       </section>
    </form>
 
@@ -65,7 +63,6 @@
       <a href="logout.php" tite="Logout">Click here to clean Session</a>
    </p>
 
-   <!-- Link for admin -->
    <div class="staffSignIn">
       <a style="text-decoration:none; color: black;font-weight: normal" href="staff_login.php" title="staffSignIn">Staff Sign In</a>
    </div>
@@ -74,7 +71,6 @@
       <a style="text-decoration:none; color: black;font-weight: normal" href="prof_login.php" title="profSignIn">Professor Sign In</a>
    </div>
 
-<!-- Link for admin -->
    <div class="adminSignIn">
       <a style="text-decoration:none; color: black;font-weight: normal" href="admin_login.php" title="adminSignIn">Admin Sign In</a>
    </div>

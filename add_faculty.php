@@ -6,7 +6,7 @@
             requiredInputs.forEach(function(input) {
                 var label = document.createElement('label');
                 label.textContent = '*';
-                label.style.color = 'red'; // Change color as needed
+                label.style.color = 'red';
                 input.parentNode.insertBefore(label, input.nextSibling);
             });
         };
@@ -14,7 +14,6 @@
 </head>
 <body>
 
-    <!-- Add new faculty and modify the faculty information -->
     <form action="insert_faculty.php" method="post">
         Faculty ID: <input type="number" name="FacultyID" required /><br>
         First Name: <input type="text" name="FirstName" required /><br>

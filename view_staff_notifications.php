@@ -5,14 +5,12 @@ if (!isset($_SESSION['valid']) || $_SESSION['valid'] !== true) {
     exit();
 }
 
-// Perform database query to retrieve staff notifications
 $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
 if (!$con) {
     die('Could not connect: ' . mysqli_connect_error());
 }
 mysqli_select_db($con, 'library');
 
-// Retrieve notifications for the current user where MarkedAsRead is false
 $userID = $_SESSION['StudentID'];
 $sql = "SELECT NotificationID, ItemID, Message, NotificationType, TimeStamp FROM staff_notifications WHERE UserID = $userID AND MarkedAsRead = false ORDER BY TimeStamp DESC";
 $result = mysqli_query($con, $sql);
@@ -26,7 +24,6 @@ $result = mysqli_query($con, $sql);
     <title>Staff Notifications</title>
     <link rel="stylesheet" href="/account.css">
     <style>
-        /* Add CSS for notification outline */
         .notification {
             border: 1px solid #ccc;
             padding: 10px;
@@ -57,7 +54,6 @@ $result = mysqli_query($con, $sql);
     <h1 class="welcome">Staff Notifications</h1>
     <?php
     if (mysqli_num_rows($result) > 0) {
-        // Output data of each row
         while($row = mysqli_fetch_assoc($result)) {
             echo "<div class='notification'>";
             echo "<p>Item ID: " . $row['ItemID'] . "</p>";

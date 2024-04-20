@@ -15,82 +15,77 @@ if (!isset($_SESSION['valid']) || $_SESSION['valid'] !== true) {
 <style>
     body {
     font-family: 'Courier New', Courier, monospace;
-    background-color: #f5f5f5; /* Background color for the whole page */
+    background-color: #f5f5f5;
     margin: 0;
     padding: 0;
 }
 
 .homeContent {
-    max-width: 800px; /* Set the maximum width of the content area */
-    margin: 20px auto; /* Center the content horizontally */
+    max-width: 800px;
+    margin: 20px auto;
     padding: 20px;
-    background-color: #fff; /* Background color for the content area */
+    background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow effect */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
-    color: #333; /* Color for the heading */
+    color: #333;
 }
 
 .bookDetails {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px; /* Add some space below the table */
+    margin-bottom: 20px;
 }
 
 .bookDetails td {
     padding: 10px;
-    border-bottom: 1px solid #ccc; /* Add a bottom border to separate rows */
+    border-bottom: 1px solid #ccc;
 }
 
 .bookDetails td:first-child {
-    font-weight: bold; /* Make the first column bold */
+    font-weight: bold;
 }
 
 button:hover {
-    background-color: #45a049; /* Darker background color on hover */
+    background-color: #45a049;
 }
 
 a {
-    color: #007bff; /* Link color */
+    color: #007bff;
     text-decoration: none;
 }
 
 a:hover {
-    text-decoration: underline; /* Underline links on hover */
+    text-decoration: underline;
 }
 button {
     padding: 10px 20px;
-    background-color: #4caf50; /* Button background color */
-    color: #fff; /* Button text color */
+    background-color: #4caf50;
+    color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-right: 10px; /* Add right margin to create space between buttons */
+    margin-right: 10px;
 }
 
-/* Apply margin only to buttons inside the forms */
 form button {
     font-family: 'Courier New', Courier, monospace;
     margin-right: 10px;
     margin-top: 5px;
 }
 
-/* Adjust margin for the last button in the form to avoid unnecessary space */
 form button:last-child {
-    margin-right: 0; /* Remove margin from the last button */
+    margin-right: 0;
 }
 </style>
 </head>
 <body>
 <div class="homeContent">
-  <!-- Display book details here -->
   <?php
-  // Check if ISBN is provided
   if(isset($_GET['isbn'])) {
       $isbn = $_GET['isbn'];
-      // Perform database query to retrieve book details based on ISBN
       $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
       if (!$con) {
           die('Could not connect: ' . mysqli_connect_error());
@@ -100,7 +95,6 @@ form button:last-child {
       $query = "SELECT * FROM books WHERE ISBN = '$isbn'";
       $result = mysqli_query($con, $query);
       if(mysqli_num_rows($result) > 0) {
-          // Display book details
           $row = mysqli_fetch_assoc($result);
           echo "<h2>Book Details</h2>";
           echo "<table class='bookDetails'>";
@@ -114,25 +108,20 @@ form button:last-child {
           echo "<tr><td>Genre:</td><td>{$row['Genre']}</td></tr>";
           echo "</table>";
           
-          // Add a form for checking in or checking out the book
           echo "<form method='post'>";
           echo "<input type='hidden' name='isbn' value='{$row['ISBN']}'>";
           
-          // Check if the book is checked out by the student
           $queryCheckOut = "SELECT * FROM checkouts WHERE ItemID = '$isbn' AND UserID = '{$_SESSION['StudentID']}' AND CheckinDate IS NULL";
           $resultCheckOut = mysqli_query($con, $queryCheckOut);
           
           if(mysqli_num_rows($resultCheckOut) > 0) {
-              // If the book is checked out by the student, show the check-in button
               echo "<button formaction='checkin_book.php' type='submit' name='operation' value='check-in'>Check In</button>";
           } else {
-              // If the book is not checked out by the student, show the check-out button
               echo "<button formaction='checkout_book.php' type='submit' name='operation' value='check-out'>Check Out</button>";
           }
           
           echo "</form>";
           
-          // Add a form for putting the book on hold
           if ($row['Available'] == 0) {
               echo "<form action='hold_book.php' method='post'>";
               echo "<input type='hidden' name='isbn' value='{$row['ISBN']}'>";
@@ -148,7 +137,6 @@ form button:last-child {
       echo "<p>No ISBN provided.</p>";
   }
   ?>
-  <!-- Add a link back to the home page -->
   <p><a href="home.php">Back to Home</a></p>
 </div>
 </body>

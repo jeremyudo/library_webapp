@@ -1,13 +1,10 @@
 <?php
-    // Start session
-    session_start();
+session_start();
 
-    // Check if admin is logged in
-    if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-        // Redirect to admin login page if not logged in
-        header("Location: admin_login.php");
-        exit();
-    }
+if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
+    header("Location: admin_login.php");
+    exit();
+}
 ?>
 
 <html lang="en">
@@ -21,47 +18,47 @@
         }
 
         body {
-            font-family: 'Courier New', Courier, monospace; /* Applying Courier New font throughout the page */
-            background-color: #f4f4f4; /* Light grey background for better contrast */
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
         }
 
         h2 {
-            margin-left: 10rem; /* Matching the margin for consistency */
+            margin-left: 10rem;
             margin-top: 5rem;
         }
 
         .resultsTable {
-            width: 98%; /* Full width of the container */
-            border-collapse: collapse; /* Eliminates double borders */
-            margin-left: 1rem; /* Center the table */
+            width: 98%;
+            border-collapse: collapse;
+            margin-left: 1rem;
             margin-right: 1rem;
         }
 
         .resultsTable th, .resultsTable td {
-            border: 1px solid black; /* Black borders for cells */
-            padding: 8px; /* Padding inside cells */
-            text-align: left; /* Text aligned to the left */
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
         }
 
         .resultsTable th {
-            background-color: #f2f2f2; /* Light gray background for headers */
+            background-color: #f2f2f2;
         }
         
         button {
             margin-left: 0rem;
             margin-top: 1rem;
             padding: 10px 20px;
-            background-color: #4CAF50; /* Green background */
-            color: white; /* White text */
+            background-color: #4CAF50;
+            color: white;
             border: none;
             cursor: pointer;
             font-family: 'Courier New', Courier, monospace;
         }
 
         button:hover {
-            background-color: #45a049; /* Darker green on hover */
+            background-color: #45a049;
         }
 
         p{
@@ -73,7 +70,6 @@
 <body>
     <h2 style="margin-left:10rem; margin-top:5rem;">View Digital Items</h2> 
 
-    <!-- Filter Form -->
     <form method="get">
         <label for="filterBy">Filter By:</label>
         <select name="filterBy" id="filterBy">
@@ -81,34 +77,28 @@
             <option value="Author">Author/Artist</option>
             <option value="Format">Format</option>
             <option value="Publisher">Publisher/Studio</option>
-            <!-- Add more options for other fields if needed -->
         </select>
         <input type="text" name="filterValue" placeholder="Filter Value">
         <button type="submit">Apply Filter</button>
     </form>
 
     <?php
-        // Database connection
         $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
         if (!$con) {
             die('Could not connect: ' . mysqli_connect_error());
         }
 
-        // Prepare SQL query
         $sql = "SELECT * FROM digitalitems WHERE isDeleted = false";
 
-        // Check if filter is provided
         if (isset($_GET['filterBy']) && isset($_GET['filterValue'])) {
             $filterBy = mysqli_real_escape_string($con, $_GET['filterBy']);
             $filterValue = mysqli_real_escape_string($con, $_GET['filterValue']);
             $sql .= " AND $filterBy LIKE '%$filterValue%'";
         }
 
-        // Execute SQL query
         $result = mysqli_query($con, $sql);
 
         if (mysqli_num_rows($result) > 0) {
-            // Start table
             echo "<table class='resultsTable'>
                     <tr>
                         <th>Digital ID</th>
@@ -125,7 +115,6 @@
                         <th>Updated Date</th>
                     </tr>";
 
-            // Fetch and display each row of digital item information
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<tr>";
                 echo "<td><a href='admin_view_digitalitem_report.php?digitalid=" . $row['DigitalID'] . "'>" . $row['DigitalID'] . "</a></td>";
@@ -143,7 +132,6 @@
                 echo "</tr>";
             }
 
-            // End table
             echo "</table>";
             echo "<button onclick=\"location.href='add_digitalitem.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Add Digital Item</button>";
             echo "<button onclick=\"location.href='update_digitalitem.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Update Digital Item</button>";
@@ -152,7 +140,6 @@
             echo "0 results";
         }
 
-        // Close connection
         mysqli_close($con);
     ?>
     <p><a href="admin_home.php">Back</a></p>

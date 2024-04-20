@@ -2,33 +2,26 @@
 include 'navbar_admin.php';
 session_start();
 
-// Check if the user is logged in and has admin privileges
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     header("Location: admin_login.php");
     exit();
 }
 
-// Include database configuration file
 $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
 
-// Define variables and initialize with empty values
 $startDate = $endDate = $userType = $gender = "";
 $users = array();
 $error = "";
 
-// Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $startDate = $_POST['startDate'];
   $endDate = $_POST['endDate'];
-  // Check if userType is set in POST request
   $userType = isset($_POST['userType']) ? $_POST['userType'] : "";
-  // Correct variable name to lowercase and check if it's set
   $gender = isset($_POST['gender']) ? $_POST['gender'] : "";
 
   if (empty($startDate) || empty($endDate)) {
       $error = "Please enter both start and end dates.";
   } else {
-      // Prepare a UNION ALL select statement to combine results from students and staff tables
       $sql = "(
                   SELECT StudentID AS id, FirstName, EmailAddress, CreatedDate, 'Student' AS type, Gender 
                   FROM students 
@@ -40,23 +33,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               ) ORDER BY CreatedDate";
 
       if ($stmt = $con->prepare($sql)) {
-          // Bind variables to the prepared statement as parameters
           $stmt->bind_param("ssssssssssss", $param_startDate, $param_endDate, $param_userType, $param_userType, $param_gender, $gender, $param_startDate, $param_endDate, $param_userType, $param_userType, $param_gender, $gender);
 
-          // Set parameters
           $param_startDate = $startDate;
           $param_endDate = $endDate;
           $param_userType = $userType;
           $param_gender = $gender;
 
-          // Attempt to execute the prepared statement
           if ($stmt->execute()) {
-              // Store result
               $result = $stmt->get_result();
 
-              // Check if there are any rows in the result
               if ($result->num_rows > 0) {
-                  // Fetch result rows as an associative array
                   $users = $result->fetch_all(MYSQLI_ASSOC);
               } else {
                   $error = "No records matching your query were found.";
@@ -65,12 +52,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               $error = "Oops! Something went wrong. Please try again later.";
           }
 
-          // Close statement
           $stmt->close();
       }
   }
 
-  // Close connection
   $con->close();
 }
 

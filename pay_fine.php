@@ -7,17 +7,14 @@ if (!isset($_SESSION['valid']) || $_SESSION['valid'] !== true) {
     exit();
 }
 
-// Perform database connection
 $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
 if (!$con) {
     die('Could not connect: ' . mysqli_connect_error());
 }
 
-// Check if Fine ID is provided in the URL
 if (isset($_GET['fine_id'])) {
     $fineID = $_GET['fine_id'];
     
-    // Query the fine details based on Fine ID
     $query = "SELECT * FROM fines WHERE FineID = $fineID";
     $result = mysqli_query($con, $query);
 
@@ -39,21 +36,16 @@ if (isset($_GET['fine_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pay Fine</title>
-    <link rel="stylesheet" href="view_holds.css"> <!-- Include your CSS file here -->
+    <link rel="stylesheet" href="view_holds.css">
     <script>
-    // Function to format credit card number input with dashes every four digits
     function formatCreditCardNumber(input) {
-        // Remove any existing dashes and non-numeric characters
         var value = input.value.replace(/\D/g, '');
-        // Add dash after every four digits
         value = value.replace(/(\d{4})(?=\d)/g, '$1-');
-        // Update input value
         input.value = value;
     }
     
-    // Function to remove dashes from credit card number input
     function removeDashes(input) {
-        input.value = input.value.replace(/-/g, ''); // Remove all dashes
+        input.value = input.value.replace(/-/g, '');
     }
     </script>
 </head>
@@ -88,8 +80,7 @@ if (isset($_GET['fine_id'])) {
             </tr>
         </table>
 
-        <!-- Credit Card Payment Form -->
-        <form action="process_payment.php?fine_id=<?php echo $fineID; ?>" method="post" onsubmit="removeDashes(this.elements['credit_card_number']);"> <!-- Pass Fine ID in the URL -->
+        <form action="process_payment.php?fine_id=<?php echo $fineID; ?>" method="post" onsubmit="removeDashes(this.elements['credit_card_number']);">
             <label for="credit_card_number">Credit Card Number:</label>
             <input type="text" id="credit_card_number" name="credit_card_number" pattern="\d{4}-\d{4}-\d{4}-\d{4}" placeholder="XXXX-XXXX-XXXX-XXXX" onchange="formatCreditCardNumber(this)" required><br><br>
 
@@ -102,7 +93,6 @@ if (isset($_GET['fine_id'])) {
             <button type="submit">Pay Fine</button>
         </form>
 
-        <!-- Add a link back to the previous page -->
         <p><a href="view_fines.php">Back to View Fines</a></p>
     </div>
 </body>

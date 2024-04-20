@@ -1,24 +1,19 @@
 <?php
 session_start();
 
-// Check if the StudentID is set in the session
 if(isset($_SESSION['StudentID']) && !empty($_SESSION['StudentID'])) {
     $studentId = $_SESSION['StudentID'];
     
-    // Perform database connection
     $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
     if (!$con) {
         die('Could not connect: ' . mysqli_connect_error());
     }
 
-    // Get the ISBN from the form submission
     if(isset($_POST['isbn']) && !empty($_POST['isbn'])) {
         $isbn = $_POST['isbn'];
         
-        // Get the current date
         $holdDate = date("Y-m-d");
         
-        // Insert the hold request into the holds table
         $queryInsert = "INSERT INTO holds (ItemID, ItemType, UserID, UserType, HoldDate) VALUES ('$isbn', 'Book', '$studentId', 'Student', '$holdDate')";
         $resultInsert = mysqli_query($con, $queryInsert);
         
@@ -35,3 +30,4 @@ if(isset($_SESSION['StudentID']) && !empty($_SESSION['StudentID'])) {
 } else {
     echo "<p>Student ID not found in the session.</p>";
 }
+?>

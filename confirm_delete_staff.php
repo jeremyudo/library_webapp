@@ -13,16 +13,12 @@
     }
     mysqli_select_db($con, 'library');
 
-    // Retrieve StaffID from the form
     $staffID = mysqli_real_escape_string($con, $_POST['StaffID']);
 
-    // Query to get staff information
     $sql = "SELECT * FROM staff WHERE StaffID = '$staffID'";
     $result = mysqli_query($con, $sql);
 
-    // Check if staff exists
     if (mysqli_num_rows($result) > 0) {
-        // Fetch staff data
         $staffData = mysqli_fetch_assoc($result);
         ?>
         <h2>Confirm Delete Staff</h2>
@@ -38,7 +34,6 @@
         <p><strong>Position:</strong> <?php echo $staffData['Position']; ?></p>
         <p><strong>Date Hired:</strong> <?php echo $staffData['DateHired']; ?></p>
         <p><strong>Status:</strong> <?php echo $staffData['Status']; ?></p>
-        <!-- Add more fields if needed -->
         <form action="remove_staff.php" method="post">
             <input type="hidden" name="StaffID" value="<?php echo $staffID; ?>">
             <button type="submit">Yes, Delete Staff</button>
@@ -48,11 +43,9 @@
         </form>
     <?php
     } else {
-        // If staff does not exist, display an error message
         echo "Staff not found.";
     }
 
-    // Close database connection
     mysqli_close($con);
     ?>
 </body>

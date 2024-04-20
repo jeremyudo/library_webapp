@@ -10,7 +10,7 @@
             requiredInputs.forEach(function(input) {
                 var label = document.createElement('label');
                 label.textContent = '*';
-                label.style.color = 'red'; // Change color as needed
+                label.style.color = 'red'; 
                 input.parentNode.insertBefore(label, input.nextSibling);
             });
 
@@ -18,16 +18,13 @@
             var startTimeInput = document.getElementById('start_time');
             var endTimeInput = document.getElementById('end_time');
 
-            // Prevent past dates
             var today = new Date().toISOString().split('T')[0];
             dateInput.setAttribute('min', today);
 
-            // Disable end time earlier than start time
             startTimeInput.addEventListener('change', function() {
                 endTimeInput.setAttribute('min', startTimeInput.value);
             });
 
-            // Disable start time when end time is earlier than start time
             endTimeInput.addEventListener('change', function() {
                 if (endTimeInput.value < startTimeInput.value) {
                     startTimeInput.value = '';
@@ -39,7 +36,6 @@
             var startTimeInput = document.getElementById('start_time');
             var endTimeInput = document.getElementById('end_time');
 
-            // Ensure end time is not earlier than start time
             if (endTimeInput.value < startTimeInput.value) {
                 alert("End time cannot be earlier than start time.");
                 return false;
@@ -51,7 +47,6 @@
 </head>
 <body>
 
-<!-- Add new event form -->
 <form action="insert_event.php" method="post" onsubmit="return validateForm()">
     Event Name: <input type="text" name="event_name" required /><br>
     Date: <input type="date" id="date" name="date" required /><br>

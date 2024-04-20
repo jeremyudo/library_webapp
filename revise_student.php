@@ -5,13 +5,9 @@ if (!$con) {
 }
 mysqli_select_db($con, 'library');
 
-// Assuming StudentID is the primary key
 $studentID = mysqli_real_escape_string($con, $_POST['StudentID']);
-
-// Construct the update query
 $sql = "UPDATE students SET ";
 
-// Check each field individually and append to the query if it's provided in the form
 if (!empty($_POST['FirstName'])) {
     $sql .= "FirstName='" . $_POST['FirstName'] . "', ";
 }
@@ -43,16 +39,10 @@ if (!empty($_POST['Password'])) {
     $sql .= "Password='" . $_POST['Password'] . "', ";
 }
 
-// Append the UpdatedDate field with the current date and time
 $sql .= "UpdatedDate='" . date('Y-m-d H:i:s') . "', ";
-
-// Remove the trailing comma and space from the query string
 $sql = rtrim($sql, ", ");
-
-// Add the WHERE clause to specify which record to update
 $sql .= " WHERE StudentID='$studentID'";
 
-// Execute the query
 if (!mysqli_query($con, $sql)) {
     die('Error: ' . mysqli_error($con));
 }
@@ -60,3 +50,4 @@ if (!mysqli_query($con, $sql)) {
 echo "Record updated successfully";
 
 mysqli_close($con);
+?>

@@ -14,7 +14,6 @@
    <?php
       $msg = '';
       
-      // Database connection
       $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
       if (!$con) {
          die('Could not connect: ' . mysqli_connect_error());
@@ -24,17 +23,14 @@
          $username = $_POST['Username'];
          $password = $_POST['Password'];
          
-         // Fetch staff record from database
          $query = "SELECT * FROM staff WHERE StaffID = '$username'";
          $result = mysqli_query($con, $query);
          $row = mysqli_fetch_assoc($result);
          
          if ($row) {
-            // Verify password
             if ($row['Password'] === $password) {
                $_SESSION['staff_logged_in'] = true;
                $_SESSION['staff_username'] = $username;
-               // Redirect to staff panel
                header("Location: staff_home.php");
                exit();
             } else {

@@ -1,10 +1,7 @@
 <?php
-   // Start session
    session_start();
 
-   // Check if staff is logged in
    if (!isset($_SESSION['staff_logged_in']) || $_SESSION['staff_logged_in'] !== true) {
-       // Redirect to staff login page if not logged in
        header("Location: staff_login.php");
        exit();
    }

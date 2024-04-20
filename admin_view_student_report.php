@@ -1,10 +1,7 @@
 <?php
-    // Start session
     session_start();
 
-    // Check if admin is logged in
     if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-        // Redirect to admin login page if not logged in
         header("Location: admin_login.php");
         exit();
     }
@@ -16,8 +13,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Student Report</title>
     <style>
-        /* CSS for table styles */
-        /* Add this to table.css */
 .resultsTable {
   width: 100%;
   border-collapse: collapse;
@@ -47,7 +42,6 @@
   font-size: 30px;
 }
 
-/* Add this custom CSS */
 .homeContent {
   font-family: 'Courier New', Courier, monospace;
   max-width: 800px;
@@ -63,7 +57,7 @@ form {
 form label {
   padding: 5px;
   margin-right: 10px;
-  display: block; /* Display labels as block elements */
+  display: block; 
 }
 
 form input[type="text"] {
@@ -84,7 +78,7 @@ form button[type="submit"] {
   border-radius: 4px;
   cursor: pointer;
   width: 130px;
-  margin-top: 10px; /* Add space between button and input fields */
+  margin-top: 10px; 
 }
 
 form button[type="submit"]:hover {
@@ -92,7 +86,7 @@ form button[type="submit"]:hover {
 }
 
 .homeContent p {
-  margin-top: 20px; /* Center the paragraph */
+  margin-top: 20px; 
 }
 
 .homeContent a {
@@ -104,7 +98,6 @@ form button[type="submit"]:hover {
   text-decoration: underline;
 }
 
-/* Add this custom CSS */
 .creditCardDetails {
   font-family: 'Courier New', Courier, monospace;
 }
@@ -112,7 +105,7 @@ form button[type="submit"]:hover {
 .creditCardDetails label {
   padding: 5px;
   margin-right: 10px;
-  display: block; /* Display labels as block elements */
+  display: block; 
 }
 
 .creditCardDetails input[type="number"],
@@ -121,8 +114,8 @@ form button[type="submit"]:hover {
   padding: 8px;
   border-radius: 4px;
   border: 1px solid #ccc;
-  margin-top: 5px; /* Add space between input fields */
-  width: 20%; /* Make input fields fill the width */
+  margin-top: 5px; 
+  width: 20%; 
 }
 
         
@@ -132,16 +125,13 @@ form button[type="submit"]:hover {
     <h2 style="margin-left:10rem; margin-top:5rem;">View Student Report</h2> 
 
     <?php
-        // Database connection
         $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
         if (!$con) {
             die('Could not connect: ' . mysqli_connect_error());
         }
 
-        // Get the student ID from the URL parameter
         $studentID = $_GET['student_id'];
 
-        // SQL query to retrieve checkout records for the student
         $sql_checkout = "SELECT c.ItemID, c.ItemType, 
                                 CASE 
                                     WHEN c.ItemType = 'Book' THEN b.Title
@@ -160,21 +150,16 @@ form button[type="submit"]:hover {
                         WHERE c.UserID = '$studentID'";
         $result_checkout = mysqli_query($con, $sql_checkout);
 
-        // SQL query to retrieve hold records for the student
         $sql_hold = "SELECT * FROM holds WHERE UserID = '$studentID'";
         $result_hold = mysqli_query($con, $sql_hold);
 
-        // SQL query to retrieve fines for the student
         $sql_fines = "SELECT * FROM fines WHERE UserID = '$studentID'";
         $result_fines = mysqli_query($con, $sql_fines);
 
-        // SQL query to retrieve lost items for the student
         $sql_lost_items = "SELECT * FROM lostitems WHERE UserID = '$studentID'";
         $result_lost_items = mysqli_query($con, $sql_lost_items);
 
-        // Display checkout records
         if (mysqli_num_rows($result_checkout) > 0) {
-            // Start table for checkout records
             echo "<h3>Checkout Records</h3>";
             echo "<table class='resultsTable'>
                     <tr>
@@ -187,7 +172,6 @@ form button[type="submit"]:hover {
                         <th>Check-in Date</th>
                     </tr>";
 
-            // Fetch and display each row of checkout records
             while ($row_checkout = mysqli_fetch_assoc($result_checkout)) {
                 echo "<tr>";
                 echo "<td>" . $row_checkout['ItemID'] . "</td>";
@@ -200,15 +184,12 @@ form button[type="submit"]:hover {
                 echo "</tr>";
             }
 
-            // End table for checkout records
             echo "</table>";
         } else {
             echo "<p>No checkout records found.</p>";
         }
 
-        // Display hold records
         if (mysqli_num_rows($result_hold) > 0) {
-            // Start table for hold records
             echo "<h3>Hold Records</h3>";
             echo "<table class='resultsTable'>
                     <tr>
@@ -221,7 +202,6 @@ form button[type="submit"]:hover {
                         <th>Status</th>
                     </tr>";
 
-            // Fetch and display each row of hold records
             while ($row_hold = mysqli_fetch_assoc($result_hold)) {
                 echo "<tr>";
                 echo "<td>" . $row_hold['HoldID'] . "</td>";
@@ -234,15 +214,12 @@ form button[type="submit"]:hover {
                 echo "</tr>";
             }
 
-            // End table for hold records
             echo "</table>";
         } else {
             echo "<p>No hold records found.</p>";
         }
 
-        // Display lost items
         if (mysqli_num_rows($result_lost_items) > 0) {
-            // Start table for lost items
             echo "<h3>Lost Items</h3>";
             echo "<table class='resultsTable'>
                     <tr>
@@ -255,7 +232,6 @@ form button[type="submit"]:hover {
                         <th>Status</th>
                     </tr>";
 
-            // Fetch and display each row of lost items
             while ($row_lost_item = mysqli_fetch_assoc($result_lost_items)) {
                 echo "<tr>";
                 echo "<td>" . $row_lost_item['LostID'] . "</td>";
@@ -268,15 +244,12 @@ form button[type="submit"]:hover {
                 echo "</tr>";
             }
 
-            // End table for lost items
             echo "</table>";
         } else {
             echo "<p>No lost items found.</p>";
         }
 
-        // Display fines
         if (mysqli_num_rows($result_fines) > 0) {
-            // Start table for fines
             echo "<h3>Fines</h3>";
             echo "<table class='resultsTable'>
                     <tr>
@@ -287,7 +260,6 @@ form button[type="submit"]:hover {
                         <th>Status</th>
                     </tr>";
 
-            // Fetch and display each row of fines
             while ($row_fine = mysqli_fetch_assoc($result_fines)) {
                 echo "<tr>";
                 echo "<td>" . $row_fine['FineID'] . "</td>";
@@ -298,13 +270,11 @@ form button[type="submit"]:hover {
                 echo "</tr>";
             }
 
-            // End table for fines
             echo "</table>";
         } else {
             echo "<p>No fines found.</p>";
         }
 
-        // Close connection
         mysqli_close($con);
     ?>
 </body>

@@ -7,13 +7,11 @@ if (!isset($_SESSION['valid']) || $_SESSION['valid'] !== true) {
     exit();
 }
 
-// Perform database connection
 $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
 if (!$con) {
     die('Could not connect: ' . mysqli_connect_error());
 }
 
-// Query fines for the logged-in student with status 'Paid'
 $studentID = $_SESSION['StudentID'];
 $query = "SELECT FineID, ItemID, ItemType, FineAmount, FineDate, Status FROM fines WHERE UserID = $studentID AND Status = 'Paid'";
 $result = mysqli_query($con, $query);
@@ -25,7 +23,7 @@ $result = mysqli_query($con, $query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Transactions</title>
-    <link rel="stylesheet" href="view_holds.css"> <!-- Include your CSS file here -->
+    <link rel="stylesheet" href="view_holds.css"> 
 </head>
 <body>
     <div class="homeContent">
@@ -57,7 +55,6 @@ $result = mysqli_query($con, $query);
             }
             ?>
         </table>
-        <!-- Add a link back to the home page -->
         <p><a href="account.php">Back</a></p>
     </div>
 </body>

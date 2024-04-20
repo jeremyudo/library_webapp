@@ -1,4 +1,3 @@
-/* style.css */
 nav ul {
   list-style-type: none;
   margin: 0;
@@ -11,7 +10,7 @@ nav ul {
 }
 
 nav li {
-  float: right; /* Float the list items to the right */
+  float: right;
 }
 
 nav li a {
@@ -25,24 +24,23 @@ nav li a {
   gap: 20px;
 }
 
-.homeLink{
+.homeLink {
   position: relative;
   left: -20px;
   font-size: 18px;
 }
 
-.servicesLink{
+.servicesLink {
   position: relative;
   left: -40px;
 }
 
-.contactLink{
+.contactLink {
   position: relative;
   left: -60px;
-  
 }
 
-.loginIn{
+.loginIn {
   position: relative;
   left: 0px;
   top: -11px;
@@ -72,7 +70,7 @@ nav li a:hover {
   width: 80px;
 }
 
-.logoTab img{
+.logoTab img {
   position: relative;
   left: -1020px;
   top: -5px;

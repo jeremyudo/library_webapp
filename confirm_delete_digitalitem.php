@@ -13,16 +13,12 @@
     }
     mysqli_select_db($con, 'library');
 
-    // Retrieve DigitalID from the form
     $DigitalID = mysqli_real_escape_string($con, $_POST['DigitalID']);
 
-    // Query to get digital item information
     $sql = "SELECT * FROM digitalitems WHERE DigitalID = '$DigitalID'";
     $result = mysqli_query($con, $sql);
 
-    // Check if digital item exists
     if (mysqli_num_rows($result) > 0) {
-        // Fetch digital item data
         $digitalItemData = mysqli_fetch_assoc($result);
         ?>
         <h2>Confirm Delete Digital Item</h2>
@@ -38,7 +34,6 @@
         <p><strong>Language:</strong> <?php echo $digitalItemData['Language']; ?></p>
         <p><strong>Cover Image:</strong> <?php echo $digitalItemData['CoverImage']; ?></p>
         <p><strong>Stock:</strong> <?php echo $digitalItemData['Stock']; ?></p>
-        <!-- Add more fields if needed -->
         <form action="remove_digitalitem.php" method="post">
             <input type="hidden" name="DigitalID" value="<?php echo $DigitalID; ?>">
             <button type="submit">Yes, Delete Digital Item</button>
@@ -48,11 +43,9 @@
         </form>
     <?php
     } else {
-        // If digital item does not exist, display an error message
         echo "Digital item not found.";
     }
 
-    // Close database connection
     mysqli_close($con);
     ?>
 </body>

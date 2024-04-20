@@ -14,18 +14,15 @@
    <?php
       $msg = '';
       
-      // Hardcoded admin credentials
       $admin_username = 'admin';
       $admin_password = 'password';
 
       if (isset($_POST['login']) && !empty($_POST['Username']) && !empty($_POST['Password'])) {
          $username = $_POST['Username'];
          $password = $_POST['Password'];
-         // Check if provided username and password match hardcoded admin credentials
          if ($username === $admin_username && $password === $admin_password) {
             $_SESSION['admin_logged_in'] = true;
             $_SESSION['admin_username'] = $username;
-            // Redirect to admin panel
             header("Location: admin_home.php");
             exit();
          } else {
@@ -51,7 +48,7 @@
       
    </form>
    <div class="signIn">
-   <a style="text-decoration:none; color: black;font-weight: normal" href="login.php" tite="signIn">Sign In</a>
+   <a style="text-decoration:none; color: black;font-weight: normal" href="login.php" tite="signIn">Back</a>
    </div>
    <p class="cleanSession"> 
       <a href="logout.php" tite="Logout">Click here to clean Session</a>

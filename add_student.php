@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <title>Add New Student</title>
     <script>
@@ -6,7 +8,7 @@
             requiredInputs.forEach(function(input) {
                 var label = document.createElement('label');
                 label.textContent = '*';
-                label.style.color = 'red'; // Change color as needed
+                label.style.color = 'red'; 
                 input.parentNode.insertBefore(label, input.nextSibling);
             });
         };
@@ -14,7 +16,6 @@
 </head>
 <body>
 
-    <!-- Add new student and modify the student information -->
     <form action="insert_student.php" method="post">
         Student ID: <input type="number" name="StudentID" required /><br>
         First Name: <input type="text" name="FirstName" required /><br>

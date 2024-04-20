@@ -10,19 +10,16 @@
             text-align: center;
         }
 
-        /* Additional styling for the PageCount field */
         textarea[name="Description"] {
-            height: 100px; /* Adjust the height as needed */
+            height: 100px; 
         }
 
-        /* Style for required fields */
         .required::after {
             content: '*';
             color: red;
             margin-left: 5px;
         }
 
-        /* Style for buttons */
         .button {
             margin-top: 10px;
         }
@@ -30,7 +27,6 @@
 </head>
 <body>
 
-<!-- Add new staff member and modify the staff information -->
 <form action="" method="post">
     <h2 id="header">Add Staff</h2>
     Staff ID: <input type="number" name="StaffID" required /><br>
@@ -69,42 +65,33 @@
 </form>
 
 <?php
-// Database connection
 $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
 if (!$con) {
     die('Could not connect: ' . mysqli_connect_error());
 }
 
 if (isset($_POST['submit'])) {
-    // Set default timezone to prevent date-related issues
     date_default_timezone_set('UTC');
-
-    // Get current date and time
     $createdDate = date('Y-m-d H:i:s');
     $updatedDate = date('Y-m-d H:i:s');
 
-    // Prepare the SQL statement
     $stmt = mysqli_prepare($con, "INSERT INTO staff (StaffID, FirstName, LastName, DateOfBirth, Gender, Address, ContactNumber, EmailAddress, Position, DateHired, Status, CreatedDate, UpdatedDate, Password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     if (!$stmt) {
         die('Error: ' . mysqli_error($con));
     }
 
-    // Bind parameters with the values from the POST array
     mysqli_stmt_bind_param($stmt, 'isssssssssssss', $_POST['StaffID'], $_POST['FirstName'], $_POST['LastName'], $_POST['DateOfBirth'], $_POST['Gender'], $_POST['Address'], $_POST['ContactNumber'], $_POST['EmailAddress'], $_POST['Position'], $_POST['DateHired'], $_POST['Status'], $createdDate, $updatedDate, $_POST['Password']);
 
-    // Execute the statement
     if (!mysqli_stmt_execute($stmt)) {
         die('Error: ' . mysqli_stmt_error($stmt));
     }
 
     echo "1 record added";
-    header("Location: admin_view_staff.php"); // GOES BACK TO ORIGINAL PAGE 
+    header("Location: admin_view_staff.php");
 
-    // Close the statement
     mysqli_stmt_close($stmt);
 }
 
-// Close the database connection
 mysqli_close($con);
 ?>
 

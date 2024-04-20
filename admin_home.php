@@ -2,9 +2,7 @@
    include 'navbar_admin.php';
    session_start();
 
-   // Check if admin is logged in
    if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-       // Redirect to admin login page if not logged in
        header("Location: admin_login.php");
        exit();
    }
@@ -28,8 +26,8 @@
     <a class="logoutText" href="logout.php">Logout</a>
   </div>
    
-   <h2 style="margin-left:10rem; margin-top:5rem;">Admin Panel</h2> 
-   <ul style="list-style-type:none; margin-left:10rem;">
+   <h2>Admin Panel</h2> 
+   <ul>
       <li><a href="admin_view_students.php">View All Students</a></li>
       <li><a href="admin_view_staff.php">View All Staff</a></li>
       <li><a href="admin_view_books.php">View All Books</a></li>
@@ -40,5 +38,4 @@
       <!-- <li><a href="admin_view_checkouts.php">View All Checkouts</a></li> -->
    </ul>
 </body>
-
 </html>

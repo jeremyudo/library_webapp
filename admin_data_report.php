@@ -1,26 +1,20 @@
 <?php
-// Start session
 session_start();
 
-// Check if admin is logged in
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-    // Redirect to admin login page if not logged in
     header("Location: admin_login.php");
     exit();
 }
 
-// Database connection
 $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
 if (!$con) {
     die('Could not connect: ' . mysqli_connect_error());
 }
 
-// Handle the form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['startDate'], $_POST['endDate'])) {
     $startDate = mysqli_real_escape_string($con, $_POST['startDate']);
     $endDate = mysqli_real_escape_string($con, $_POST['endDate']);
 
-    // Query to select users based on the date range
     $sql = "SELECT id, username, role, date_joined FROM users WHERE date_joined BETWEEN '$startDate' AND '$endDate' ORDER BY date_joined ASC";
     $result = mysqli_query($con, $sql);
 }
@@ -32,7 +26,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['startDate'], $_POST['e
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New User Data Report</title>
     <style>
-        /* Add your CSS here */
         table, th, td {
             border: 1px solid black;
             border-collapse: collapse;
@@ -48,7 +41,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['startDate'], $_POST['e
 <body>
     <h1>New User Data Report</h1>
 
-    <!-- Date range form -->
     <form action="new_user_report.php" method="post">
         <label for="startDate">Start Date:</label>
         <input type="date" id="startDate" name="startDate" required>

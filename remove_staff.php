@@ -5,10 +5,8 @@ if (!$con) {
 }
 mysqli_select_db($con, 'library');
 
-// Get the StaffID from the form
 $staffID = mysqli_real_escape_string($con, $_POST['StaffID']);
 
-// Update the Status column to mark the staff as Inactive
 $update_staff_sql = "UPDATE staff SET Status = 'Inactive' WHERE StaffID='$staffID'";
 if (!mysqli_query($con, $update_staff_sql)) {
     die('Error marking staff as inactive: ' . mysqli_error($con));

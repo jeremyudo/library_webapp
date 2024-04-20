@@ -6,13 +6,11 @@ if (!isset($_SESSION['valid']) || $_SESSION['valid'] !== true) {
     exit();
 }
 
-// Perform database connection
 $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
 if (!$con) {
     die('Could not connect: ' . mysqli_connect_error());
 }
 
-// Query to retrieve all holds
 $query = "SELECT * FROM holds";
 $result = mysqli_query($con, $query);
 
@@ -25,47 +23,45 @@ $result = mysqli_query($con, $query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Holds - Admin</title>
     <style>
-        /* styles/table.css */
 
-    /* styles/table.css */
 body {
-    font-family: 'Courier New', Courier, monospace; /* Applying Courier New font throughout the page */
-    background-color: #f4f4f4; /* Light grey background for better contrast */
+    font-family: 'Courier New', Courier, monospace; 
+    background-color: #f4f4f4; 
     margin: 0;
     padding: 0;
 }
 
 h2 {
-    margin-left: 10rem; /* Matching the margin for consistency */
+    margin-left: 10rem; 
     margin-top: 5rem;
 }
 
 .resultsTable {
-    width: 98%; /* Full width of the container */
-    border-collapse: collapse; /* Eliminates double borders */
+    width: 98%; 
+    border-collapse: collapse; 
     margin-left: 1rem;
     margin-right: 1rem;
 }
 
 .resultsTable th, .resultsTable td {
-    border: 1px solid black; /* Black borders for cells */
-    padding: 8px; /* Padding inside cells */
-    text-align: left; /* Text aligned to the left */
+    border: 1px solid black; 
+    padding: 8px; 
+    text-align: left; 
 }
 
 .resultsTable th {
-    background-color: #f2f2f2; /* Light gray background for headers */
+    background-color: #f2f2f2; 
 }
 
 a {
-    color: #3366cc; /* Styling links with a default blue */
-    text-decoration: none; /* Removing underline from links */
-    padding: 5px 10px; /* Padding for clickable area */
-    display: inline-block; /* Making the anchor behave like a block element */
+    color: #3366cc; 
+    text-decoration: none; 
+    padding: 5px 10px;
+    display: inline-block; 
 }
 
 a:hover {
-    text-decoration: underline; /* Adding underline on hover */
+    text-decoration: underline; 
 }
 
     </style>
@@ -101,7 +97,6 @@ a:hover {
             }
             ?>
         </table>
-        <!-- Add a link back to the home page -->
         <p><a href="admin_home.php">Back</a></p>
     </div>
 </body>

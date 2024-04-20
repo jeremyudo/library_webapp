@@ -1,6 +1,5 @@
 /* admin_home.css */
 
-/* General styling */
 body {
   font-family: 'Courier New', Courier, monospace;
   position: relative;
@@ -11,7 +10,7 @@ body {
   background-color: #f0f0f0;
 }
 
-.accountTab{
+.accountTab {
   font-family: 'Courier New', Courier, monospace;
   font-size: 20px;
   position: absolute;
@@ -27,13 +26,13 @@ body {
   height: 10%;
 }
 
-.logout{
+.logout {
   position: absolute;
   top: 80px;
   right: 35px;
 }
 
-.logoutText{
+.logoutText {
   font-family: 'Courier New', Courier, monospace;
   font-size: 20px;
   text-decoration: none;

@@ -7,18 +7,15 @@ if (!isset($_SESSION['valid']) || $_SESSION['valid'] !== true) {
     exit();
 }
 
-// Perform database connection
 $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
 if (!$con) {
     die('Could not connect: ' . mysqli_connect_error());
 }
 
-// Query fines for the logged-in student with status 'Unpaid'
 $studentID = $_SESSION['StudentID'];
 $query = "SELECT FineID, ItemID, ItemType, FineAmount, FineDate, Status FROM fines WHERE UserID = $studentID AND Status = 'Unpaid'";
 $result = mysqli_query($con, $query);
 
-// Initialize total fine amount
 $totalFineAmount = 0;
 
 ?>
@@ -29,7 +26,7 @@ $totalFineAmount = 0;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Fines</title>
-    <link rel="stylesheet" href="view_holds.css"> <!-- Include your table.css file here -->
+    <link rel="stylesheet" href="view_holds.css">
 </head>
 <body>
     <div class="homeContent">
@@ -47,7 +44,6 @@ $totalFineAmount = 0;
             <?php
             if (mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_assoc($result)) {
-                    // Accumulate fine amount for each unpaid fine
                     $totalFineAmount += $row['FineAmount'];
                     echo "<tr>";
                     echo "<td><a href='pay_fine.php?fine_id=" . $row['FineID'] . "'>" . $row['FineID'] . "</a></td>";
@@ -58,14 +54,12 @@ $totalFineAmount = 0;
                     echo "<td>" . $row['Status'] . "</td>";
                     echo "</tr>";
                 }
-                // Display total fine amount row
                 echo "<tr><td colspan='3'>Total Fine Amount:</td><td colspan='3'>$" . number_format($totalFineAmount, 2) . "</td></tr>";
             } else {
                 echo "<tr><td colspan='6'>No unpaid fines found.</td></tr>";
             }
             ?>
         </table>
-        <!-- Add a link back to the home page -->
         <p><a href="account.php">Back</a></p>
     </div>
 </body>

@@ -8,7 +8,7 @@
         requiredInputs.forEach(function(input) {
             var label = document.createElement('label');
             label.textContent = '*';
-            label.style.color = 'red'; // Change color as needed
+            label.style.color = 'red'; 
             input.parentNode.insertBefore(label, input.nextSibling);
         });
     };
@@ -16,7 +16,6 @@
 </head>
 <body>
 
-<!-- Add new digital item -->
 <form action="insert_digitalitem.php" method="post">
     Digital ID: <input type="number" name="DigitalID" required /><br>
     Stock: <input type="number" name="Stock" required /><br>

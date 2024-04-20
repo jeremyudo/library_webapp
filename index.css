@@ -1,6 +1,4 @@
-
-
-.signInTab{
+.signInTab {
   font-family: 'Courier New', Courier, monospace;
   font-size: 20px;
   position: absolute;
@@ -8,7 +6,7 @@
   right: -110px;
 }
 
-.signInText{
+.signInText {
   font-weight: bold;
   text-decoration: none;
   font-family: 'Courier New', Courier, monospace;
@@ -37,15 +35,13 @@
   margin-bottom: 0px;
 }
 
-
-
-.logout{
+.logout {
   position: absolute;
   top: 90px;
   right: 35px;
 }
 
-.logoutText{
+.logoutText {
   font-family: 'Courier New', Courier, monospace;
   font-size: 20px;
   text-decoration: none;
@@ -55,7 +51,7 @@
   background-color: skyblue;
 }
 
-.welcomeBox{
+.welcomeBox {
   height: 100px;
   width: 1150px;
   position: relative;
@@ -63,10 +59,10 @@
   border-radius: 10px;
   left: 150px;
   align-items: center;
-  margin-top:0;
+  margin-top: 0;
 }
 
-.welcome{
+.welcome {
   font-family: 'Courier New', Courier, monospace;
   font-size: 50px;
   text-align: center;
@@ -74,30 +70,29 @@
   top: 25px;
 }
 
-.topReadsText{
+.topReadsText {
   font-family: 'Courier New', Courier, monospace;
   font-size: 40px;
   position: relative;
-  top:25px;
+  top: 25px;
 }
 
-.searchText{
-  margin-bottom:0;
+.searchText {
+  margin-bottom: 0;
   font-family: 'Courier New', Courier, monospace;
   font-size: 25px;
 }
-
 
 .topReadsGallery {
   display: flex;
   width: 100%;
   flex-wrap: nowrap;
-  gap: 7px; /* Adjusts the space between items */
-  justify-content: center; /* Center items horizontally */
+  gap: 7px; 
+  justify-content: center; 
 }
 
 .topReadsGallery .book {
-  width: 300px; /* Adjust based on your preference */
+  width: 300px; 
   text-align: center;
   height: auto;
   border-radius: 15px;
@@ -108,16 +103,15 @@
 }
 
 .topReadsGallery img {
-  width: 100%; /* Makes the image fill the container */
+  width: 100%; 
   position: relative;
   min-height: 500px;
   top: 0px;
   border-radius: 15px;
-  height: auto; /* Keeps the aspect ratio of the image */
-  /*border-radius: 15px; Optional: adds rounded corners to the images */
+  height: auto; 
+  /*border-radius: 15px; */
   border: 3px solid black;
 }
-
 
 .searchForm {
   display: flex;
@@ -125,14 +119,13 @@
   margin-top: 10px;
   height: auto;
   width: auto;
-  
 }
 
 .searchForm input[type="text"] {
   padding: 10px;
   margin-right: 10px;
-  width: 500px; 
-  height: 4s0px;
+  width: 500px;
+  height: 40px;
   border-radius: 5px;
   border: 3px solid black;
 }
@@ -159,14 +152,13 @@
   background-color: #7c5454;
 }
 
-/* Further styling for the home content */
 .homeContent {
   text-align: center;
   padding: 20px;
   margin-bottom: 20px;
 }
 
-.info{
+.info {
   padding-left: 20px;
   padding-right: 20px;
   position: relative;
@@ -179,17 +171,17 @@
   font-size: 18px;
 }
 
-.aboutText{
+.aboutText {
   font-size: 15px;
   margin-top: 0px;
 }
 
-.aboutHead{
+.aboutHead {
   font-size: 20px;
-  margin-bottom: 2px;;
+  margin-bottom: 2px;
 }
 
-.featuredResources{
+.featuredResources {
   height: 300px;
   width: 1420px;
   border-radius: 10px;
@@ -198,7 +190,7 @@
   margin-bottom: 50px;
 }
 
-.featuredResourcesTitle{
+.featuredResourcesTitle {
   font-family: 'Courier New', Courier, monospace;
   font-size: 35px;
   position: relative;
@@ -206,7 +198,7 @@
   left: -500px;
 }
 
-.e-resource img{
+.e-resource img {
   border-radius: 50%;
   height: 200px;
   width: 250px;
@@ -216,7 +208,7 @@
   border: 3px solid black;
 }
 
-.book-resource img{
+.book-resource img {
   border-radius: 50%;
   height: 200px;
   width: 250px;
@@ -226,7 +218,7 @@
   border: 3px solid black;
 }
 
-.news-resource img{
+.news-resource img {
   border-radius: 50%;
   height: 200px;
   width: 250px;
@@ -236,7 +228,7 @@
   border: 3px solid black;
 }
 
-.quickLinks{
+.quickLinks {
   position: relative;
   left: 150px;
   top: -100px;
@@ -251,7 +243,7 @@
   right: 500px;
   font-family: 'Courier New', Courier, monospace;
   font-size: 35px;
-  margin: 0; /* Reset default margins */
+  margin: 0;
 }
 
 .popup-container {
@@ -259,7 +251,7 @@
   left: 280px;
   top: 10px;
   display: flex;
-  gap: 100px; /* Adjust the space between elements */
+  gap: 100px;
 }
 
 .popup-trigger {
@@ -267,9 +259,9 @@
   font-family: 'Courier New', Courier, monospace;
   font-size: 20px;
 
-  cursor: pointer; /* Add cursor pointer for better UX */
-  position: relative; /* Needed for absolute positioning */
-  z-index: 2; /* Ensure text is above popup boxes */
+  cursor: pointer; 
+  position: relative;
+  z-index: 2; 
 }
 
 .popup-box {
@@ -285,6 +277,3 @@
 .popup-trigger:hover + .popup-box {
   display: block;
 }
-
-
-

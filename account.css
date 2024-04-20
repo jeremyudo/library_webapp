@@ -1,7 +1,3 @@
-
-
-/* General styling */
-
 .logout{
   position: absolute;
   top: 90px;
@@ -20,8 +16,6 @@
 
 body {
   font-family: 'Courier New', Courier, monospace;
-  /* margin: 0;
-  padding: 0; */
   background-color: #f0f0f0;
 }
 
@@ -30,7 +24,6 @@ body {
   margin: auto;
 }
 
-/* Account page styling */
 .homeContent {
   text-align: center;
   padding: 20px;
@@ -42,8 +35,6 @@ body {
   margin-bottom: 20px;
 }
 
-
-/* Links styling */
 a {
   color: #007bff;
   text-decoration: none;

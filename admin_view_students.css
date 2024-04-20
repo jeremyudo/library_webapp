@@ -1,55 +1,50 @@
-/* General body styles */
 body {
   font-family: 'Courier New', Courier, monospace;
   margin: 0;
   padding: 0;
-  background: #f4f4f4; /* Light grey background */
+  background: #f4f4f4;
   display: flex;
-  justify-content: center; /* Centers the content horizontally */
-  align-items: center; /* Centers content vertically */
-  min-height: 100vh; /* Full viewport height */
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   font-size: 20px;
 }
 
-/* Header styles */
 h2 {
-  color: #333; /* Dark grey color */
-  margin-bottom: 2rem; /* Spacing below the header */
+  color: #333;
+  margin-bottom: 2rem;
 }
 
-/* Container for table and buttons */
 .container {
-  width: 90%; /* Responsive width */
-  max-width: 1200px; /* Maximum width */
-  background-color: white; /* White background for clarity */
+  width: 90%;
+  max-width: 1200px;
+  background-color: white;
   padding: 20px;
-  box-shadow: 0 2px 15px rgba(0,0,0,0.1); /* Subtle shadow for 3D effect */
+  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
   margin: 20px;
 }
 
-/* Table styles */
 .resultsTable {
   font-size: 13px;
-  width: 100%; /* Full width of the container */
-  border-collapse: collapse; /* Collapse borders */
-  margin: 0 auto; /* Centering the table */
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
 }
 
 .resultsTable th, .resultsTable td {
-  border: 1px solid #ddd; /* Lighter border for a softer look */
-  padding: 12px 15px; /* Bigger padding for content spacing */
-  text-align: left; /* Align text to the left */
+  border: 1px solid #ddd;
+  padding: 12px 15px;
+  text-align: left;
 }
 
 .resultsTable th {
-  background-color: #f9f9f9; /* Very light grey for headers */
-  color: #333; /* Text color for headers */
+  background-color: #f9f9f9;
+  color: #333;
 }
 
-/* Button styles */
 button {
   font-family: 'Courier New', Courier, monospace;
-  background-color: #4CAF50; /* Green background for visibility */
+  background-color: #4CAF50;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -62,5 +57,5 @@ button {
 }
 
 button:hover {
-  background-color: #45a049; /* Darker green on hover for effect */
+  background-color: #45a049;
 }

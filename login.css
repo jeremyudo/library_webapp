@@ -135,7 +135,7 @@ input[type="password"] {
   position: absolute;
   text-decoration: none;
   top: 420px;
-  left: 490px; /* Adjust left position as needed */
+  left: 490px; 
   padding: 10px;
   background-color: #b3bfcb;
   color: white;

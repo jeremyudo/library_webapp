@@ -1,12 +1,9 @@
-/* data_forms.css */
-
-/* General styling for form elements */
 form {
   font-family: 'Courier New', Courier, monospace;
   margin-top: 20px;
-  padding: 20px; /* Add padding to the form */
-  width: 80%; /* Set a reasonable width for the form */
-  margin: 0 auto; /* Center the form horizontally */
+  padding: 20px;
+  width: 80%;
+  margin: 0 auto;
 }
 
 form label {
@@ -26,7 +23,7 @@ form select {
   border: 1px solid #ccc;
   width: 100%;
   margin-bottom: 10px;
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  box-sizing: border-box;
 }
 
 form input[type="submit"] {
@@ -57,20 +54,15 @@ form input[type="submit"]:hover {
   text-align: center;
 }
 
-/* Additional styling for specific form elements */
-
-/* PageCount field */
 input[name="PageCount"] {
-  width: 300px; /* Adjust the width as needed */
+  width: 300px;
 }
 
-/* Description field */
 textarea[name="Description"] {
-  height: 150px; /* Adjust the height as needed */
-  width: 100%; /* Take up full width */
+  height: 150px;
+  width: 100%;
 }
 
-/* Header */
 #header {
   text-align: center;
 }

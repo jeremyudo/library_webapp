@@ -13,16 +13,12 @@
     }
     mysqli_select_db($con, 'library');
 
-    // Retrieve ISBN from the form
     $ISBN = mysqli_real_escape_string($con, $_POST['ISBN']);
 
-    // Query to get book information
     $sql = "SELECT * FROM books WHERE ISBN = '$ISBN'";
     $result = mysqli_query($con, $sql);
 
-    // Check if book exists
     if (mysqli_num_rows($result) > 0) {
-        // Fetch book data
         $bookData = mysqli_fetch_assoc($result);
         ?>
         <h2>Confirm Delete Book</h2>
@@ -39,7 +35,6 @@
         <p><strong>Stock:</strong> <?php echo $bookData['Stock']; ?></p>
         <p><strong>Page Count:</strong> <?php echo $bookData['PageCount']; ?></p>
         <p><strong>Format:</strong> <?php echo $bookData['Format']; ?></p>
-        <!-- Add more fields if needed -->
         <form action="remove_book.php" method="post">
             <input type="hidden" name="ISBN" value="<?php echo $ISBN; ?>">
             <button type="submit">Yes, Delete Book</button>
@@ -49,11 +44,9 @@
         </form>
     <?php
     } else {
-        // If book does not exist, display an error message
         echo "Book not found.";
     }
 
-    // Close database connection
     mysqli_close($con);
     ?>
 </body>

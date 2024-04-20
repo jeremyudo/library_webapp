@@ -1,10 +1,6 @@
 <?php
-    // Start session
     session_start();
-
-    // Check if admin is logged in
     if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-        // Redirect to admin login page if not logged in
         header("Location: admin_login.php");
         exit();
     }
@@ -17,54 +13,50 @@
     <title>View Staff</title>
     <style>
         body {
-            font-family: 'Courier New', Courier, monospace; /* Set the font for the entire page */
+            font-family: 'Courier New', Courier, monospace;
         }
 
-        /* CSS for table styles */
         .resultsTable {
-            border-collapse: collapse; /* Collapse borders to avoid double borders */
-            width: 100%; /* Full width */
-            margin-top: 20px; /* Add some top margin to the table */
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
         }
 
         .resultsTable th, .resultsTable td {
-            border: 1px solid black; /* Add black borders to cells */
-            padding: 8px; /* Add some padding for better spacing */
-            text-align: left; /* Align text to the left */
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
         }
 
         .resultsTable th {
-            background-color: #f2f2f2; /* Light gray background color for header cells */
+            background-color: #f2f2f2;
         }
 
         button {
             font-family: 'Courier New', Courier, monospace;
-            margin-left: 1rem; /* Uniform left margin for buttons */
-            margin-top: 1rem; /* Top margin for spacing between elements */
-            padding: 10px 20px; /* Padding for a better button size */
-            background-color: #4CAF50; /* Green background color */
-            color: white; /* White text color */
-            border: none; /* No borders */
-            cursor: pointer; /* Pointer cursor on hover */
+            margin-left: 1rem;
+            margin-top: 1rem;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
         }
 
         button:hover {
-            background-color: #45a049; /* Slightly darker green background on hover */
+            background-color: #45a049;
         }
     </style>
-
 </head>
 <body>
     <h2 style="margin-left:10rem; margin-top:5rem;">View Staff</h2> 
 
-    <!-- Filter Form -->
     <form method="get">
         <label for="filterBy">Filter By:</label>
         <select name="filterBy" id="filterBy">
             <option value="Status">Status</option>
             <option value="StaffID">Staff ID</option>
             <option value="FirstName">First Name</option>
-            <!-- Add more options for other fields if needed -->
         </select>
         <input type="text" name="filterValue" placeholder="Filter Value">
         <button type="submit">Apply Filter</button>
@@ -89,27 +81,22 @@
         </tr>
 
         <?php
-            // Database connection
             $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
             if (!$con) {
                 die('Could not connect: ' . mysqli_connect_error());
             }
 
-            // Prepare SQL query
             $sql = "SELECT * FROM staff WHERE Status = 'Active'";
             
-            // Check if filter is provided
             if (isset($_GET['filterBy']) && isset($_GET['filterValue'])) {
                 $filterBy = mysqli_real_escape_string($con, $_GET['filterBy']);
                 $filterValue = mysqli_real_escape_string($con, $_GET['filterValue']);
                 $sql .= " AND $filterBy = '$filterValue'";
             }
 
-            // Execute SQL query
             $result = mysqli_query($con, $sql);
 
             if (mysqli_num_rows($result) > 0) {
-                // Fetch and display each row of staff information
                 while ($row = mysqli_fetch_assoc($result)) {
         ?>
                     <tr>
@@ -134,7 +121,6 @@
                 echo "<tr><td colspan='14'>No active staff members found.</td></tr>";
             }
 
-            // Close connection
             mysqli_close($con);
         ?>
     </table>
