@@ -6,7 +6,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 }
 $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
 
-$startDate = $endDate = $studentOrFaculty = $fineType = "";
+$startDate = $endDate = $studentOrFaculty = $TypeOfFine = "";
 $fines = array();
 $totalFines = 0;
 $error = "";
@@ -15,18 +15,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $startDate = $_POST['startDate'];
     $endDate = $_POST['endDate'];
     $studentOrFaculty = isset($_POST['studentOrFaculty']) ? $_POST['studentOrFaculty'] : "";
-    $fineType = isset($_POST['fineType']) ? $_POST['fineType'] : "";
+    $TypeOfFine = isset($_POST['TypeOfFine']) ? $_POST['TypeOfFine'] : "";
 
     if (empty($startDate) || empty($endDate)) {
         $error = "Please enter both start and end dates.";
     } else {
-        $sql = "SELECT FineID, UserID, StudentOrFaculty, FineType, FineAmount, PaymentDate 
+        $sql = "SELECT FineID, UserID, StudentOrFaculty, TypeOfFine, FineAmount, PaymentDate 
                 FROM fines 
                 WHERE PaymentDate BETWEEN ? AND ?
                 AND (? = '' OR StudentOrFaculty = ?)
-                AND (? = '' OR FineType = ?)";
+                AND (? = '' OR TypeOfFine = ?)";
         if ($stmt = $con->prepare($sql)) {
-            $stmt->bind_param("ssssss", $startDate, $endDate, $studentOrFaculty, $studentOrFaculty, $fineType, $fineType);
+            $stmt->bind_param("ssssss", $startDate, $endDate, $studentOrFaculty, $studentOrFaculty, $TypeOfFine, $TypeOfFine);
             if ($stmt->execute()) {
                 $result = $stmt->get_result();
                 if ($result->num_rows > 0) {
@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <option value="Faculty">Faculty</option>
         </select>
         Fine Type:
-        <select name="fineType">
+        <select name="TypeOfFine">
             <option value="">All</option>
             <option value="Late">Late</option>
             <option value="Damage">Damage</option>
@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <td><?php echo htmlspecialchars($fine['FineID']); ?></td>
                         <td><?php echo htmlspecialchars($fine['UserID']); ?></td>
                         <td><?php echo htmlspecialchars($fine['StudentOrFaculty']); ?></td>
-                        <td><?php echo htmlspecialchars($fine['FineType']); ?></td>
+                        <td><?php echo htmlspecialchars($fine['TypeOfFine']); ?></td>
                         <td><?php echo htmlspecialchars($fine['FineAmount']); ?></td>
                         <td><?php echo htmlspecialchars($fine['PaymentDate']); ?></td>
                     </tr>
