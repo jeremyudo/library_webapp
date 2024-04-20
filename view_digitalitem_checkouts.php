@@ -24,10 +24,10 @@ mysqli_select_db($con, 'library');
 
 $studentId = $_SESSION['StudentID'];
 
-$query = "SELECT checkouts.ItemID, checkouts.ItemType, digitalitems.Title, checkouts.CheckoutDate, checkouts.ReturnDate
+$query = "SELECT checkouts.ItemID, checkouts.ItemType, digitalmediaitem.MediaName, checkouts.CheckoutDate, checkouts.DueDate
           FROM checkouts 
           INNER JOIN students ON students.StudentID = checkouts.UserID 
-          INNER JOIN digitalitems ON digitalitems.DigitalID = checkouts.ItemID
+          INNER JOIN digitalmediaitem ON digitalmediaitem.DigiID = checkouts.ItemID
           WHERE checkouts.UserID = '$studentId' AND checkouts.CheckinDate IS NULL";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $filter_value = isset($_POST['filter_value']) ? sanitize_input($_POST['filter_value']) : '';
 
     if (!empty($filter_attribute) && !empty($filter_value)) {
-        $allowed_attributes = ['ItemID', 'ItemType', 'Title', 'CheckoutDate', 'ReturnDate'];
+        $allowed_attributes = ['ItemID', 'ItemType', 'MediaName', 'CheckoutDate', 'DueDate'];
         if (in_array($filter_attribute, $allowed_attributes)) {
             $query .= " AND $filter_attribute LIKE '%$filter_value%'";
         } else {
@@ -67,9 +67,9 @@ if (!$result) {
         <label for="filter_attribute">Filter by:</label>
         <select name="filter_attribute" id="filter_attribute">
             <option value="ItemID">ItemID</option>
-            <option value="Title">Title</option>
+            <option value="MediaName">MediaName</option>
             <option value="CheckoutDate">Checkout Date</option>
-            <option value="ReturnDate">Due Date</option>
+            <option value="DueDate">Due Date</option>
         </select>
         <label for="filter_value">Filter Value:</label>
         <input type="text" name="filter_value" id="filter_value">
@@ -79,18 +79,18 @@ if (!$result) {
     <?php
     if(mysqli_num_rows($result) > 0) {
         echo "<table class='resultsTable'>";
-        echo "<tr><th>ItemID</th><th>Title</th><th>Checkout Date</th><th>Due Date</th></tr>";
+        echo "<tr><th>ItemID</th><th>MediaName</th><th>Checkout Date</th><th>Due Date</th></tr>";
         while($row = mysqli_fetch_assoc($result)) {
             echo "<tr>";
-            echo "<td><a href='details_digitalitem.php?digitalid={$row['ItemID']}'>{$row['ItemID']}</a></td>";
-            echo "<td>{$row['Title']}</td>";
+            echo "<td><a href='details_digitalitem.php?DigiID={$row['ItemID']}'>{$row['ItemID']}</a></td>";
+            echo "<td>{$row['MediaName']}</td>";
             echo "<td>{$row['CheckoutDate']}</td>";
-            echo "<td>{$row['ReturnDate']}</td>";
+            echo "<td>{$row['DueDate']}</td>";
             echo "</tr>";
         }
         echo "</table>";
     } else {
-        echo "<p>No books currently checked out.</p>";
+        echo "<p>No digital items currently checked out.</p>";
     }
 
     mysqli_close($con);

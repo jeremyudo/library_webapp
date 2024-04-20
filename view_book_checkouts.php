@@ -24,7 +24,7 @@ mysqli_select_db($con, 'library');
 
 $studentId = $_SESSION['StudentID'];
 
-$query = "SELECT checkouts.ItemID, checkouts.ItemType, books.Title, checkouts.CheckoutDate, checkouts.ReturnDate
+$query = "SELECT checkouts.ItemID, checkouts.ItemType, books.Title, checkouts.CheckoutDate, checkouts.DueDate
           FROM checkouts 
           INNER JOIN students ON students.StudentID = checkouts.UserID 
           INNER JOIN books ON books.ISBN = checkouts.ItemID
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $filter_value = isset($_POST['filter_value']) ? sanitize_input($_POST['filter_value']) : '';
 
     if (!empty($filter_attribute) && !empty($filter_value)) {
-        $allowed_attributes = ['ItemID', 'ItemType', 'Title', 'CheckoutDate', 'ReturnDate'];
+        $allowed_attributes = ['ItemID', 'ItemType', 'Title', 'CheckoutDate', 'DueDate'];
         if (in_array($filter_attribute, $allowed_attributes)) {
             $query .= " AND $filter_attribute LIKE '%$filter_value%'";
         } else {
@@ -70,7 +70,7 @@ if (!$result) {
             <option value="ItemID">ItemID</option>
             <option value="Title">Title</option>
             <option value="CheckoutDate">Checkout Date</option>
-            <option value="ReturnDate">Due Date</option>
+            <option value="DueDate">Due Date</option>
         </select>
         <label for="filter_value">Filter Value:</label>
         <input type="text" name="filter_value" id="filter_value">
@@ -86,7 +86,7 @@ if (!$result) {
             echo "<td><a href='details_book.php?isbn={$row['ItemID']}'>{$row['ItemID']}</a></td>";
             echo "<td>{$row['Title']}</td>";
             echo "<td>{$row['CheckoutDate']}</td>";
-            echo "<td>{$row['ReturnDate']}</td>";
+            echo "<td>{$row['DueDate']}</td>";
             echo "</tr>";
         }
         echo "</table>";

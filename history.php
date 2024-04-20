@@ -24,13 +24,13 @@ $studentId = $_SESSION['StudentID'];
 $query = "SELECT checkouts.ItemID, checkouts.ItemType, 
           CASE
               WHEN checkouts.ItemType = 'Book' THEN books.Title
-              WHEN checkouts.ItemType = 'Digital Item' THEN digitalitems.Title
+              WHEN checkouts.ItemType = 'Digital Item' THEN digitalmediaitem.MediaName
           END AS Title,
-          checkouts.CheckoutDate, checkouts.ReturnDate, checkouts.CheckinDate
+          checkouts.CheckoutDate, checkouts.DueDate, checkouts.CheckinDate
           FROM checkouts 
           INNER JOIN students ON students.StudentID = checkouts.UserID 
           LEFT JOIN books ON books.ISBN = checkouts.ItemID AND checkouts.ItemType = 'Book'
-          LEFT JOIN digitalitems ON digitalitems.DigitalID = checkouts.ItemID AND checkouts.ItemType = 'Digital Item'
+          LEFT JOIN digitalmediaitem ON digitalmediaitem.DigiID = checkouts.ItemID AND checkouts.ItemType = 'Digital Item'
           WHERE checkouts.UserID = '$studentId'";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $filter_value = sanitize_input($_POST['filter_value']);
 
     if (!empty($filter_by) && !empty($filter_value)) {
-        $allowed_filters = ['Title', 'ItemType', 'CheckoutDate', 'ReturnDate', 'CheckinDate'];
+        $allowed_filters = ['Title', 'ItemType', 'CheckoutDate', 'DueDate', 'CheckinDate'];
         if (in_array($filter_by, $allowed_filters)) {
             $query .= " AND $filter_by LIKE '%$filter_value%'";
         } else {
