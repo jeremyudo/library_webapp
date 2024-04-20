@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['valid']) || $_SESSION['valid'] !== true) {
-    header("Location: login.php");
+if (!isset($_SESSION['staff_logged_in']) || $_SESSION['staff_logged_in'] !== true) {
+    header("Location: staff_login.php");
     exit();
 }
 
@@ -21,7 +21,7 @@ $result = mysqli_query($con, $query);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Checkouts - Admin</title>
+    <title>View Checkouts - Staff</title>
     <style>
 .resultsTable {
     border-collapse: collapse;
@@ -69,7 +69,7 @@ a:hover {
 </head>
 <body>
     <div class="homeContent">
-        <h2>View Checkouts - Admin</h2>
+        <h2>View Checkouts - Staff</h2>
         <table class="resultsTable">
             <tr>
                 <th>ItemID</th>
@@ -77,7 +77,7 @@ a:hover {
                 <th>UserID</th>
                 <th>UserType</th>
                 <th>Checkout Date</th>
-                <th>Return Date</th>
+                <th>Due Date</th>
                 <th>Check-in Date</th>
             </tr>
             <?php
@@ -98,7 +98,7 @@ a:hover {
             }
             ?>
         </table>
-        <p><a href="admin_home.php">Back</a></p>
+        <p><a href="staff_home.php">Back</a></p>
     </div>
 </body>
 </html>
