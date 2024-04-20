@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 
-    <h2 id="staffHeader">Update Staff</h2>
+    <h2 id="header">Update Staff</h2>
 
 
     <!-- Form to input StaffID -->
