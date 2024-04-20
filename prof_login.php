@@ -7,40 +7,39 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="prof_login.css">
-   <title>Staff Login</title>
+   <title>Login</title>
 </head>
 <body>
-   <h2 class="enterId">Professor Login</h2> 
+   <h2 class="enterId">Professor Login</h2>
    <?php
       $msg = '';
-      
       $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
       if (!$con) {
-         die('Could not connect: ' . mysqli_connect_error());
+          die('Could not connect: ' . mysqli_connect_error());
       }
 
-      if (isset($_POST['login']) && !empty($_POST['Username']) && !empty($_POST['Password'])) {
-         $username = $_POST['Username'];
-         $password = $_POST['Password'];
-         
-         $query = "SELECT * FROM prof WHERE ProfID = '$username'";
+      if (isset($_POST['login']) && !empty($_POST['FacultyID']) && !empty($_POST['Password'])) {
+         $facultyId = mysqli_real_escape_string($con, $_POST['FacultyID']);
+         $password = mysqli_real_escape_string($con, $_POST['Password']);
+         $query = "SELECT * FROM faculty WHERE FacultyID = '$facultyId'";
          $result = mysqli_query($con, $query);
-         $row = mysqli_fetch_assoc($result);
-         
-         if ($row) {
-            if ($row['Password'] === $password) {
-               $_SESSION['staff_logged_in'] = true;
-               $_SESSION['staff_username'] = $username;
-               header("Location: prof_home.php");
-               exit();
+         if ($row = mysqli_fetch_assoc($result)) {
+            if ($row['Password'] == $password) {
+                $_SESSION['valid'] = true;
+                $_SESSION['timeout'] = time();
+                $_SESSION['FacultyID'] = $facultyId;
+                $_SESSION['FirstName'] = $row['FirstName']; // Store first name in session
+                $_SESSION['LastName'] = $row['LastName']; // Store last name in session
+                $msg = "You have entered correct Professor ID and Password";
+                header("Location: home2.php");
+                exit();
             } else {
-               $msg = "Invalid password";
+                $msg = "You have entered wrong password";
             }
          } else {
-            $msg = "Staff with this StaffID does not exist";
+            $msg = "Professor ID does not exist";
          }
       }
-
       mysqli_close($con);
    ?>
 
@@ -48,8 +47,8 @@
    <br/><br/>
    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
       <div>
-         <label for="Username">Professor ID:</label>
-         <input type="text" name="Username" id="Username">
+         <label for="FacultyID">Professor ID:</label>
+         <input type="text" name="FacultyID" id="FacultyID">
       </div>
       <div>
          <label for="Password">Password:</label>
@@ -59,7 +58,6 @@
          <button class="loginButton" type="submit" name="login">Login</button>
       </section>
    </form>
-
    <div class="signIn">
       <a style="text-decoration:none; color: black;font-weight: normal" href="login.php" title="signIn">Sign In</a>
    </div>
@@ -68,3 +66,5 @@
    </p>
 </body>
 </html>
+
+

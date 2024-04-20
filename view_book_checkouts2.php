@@ -2,7 +2,7 @@
 include 'navbar.php';
 session_start();
 if (!isset($_SESSION['valid']) || $_SESSION['valid'] !== true) {
-    header("Location: login.php");
+    header("Location: prof_login.php");
     exit();
 }
 
@@ -22,12 +22,12 @@ if (!$con) {
 }
 mysqli_select_db($con, 'library');
 
-$studentId = $_SESSION['StudentID'];
+$studentId = $_SESSION['FacultyID'];
 
-$query = "SELECT checkouts.ItemID, checkouts.ItemType, digitalmediaitem.MediaName, checkouts.CheckoutDate, checkouts.DueDate
+$query = "SELECT checkouts.ItemID, checkouts.ItemType, books.Title, checkouts.CheckoutDate, checkouts.DueDate
           FROM checkouts 
-          INNER JOIN students ON students.StudentID = checkouts.UserID 
-          INNER JOIN digitalmediaitem ON digitalmediaitem.DigiID = checkouts.ItemID
+          INNER JOIN faculty ON faculty.FacultyID = checkouts.UserID 
+          INNER JOIN books ON books.ISBN = checkouts.ItemID
           WHERE checkouts.UserID = '$studentId' AND checkouts.CheckInDate IS NULL";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $filter_value = isset($_POST['filter_value']) ? sanitize_input($_POST['filter_value']) : '';
 
     if (!empty($filter_attribute) && !empty($filter_value)) {
-        $allowed_attributes = ['ItemID', 'ItemType', 'MediaName', 'CheckoutDate', 'DueDate'];
+        $allowed_attributes = ['ItemID', 'ItemType', 'Title', 'CheckoutDate', 'DueDate'];
         if (in_array($filter_attribute, $allowed_attributes)) {
             $query .= " AND $filter_attribute LIKE '%$filter_value%'";
         } else {
@@ -49,6 +49,7 @@ $result = mysqli_query($con, $query);
 if (!$result) {
     die('Error executing query: ' . mysqli_error($con));
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -57,7 +58,7 @@ if (!$result) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Checkouts</title>
-    <link rel="stylesheet" href="/view_book_checkouts.css">
+    <link rel="stylesheet" href="/view_book_checkouts2.css">
 </head>
 <body>
 <div class="homeContent">
@@ -67,7 +68,7 @@ if (!$result) {
         <label for="filter_attribute">Filter by:</label>
         <select name="filter_attribute" id="filter_attribute">
             <option value="ItemID">ItemID</option>
-            <option value="MediaName">MediaName</option>
+            <option value="Title">Title</option>
             <option value="CheckoutDate">Checkout Date</option>
             <option value="DueDate">Due Date</option>
         </select>
@@ -77,25 +78,31 @@ if (!$result) {
     </form>
 
     <?php
-    if(mysqli_num_rows($result) > 0) {
+    if ($result && mysqli_num_rows($result) > 0) {
         echo "<table class='resultsTable'>";
-        echo "<tr><th>ItemID</th><th>MediaName</th><th>Checkout Date</th><th>Due Date</th></tr>";
-        while($row = mysqli_fetch_assoc($result)) {
+        echo "<tr><th>ItemID</th><th>Title</th><th>Checkout Date</th><th>Due Date</th></tr>";
+        while ($row = mysqli_fetch_assoc($result)) {
             echo "<tr>";
-            echo "<td><a href='details_digitalitem.php?DigiID={$row['ItemID']}'>{$row['ItemID']}</a></td>";
-            echo "<td>{$row['MediaName']}</td>";
+            echo "<td><a href='details_book.php?isbn={$row['ItemID']}'>{$row['ItemID']}</a></td>";
+            echo "<td>{$row['Title']}</td>";
             echo "<td>{$row['CheckoutDate']}</td>";
             echo "<td>{$row['DueDate']}</td>";
             echo "</tr>";
         }
         echo "</table>";
+
+        echo "<form method='post' action='mark_lost_book.php'>";
+        echo "<label for='isbn'>Lost a Book? Enter ISBN:</label>";
+        echo "<input type='text' id='itemID' name='itemID'>";
+        echo "<button type='submit'>Mark as Lost</button>";
+        echo "</form>";
     } else {
-        echo "<p>No digital items currently checked out.</p>";
+        echo "<p>No books currently checked out.</p>";
     }
 
     mysqli_close($con);
     ?>
-    <p><a href="account.php">Back</a></p>
+    <p><a href="account2.php">Back</a></p>
 </div>
 </body>
 </html>

@@ -3,7 +3,7 @@ include 'navbar.php';
 session_start();
 
 if (!isset($_SESSION['valid']) || $_SESSION['valid'] !== true) {
-    header("Location: login.php");
+    header("Location: prof_login.php");
     exit();
 }
 
@@ -12,7 +12,7 @@ if (!$con) {
     die('Could not connect: ' . mysqli_connect_error());
 }
 
-$studentID = $_SESSION['StudentID'];
+$studentID = $_SESSION['FacultyID'];
 $query = "SELECT FineID, ItemID, ItemType, FineAmount, FineDate, Status FROM fines WHERE UserID = $studentID AND Status = 'Paid'";
 $result = mysqli_query($con, $query);
 ?>
@@ -55,7 +55,7 @@ $result = mysqli_query($con, $query);
             }
             ?>
         </table>
-        <p><a href="account.php">Back</a></p>
+        <p><a href="account2.php">Back</a></p>
     </div>
 </body>
 </html>

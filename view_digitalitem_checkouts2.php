@@ -2,7 +2,7 @@
 include 'navbar.php';
 session_start();
 if (!isset($_SESSION['valid']) || $_SESSION['valid'] !== true) {
-    header("Location: login.php");
+    header("Location: prof_login.php");
     exit();
 }
 
@@ -22,11 +22,11 @@ if (!$con) {
 }
 mysqli_select_db($con, 'library');
 
-$studentId = $_SESSION['StudentID'];
+$studentId = $_SESSION['FacultyID'];
 
 $query = "SELECT checkouts.ItemID, checkouts.ItemType, digitalmediaitem.MediaName, checkouts.CheckoutDate, checkouts.DueDate
           FROM checkouts 
-          INNER JOIN students ON students.StudentID = checkouts.UserID 
+          INNER JOIN faculty ON faculty.FacultyID = checkouts.UserID 
           INNER JOIN digitalmediaitem ON digitalmediaitem.DigiID = checkouts.ItemID
           WHERE checkouts.UserID = '$studentId' AND checkouts.CheckInDate IS NULL";
 
@@ -57,7 +57,7 @@ if (!$result) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Checkouts</title>
-    <link rel="stylesheet" href="/view_book_checkouts.css">
+    <link rel="stylesheet" href="/view_book_checkouts2.css">
 </head>
 <body>
 <div class="homeContent">
@@ -95,7 +95,7 @@ if (!$result) {
 
     mysqli_close($con);
     ?>
-    <p><a href="account.php">Back</a></p>
+    <p><a href="account2.php">Back</a></p>
 </div>
 </body>
 </html>

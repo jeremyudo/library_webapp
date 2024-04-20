@@ -1,0 +1,260 @@
+body {
+    background: rgb(197,223,240);
+    background: linear-gradient(180deg, rgba(197,223,240,1) 9%, rgba(59,134,214,1) 65%, rgba(0,86,179,1) 96%);
+  }
+  
+  .topReads {
+    height: 650px;
+    width: 1100px;
+    border-radius: 10px;
+    position: relative;
+    top: -20px;
+    left: 160px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  
+  .logout {
+    position: absolute;
+    top: 90px;
+    right: 35px;
+  }
+  
+  .logoutText {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    text-decoration: none;
+  }
+  
+  .logoutText:hover {
+    background-color: skyblue;
+  }
+  
+  .welcomeBox {
+    height: 100px;
+    width: 1150px;
+    position: relative;
+    top: -40px;
+    border-radius: 10px;
+    left: 150px;
+    align-items: center;
+    margin-top: 0;
+  }
+  
+  .welcome {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 50px;
+    text-align: center;
+    position: relative;
+    top: 25px;
+  }
+  
+  .topReadsText {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 40px;
+    position: relative;
+    top: -10px;
+  }
+  
+  .searchText {
+    position: relative;
+    top: -30px;
+    margin-bottom: 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 25px;
+  }
+  
+  .topReadsGallery {
+    position: relative;
+    top: -30px;
+    display: flex;
+    width: 100%;
+    flex-wrap: nowrap;
+    gap: 7px;
+    justify-content: center;
+  }
+  
+  .topReadsGallery .book {
+    width: 300px;
+    text-align: center;
+    height: auto;
+    border-radius: 15px;
+    padding-bottom: 0px;
+    padding-right: 10px;
+    padding-left: 8px;
+  }
+  
+  .topReadsGallery img {
+    width: 100%;
+    position: relative;
+    min-height: 500px;
+    top: 0px;
+    border-radius: 15px;
+    height: auto;
+    border: 3px solid black;
+  }
+  
+  .searchForm {
+    position: relative;
+    top: -30px;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    height: auto;
+    width: auto;
+  }
+  
+  .searchForm input[type="text"] {
+    padding: 10px;
+    margin-right: 10px;
+    width: 500px;
+    height: 40px;
+    border-radius: 5px;
+    border: 3px solid black;
+  }
+  
+  .searchForm input::placeholder {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+  }
+  
+  .searchForm button {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #583c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    border: 3px solid black;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+  }
+  
+  .searchForm button:hover {
+    background-color: #7c5454;
+  }
+  
+  .homeContent {
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .info {
+    padding-left: 20px;
+    padding-right: 20px;
+    position: relative;
+    top: -100px;
+    left: 0px;
+    margin-bottom: 20px;
+    width: 98%;
+    max-height: 400px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+  }
+  
+  .aboutText {
+    font-size: 15px;
+    margin-top: 0px;
+  }
+  
+  .aboutHead {
+    font-size: 20px;
+    margin-bottom: 2px;
+  }
+  
+  .featuredResources {
+    height: 300px;
+    width: 1420px;
+    border-radius: 10px;
+    position: relative;
+    top: -50px;
+    margin-bottom: 50px;
+  }
+  
+  .featuredResourcesTitle {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 35px;
+    position: relative;
+    top: 130px;
+    left: -500px;
+  }
+  
+  .e-resource img {
+    border-radius: 50%;
+    height: 200px;
+    width: 250px;
+    position: relative;
+    top: -20px;
+    left: -100px;
+    border: 3px solid black;
+  }
+  
+  .book-resource img {
+    border-radius: 50%;
+    height: 200px;
+    width: 250px;
+    position: relative;
+    left: 200px;
+    top: -230px;
+    border: 3px solid black;
+  }
+  
+  .news-resource img {
+    border-radius: 50%;
+    height: 200px;
+    width: 250px;
+    position: relative;
+    left: 500px;
+    top: -440px;
+    border: 3px solid black;
+  }
+  
+  .quickLinks {
+    position: relative;
+    left: 150px;
+    top: -100px;
+    height: 140px;
+    width: 1100px;
+    border-radius: 10px;
+  }
+  
+  .quickLinksText {
+    position: relative;
+    top: 60px;
+    right: 500px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 35px;
+    margin: 0;
+  }
+  
+  .popup-container {
+    position: relative;
+    left: 280px;
+    top: 10px;
+    display: flex;
+    gap: 100px;
+  }
+  
+  .popup-trigger {
+    text-decoration: none;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .popup-box {
+    display: none;
+    position: absolute;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1;
+    top: -50px;
+  }
+  
+  .popup-trigger:hover + .popup-box {
+    display: block;
+  }

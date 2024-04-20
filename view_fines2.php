@@ -3,7 +3,7 @@ include 'navbar.php';
 session_start();
 
 if (!isset($_SESSION['valid']) || $_SESSION['valid'] !== true) {
-    header("Location: login.php");
+    header("Location: prof_login.php");
     exit();
 }
 
@@ -12,9 +12,12 @@ if (!$con) {
     die('Could not connect: ' . mysqli_connect_error());
 }
 
-$studentID = $_SESSION['StudentID'];
-$query = "SELECT FineID, ItemID, ItemType, FineAmount, FineDate, Status FROM fines WHERE UserID = $studentID AND Status = 'Paid'";
+$studentID = $_SESSION['FacultyID'];
+$query = "SELECT FineID, ItemID, ItemType, FineAmount, FineDate, Status FROM fines WHERE UserID = $studentID AND Status = 'Unpaid'";
 $result = mysqli_query($con, $query);
+
+$totalFineAmount = 0;
+
 ?>
 
 <!DOCTYPE html>
@@ -22,12 +25,12 @@ $result = mysqli_query($con, $query);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Transactions</title>
-    <link rel="stylesheet" href="view_holds.css"> 
+    <title>View Fines</title>
+    <link rel="stylesheet" href="view_holds.css">
 </head>
 <body>
     <div class="homeContent">
-        <h2 class="title_transactions">View Transactions</h2>
+        <h2 class="title_fines">View Unpaid Fines</h2>
 
         <table class="resultsTable">
             <tr>
@@ -41,8 +44,9 @@ $result = mysqli_query($con, $query);
             <?php
             if (mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_assoc($result)) {
+                    $totalFineAmount += $row['FineAmount'];
                     echo "<tr>";
-                    echo "<td>" . $row['FineID'] . "</td>";
+                    echo "<td><a href='pay_fine.php?fine_id=" . $row['FineID'] . "'>" . $row['FineID'] . "</a></td>";
                     echo "<td>" . $row['ItemID'] . "</td>";
                     echo "<td>" . $row['ItemType'] . "</td>";
                     echo "<td>" . $row['FineAmount'] . "</td>";
@@ -50,12 +54,13 @@ $result = mysqli_query($con, $query);
                     echo "<td>" . $row['PaymentStatus'] . "</td>";
                     echo "</tr>";
                 }
+                echo "<tr><td colspan='3'>Total Fine Amount:</td><td colspan='3'>$" . number_format($totalFineAmount, 2) . "</td></tr>";
             } else {
-                echo "<tr><td colspan='6'>No paid fines found.</td></tr>";
+                echo "<tr><td colspan='6'>No unpaid fines found.</td></tr>";
             }
             ?>
         </table>
-        <p><a href="account.php">Back</a></p>
+        <p><a href="account2.php">Back</a></p>
     </div>
 </body>
 </html>

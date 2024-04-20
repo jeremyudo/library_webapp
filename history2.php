@@ -3,7 +3,7 @@ include 'navbar.php';
 session_start();
 
 if (!isset($_SESSION['valid']) || $_SESSION['valid'] !== true) {
-    header("Location: login.php");
+    header("Location: prof_login.php");
     exit();
 }
 
@@ -19,7 +19,7 @@ function sanitize_input($data) {
     return $data;
 }
 
-$studentId = $_SESSION['StudentID'];
+$studentId = $_SESSION['FacultyID'];
 
 $query = "SELECT checkouts.ItemID, checkouts.ItemType, 
           CASE
@@ -28,7 +28,7 @@ $query = "SELECT checkouts.ItemID, checkouts.ItemType,
           END AS Title,
           checkouts.CheckoutDate, checkouts.DueDate, checkouts.CheckInDate
           FROM checkouts 
-          INNER JOIN students ON students.StudentID = checkouts.UserID 
+          INNER JOIN faculty ON faculty.FacultyID = checkouts.UserID 
           LEFT JOIN books ON books.ISBN = checkouts.ItemID AND checkouts.ItemType = 'Book'
           LEFT JOIN digitalmediaitem ON digitalmediaitem.DigiID = checkouts.ItemID AND checkouts.ItemType = 'Digital Item'
           WHERE checkouts.UserID = '$studentId'";
@@ -99,7 +99,7 @@ $result = mysqli_query($con, $query);
 
         mysqli_close($con);
         ?>
-        <p><a href="account.php">Back</a></p>
+        <p><a href="account2.php">Back</a></p>
     </div>
 </body>
 </html>

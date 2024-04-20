@@ -28,7 +28,7 @@ $query = "SELECT checkouts.ItemID, checkouts.ItemType, books.Title, checkouts.Ch
           FROM checkouts 
           INNER JOIN students ON students.StudentID = checkouts.UserID 
           INNER JOIN books ON books.ISBN = checkouts.ItemID
-          WHERE checkouts.UserID = '$studentId' AND checkouts.CheckinDate IS NULL";
+          WHERE checkouts.UserID = '$studentId' AND checkouts.CheckInDate IS NULL";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $filter_attribute = isset($_POST['filter_attribute']) ? sanitize_input($_POST['filter_attribute']) : '';
