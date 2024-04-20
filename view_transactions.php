@@ -13,7 +13,7 @@ if (!$con) {
 }
 
 $studentID = $_SESSION['StudentID'];
-$query = "SELECT FineID, ItemID, ItemType, FineAmount, FineDate, Status FROM fines WHERE UserID = $studentID AND Status = 'Paid'";
+$query = "SELECT FineID, ItemID, ItemType, FineAmount, FineDate, PaymentStatus FROM fines WHERE UserID = $studentID AND PaymentStatus = 'Paid'";
 $result = mysqli_query($con, $query);
 ?>
 

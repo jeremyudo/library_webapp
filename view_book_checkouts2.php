@@ -1,5 +1,5 @@
 <?php
-include 'navbar.php';
+include 'navbar2.php';
 session_start();
 if (!isset($_SESSION['valid']) || $_SESSION['valid'] !== true) {
     header("Location: prof_login.php");

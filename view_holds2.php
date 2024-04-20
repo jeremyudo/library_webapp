@@ -1,11 +1,13 @@
 <?php
-include 'navbar.php';
+include 'navbar2.php';
 session_start();
 
 if (!isset($_SESSION['valid']) || $_SESSION['valid'] !== true) {
     header("Location: prof_login.php");
     exit();
 }
+
+$user_id = $_SESSION['FacultyID'];
 
 $con = mysqli_connect('library-db.mysql.database.azure.com', 'alinabangash', 'libdb123!', 'library');
 if (!$con) {
@@ -19,31 +21,54 @@ function sanitize_input($data) {
     return $data;
 }
 
+$query = "SELECT holds.ItemID, holds.ItemType, books.Title, holds.HoldPosted, holds.Status 
+          FROM holds 
+          INNER JOIN books ON holds.ItemID = books.ISBN 
+          WHERE holds.UserID = '$user_id'";
+
+
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $filter_by = sanitize_input($_POST['filter_by']);
     $filter_value = sanitize_input($_POST['filter_value']);
 
-    $query = "SELECT holds.ItemID, holds.ItemType, books.Title, holds.HoldDate, holds.Status FROM holds INNER JOIN books ON holds.ItemID = books.ISBN";
+    //$query = "SELECT holds.ItemID, holds.ItemType, books.Title, holds.HoldPosted, holds.Status FROM holds INNER JOIN books ON holds.ItemID = books.ISBN";
 
     if (!empty($filter_by) && !empty($filter_value)) {
         $allowed_filters_books = ['Title', 'Author', 'ISBN', 'Format'];
-        $allowed_filters_holds = ['ItemID', 'ItemType', 'HoldDate', 'Status'];
+        $allowed_filters_holds = ['ItemID', 'ItemType', 'HoldPosted', 'Status'];
     
         if (in_array($filter_by, $allowed_filters_books)) {
-            $query .= " WHERE books.$filter_by LIKE '%$filter_value%'";
+            $query .= " AND books.$filter_by LIKE '%$filter_value%'";
+        } elseif (in_array($filter_by, $allowed_filters_holds)) {
+            $query .= " AND holds.$filter_by LIKE '%$filter_value%'";
+        } else {
+            echo "Invalid filter attribute.";
+            exit;
+            
+            
+            /*$query .= " WHERE books.$filter_by LIKE '%$filter_value%'";
         } elseif (in_array($filter_by, $allowed_filters_holds)) {
             $query .= " WHERE holds.$filter_by LIKE '%$filter_value%'";
         } else {
             echo "Invalid filter attribute.";
             exit;
-        }
+        }*/
     }
-
-    $result = mysqli_query($con, $query);
-} else {
-    $query = "SELECT holds.ItemID, holds.ItemType, books.Title, holds.HoldDate, holds.Status FROM holds INNER JOIN books ON holds.ItemID = books.ISBN";
-    $result = mysqli_query($con, $query);
 }
+
+    //$result = mysqli_query($con, $query);
+} 
+$result = mysqli_query($con, $query);
+if (!$result) {
+    die('Error executing query: ' . mysqli_error($con));
+}
+
+/*else {
+    $query = "SELECT holds.ItemID, holds.ItemType, books.Title, holds.HoldPosted, holds.Status FROM holds INNER JOIN books ON holds.ItemID = books.ISBN";
+    $result = mysqli_query($con, $query);
+}*/
 ?>
 
 <!DOCTYPE html>
@@ -87,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo "<td><a href='details_book.php?isbn=" . $row['ItemID'] . "'>" . $row['Title'] . "</a></td>";
                     echo "<td>" . $row['ItemType'] . "</td>";
                     echo "<td>" . $row['Title'] . "</td>";
-                    echo "<td>" . $row['HoldDate'] . "</td>";
+                    echo "<td>" . $row['HoldPosted'] . "</td>";
                     echo "<td>" . $row['Status'] . "</td>";
                     echo "</tr>";
                 }

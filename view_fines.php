@@ -13,7 +13,7 @@ if (!$con) {
 }
 
 $studentID = $_SESSION['StudentID'];
-$query = "SELECT FineID, ItemID, ItemType, FineAmount, FineDate, Status FROM fines WHERE UserID = $studentID AND Status = 'Unpaid'";
+$query = "SELECT FineID, ItemID, ItemType, FineAmount, FineDate, PaymentStatus FROM fines WHERE UserID = $studentID AND PaymentStatus = 'Unpaid'";
 $result = mysqli_query($con, $query);
 
 $totalFineAmount = 0;
@@ -51,7 +51,7 @@ $totalFineAmount = 0;
                     echo "<td>" . $row['ItemType'] . "</td>";
                     echo "<td>" . $row['FineAmount'] . "</td>";
                     echo "<td>" . $row['FineDate'] . "</td>";
-                    echo "<td>" . $row['Status'] . "</td>";
+                    echo "<td>" . $row['PaymentStatus'] . "</td>";
                     echo "</tr>";
                 }
                 echo "<tr><td colspan='3'>Total Fine Amount:</td><td colspan='3'>$" . number_format($totalFineAmount, 2) . "</td></tr>";

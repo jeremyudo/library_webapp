@@ -24,8 +24,6 @@
             
 
             <li><a class="homeLink" href="home2.php">Home</a></li>
-            <li><a class="servicesLink" href="services.php">Services</a></li>
-            <li><a class="contactLink" href="contact.php">Contact</a></li>
             <li> <div class="logoTab"><img src="/images/logo.png" alt="Icon"></div></li>
         </ul>
     </nav>

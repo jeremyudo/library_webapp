@@ -1,5 +1,5 @@
 <?php
-include 'navbar.php';
+include 'navbar2.php';
 session_start();
 
 if (!isset($_SESSION['valid']) || $_SESSION['valid'] !== true) {
@@ -13,7 +13,7 @@ if (!$con) {
 }
 
 $studentID = $_SESSION['FacultyID'];
-$query = "SELECT FineID, ItemID, ItemType, FineAmount, FineDate, Status FROM fines WHERE UserID = $studentID AND Status = 'Paid'";
+$query = "SELECT FineID, ItemID, ItemType, FineAmount, FineDate, PaymentStatus FROM fines WHERE UserID = $studentID AND PaymentStatus = 'Paid'";
 $result = mysqli_query($con, $query);
 ?>
 

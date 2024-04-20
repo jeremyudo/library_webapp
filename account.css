@@ -36,10 +36,33 @@ body {
 }
 
 a {
-  color: #007bff;
+  color: #583c3c;
   text-decoration: none;
 }
 
 a:hover {
   text-decoration: underline;
+}
+
+.button {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 18px;
+  padding: 10px 20px; 
+  margin: 10px; 
+  background-color: white; 
+  border: 2px solid #583c3c; 
+  border-radius: 10px; 
+  cursor: pointer; 
+  transition: all 0.3s; 
+}
+
+.button:hover {
+  background-color: #583c3c; /* Background color on hover */
+  color: white; /* Text color changes to white */
+  border-color: #0056b3; /* Border color on hover */
+}
+
+.button:active {
+  background-color: #583c3c; /* Darker blue on active click */
+  border-color: #583c3c; /* Darker border on active click */
 }
