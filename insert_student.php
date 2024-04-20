@@ -11,6 +11,8 @@ if (!mysqli_query($con, $sql)) {
   die('Error: ' . mysqli_error($con));
 }
 echo "1 record added";
+header("Location: admin_view_students.php");
+
 
 mysqli_close($con);
 ?>

@@ -98,6 +98,7 @@ if (isset($_POST['submit'])) {
     }
 
     echo "1 record added";
+    header("Location: admin_view_staff.php"); // GOES BACK TO ORIGINAL PAGE 
 
     // Close the statement
     mysqli_stmt_close($stmt);
