@@ -109,6 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     echo "1 book record added";
+    header("Location: admin_view_books.php");
 
     // Close the statement
     mysqli_stmt_close($stmt);
