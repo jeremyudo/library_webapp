@@ -121,6 +121,7 @@
                         <th>Page Count</th>
                         <th>Format</th>
                         <th>Cost</th>
+                        <th>CheckedOut</th>
                         <th>Created Date</th>
                         <th>Updated Date</th>
                     </tr>";
@@ -141,15 +142,16 @@
                 echo "<td>" . $row['PageCount'] . "</td>";
                 echo "<td>" . $row['Format'] . "</td>";
                 echo "<td>" . $row['Cost'] . "</td>";
+                echo "<td>" . $row['NumberCheckedOut'] . "</td>";
                 echo "<td>" . $row['CreatedDate'] . "</td>";
                 echo "<td>" . $row['UpdatedDate'] . "</td>";
                 echo "</tr>";
             }
 
             echo "</table>";
-            echo "<button onclick=\"location.href='add_book.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Add Book</button>";
-            echo "<button onclick=\"location.href='update_book.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Update Book</button>";
-            echo "<button onclick=\"location.href='delete_book.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Delete Book</button>";
+            echo "<button onclick=\"location.href='staff_add_book.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Add Book</button>";
+            echo "<button onclick=\"location.href='staff_update_book.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Update Book</button>";
+            echo "<button onclick=\"location.href='staff_delete_book.php'\" style=\"margin-left:10rem; margin-top:1rem;\">Delete Book</button>";
         } else {
             echo "0 results";
         }

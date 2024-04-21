@@ -56,6 +56,7 @@ nav li a:hover {
 .icon img {
   width: 90%;
   height: 90%;
+  
 }
 
 .logoutTab {
@@ -72,7 +73,7 @@ nav li a:hover {
 
 .logoTab img {
   position: relative;
-  left: -1020px;
+  left: -1200px;
   top: -5px;
   width: 100%;
   height: 100%;

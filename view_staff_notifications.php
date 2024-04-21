@@ -45,6 +45,12 @@ $result = mysqli_query($con, $sql);
         <a href="account.php">
             <div class="icon">
                 <img src="/images/icon.png" alt="Icon">
+                <style>
+        .icon img {
+              width: 50px;
+            height: auto;  
+        }
+         </style>
             </div>
         </a>
     </div>
@@ -71,6 +77,14 @@ $result = mysqli_query($con, $sql);
     }
     mysqli_close($con);
     ?>
+
+<a href="staff_home.php" class="button">Back</a>
+ <style>
+    button {
+        width: 50px;  /* Desired width */
+        height: auto;  /* Maintain aspect ratio */
+    }
+    </style>
 </div>
 </body>
 </html>

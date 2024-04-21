@@ -121,6 +121,7 @@
                         <th>Page Count</th>
                         <th>Format</th>
                         <th>Cost</th>
+                        <th>CheckedOut</th>
                         <th>Created Date</th>
                         <th>Updated Date</th>
                     </tr>";
@@ -141,6 +142,7 @@
                 echo "<td>" . $row['PageCount'] . "</td>";
                 echo "<td>" . $row['Format'] . "</td>";
                 echo "<td>" . $row['Cost'] . "</td>";
+                echo "<td>" . $row['NumberCheckedOut'] . "</td>";
                 echo "<td>" . $row['CreatedDate'] . "</td>";
                 echo "<td>" . $row['UpdatedDate'] . "</td>";
                 echo "</tr>";

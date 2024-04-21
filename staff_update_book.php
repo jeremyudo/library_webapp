@@ -27,7 +27,7 @@ $descriptionPlaceholder = "Enter Description";
 $coverImageURLPlaceholder = "Enter Cover Image URL";
 $stockPlaceholder = "Enter Stock";
 $numberAvailablePlaceholder = "Enter Number Available";
-$numberCheckoutPlaceholder = "Enter Number Checkout";
+//$numberCheckoutPlaceholder = "Enter Number Checkout";
 $numberHeldPlaceholder = "Enter Number Held";
 $costPlaceholder = "Enter Cost";
 
@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $coverImageURL = $row['CoverImageURL'];
         $stock = $row['Stock'];
         $numberAvailable = $row['NumberAvailable'];
-        $numberCheckout = $row['NumberCheckedOut'];
+        //$numberCheckout = $row['NumberCheckedOut'];
         $numberHeld = $row['NumberHeld'];
         $cost = $row['Cost'];
         $message = "ISBN $isbn exists in the database.";
@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $coverImageURLPlaceholder = $coverImageURL;
         $stockPlaceholder = $stock;
         $numberAvailablePlaceholder = $numberAvailable;
-        $numberCheckoutPlaceholder = $numberCheckout;
+        //$numberCheckoutPlaceholder = $numberCheckout;
         $numberHeldPlaceholder = $numberHeld;
         $costPlaceholder = $cost;
     } else {
@@ -88,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         ISBN: <input type="text" name="ISBN" required><br>
         <input type="submit" value="Check ISBN">
-        <a href="admin_view_books.php" class="button">Back</a>
+        <a href="staff_view_books.php" class="button">Back</a>
     </form>
 
     <?php
@@ -111,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Cover Image URL: <input type='text' name='CoverImageURL' value='' placeholder='$coverImageURLPlaceholder'><br>";
         echo "Stock: <input type='number' name='Stock' value='' placeholder='$stockPlaceholder'><br>";
         echo "Number Available: <input type='number' name='NumberAvailable' value='' placeholder='$numberAvailablePlaceholder'><br>";
-        echo "Number Checked Out: <input type='number' name='NumberCheckout' value='' placeholder='$numberCheckoutPlaceholder'><br>";
+        //echo "Number Checked Out: <input type='number' name='NumberCheckout' value='' placeholder='$numberCheckoutPlaceholder'><br>";
         echo "Number Held: <input type='number' name='NumberHeld' value='' placeholder='$numberHeldPlaceholder'><br>";
         echo "Cost: <input type='text' name='Cost' value='' placeholder='$costPlaceholder'><br>";
         echo "<input type='submit' value='Update'>";
@@ -134,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Title']) && isset($_PO
     $coverImageURL = sanitize_input($_POST['CoverImageURL']);
     $stock = sanitize_input($_POST['Stock']);
     $numberAvailable = sanitize_input($_POST['NumberAvailable']);
-    $numberCheckout = sanitize_input($_POST['NumberCheckedOut']);
+    //$numberCheckout = sanitize_input($_POST['NumberCheckedOut']);
     $numberHeld = sanitize_input($_POST['NumberHeld']);
     $cost = sanitize_input($_POST['Cost']);
 
@@ -183,14 +183,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Title']) && isset($_PO
 
     $sql .= " WHERE ISBN='$isbn'";
 
-    if (!mysqli_query($con, $sql)) {
+   if (!mysqli_query($con, $sql)) {
         die('Error: ' . mysqli_error($con));
     }
 
     echo "<div id='success_message'>Updated successfully</div>";
     echo "<script>setTimeout(function() { document.getElementById('success_message').style.display = 'none'; }, 500);</script>";
 
-    header("refresh:2;url=admin_view_books.php");
+    header("refresh:3;url=staff_view_books.php");
     exit();
 }
 

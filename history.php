@@ -88,8 +88,8 @@ $result = mysqli_query($con, $query);
                 echo "<td>{$row['ItemType']}</td>";
                 echo "<td>{$row['Title']}</td>";
                 echo "<td>{$row['CheckoutDate']}</td>";
-                echo "<td>{$row['ReturnDate']}</td>";
-                echo "<td>{$row['CheckinDate']}</td>";
+                echo "<td>{$row['DueDate']}</td>";
+                echo "<td>{$row['CheckInDate']}</td>";
                 echo "</tr>";
             }
             echo "</table>";

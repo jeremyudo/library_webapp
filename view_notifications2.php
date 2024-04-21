@@ -1,5 +1,5 @@
 <?php
-include 'navbar.php';
+include 'navbar2.php';
 session_start();
 if (!isset($_SESSION['valid']) || $_SESSION['valid'] !== true) {
     header("Location: prof_login.php");
@@ -13,7 +13,7 @@ if (!$con) {
 mysqli_select_db($con, 'library');
 
 $userID = $_SESSION['FacultyID'];
-$sql = "SELECT NotificationID, ItemID, Message, NotificationType, TimeStamp FROM notifications WHERE UserID = $userID AND MarkedAsRead = false ORDER BY TimeStamp DESC";
+$sql = "SELECT NotificationID, ItemID, Message, NotificationType, TimeSent FROM notifications WHERE UserID = $userID AND MarkedAsRead = false ORDER BY TimeSent DESC";
 $result = mysqli_query($con, $sql);
 ?>
 
@@ -30,6 +30,12 @@ $result = mysqli_query($con, $sql);
 <div class="accountTab">
       <div class="icon">
         <img src="/images/icon.png" alt="Icon">
+        <style>
+        .icon img {
+              width: 50px;
+            height: auto;  
+        }
+    </style>
       </div>
     </div>
     <div class="logout">
