@@ -1,0 +1,30 @@
+# Library Management System
+
+## Description
+
+The Library Management System is a web-based application designed to streamline the management of library resources, user accounts, and transactions. It provides functionalities for library staff to manage books, digital items, user accounts, and generate reports for administrative purposes.
+
+## Features
+
+- User registration and authentication for students, faculty, staff, and administrators.
+- Catalog management for books, digital items, suppliers, and managers.
+- Borrowing and returning materials for students and professors.
+- Transaction tracking and reporting.
+- Inventory management and notifications for low stock items.
+
+## Installation
+
+To run the Library Management System locally, follow these steps:
+1. Install PHP Homebrew on your system.
+2. Clone the repository to your local machine.
+3. Navigate to the project directory in the command line or terminal.
+4. Start a PHP server by running the command: `php -S localhost:3000`.
+5. Open your web browser and navigate to `http://localhost:3000` to access the application.
+
+## Usage
+
+- Login as a user (student, faculty, staff, or admin) to access the system.
+- Browse the catalog to search for books and digital items.
+- Borrow materials by adding them to your cart and completing the checkout process.
+- Return borrowed items through the user dashboard.
+- Library staff can manage the catalog, user accounts, and generate reports through the admin dashboard.
